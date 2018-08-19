@@ -90,6 +90,7 @@ public class CustomerView extends GridPane {
 		});
 
 		this.customerTable.getColumns().add(surenameColumn);
+		this.customerTable.getColumns().add(forenameColumn);
 		this.customerTable.getColumns().add(addressColumn);
 		this.customerTable.getColumns().add(birthdayColumn);
 		this.customerTable.getColumns().add(actionColumn);
