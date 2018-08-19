@@ -81,6 +81,7 @@
 					<appendAssemblyId>false</appendAssemblyId>
 					<archive>
 						<manifest>
+							<addClasspath>true</addClasspath>
 							<main-class>de.visagistikmanager.core.Starter</main-class>
 						</manifest>
 					</archive>

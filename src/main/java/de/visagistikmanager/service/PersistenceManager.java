@@ -10,7 +10,7 @@ public enum PersistenceManager {
 	private EntityManagerFactory emFactory;
 
 	private PersistenceManager() {
-		this.emFactory = Persistence.createEntityManagerFactory("finances-pu");
+		this.emFactory = Persistence.createEntityManagerFactory("visagistikmanager-pu");
 	}
 
 	public void close() {
