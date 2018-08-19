@@ -20,7 +20,8 @@ public class CustomerEditView extends GridPane {
 	private TextField inputZip = new TextField();
 	private TextField inputCity = new TextField();
 
-	private Button saveCustomerButton = new Button("Speichern");
+	private Button saveButton = new Button("Speichern");
+	private Button cancelButton = new Button("Abbrechen");
 
 	public void setModel(final Customer model) {
 		this.model = model;
@@ -66,11 +67,16 @@ public class CustomerEditView extends GridPane {
 		add(inputZip, 0, 3);
 		add(inputCity, 1, 3);
 
-		add(saveCustomerButton, 0, 4, 2, 1);
+		add(saveButton, 0, 4, 2, 1);
+		add(cancelButton, 1, 4, 2, 1);
 	}
 
 	public void setSaveAction(EventHandler<ActionEvent> event) {
-		this.saveCustomerButton.setOnAction(event);
+		this.saveButton.setOnAction(event);
+	}
+
+	public void setCancelAction(EventHandler<ActionEvent> event) {
+		this.cancelButton.setOnAction(event);
 	}
 
 }
