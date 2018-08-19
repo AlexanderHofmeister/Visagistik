@@ -14,6 +14,12 @@ public class CustomerEditView extends GridPane {
 	private TextField inputSurename = new TextField();
 	private TextField inputForename = new TextField();
 	private DatePicker inputBirthday = new DatePicker();
+
+	private TextField inputStreet = new TextField();
+	private TextField inputStreetNumber = new TextField();
+	private TextField inputZip = new TextField();
+	private TextField inputCity = new TextField();
+
 	private Button saveCustomerButton = new Button("Speichern");
 
 	public void setModel(final Customer model) {
@@ -21,6 +27,10 @@ public class CustomerEditView extends GridPane {
 		this.inputSurename.setText(model.getSurname());
 		this.inputForename.setText(model.getForename());
 		this.inputBirthday.setValue(model.getBirthday());
+		this.inputStreet.setText(model.getStreet());
+		this.inputStreetNumber.setText(String.valueOf(model.getStreetNumber() == null ? "" : model.getStreetNumber()));
+		this.inputZip.setText(String.valueOf(model.getZip() == null ? "" : model.getZip()));
+		this.inputCity.setText((model.getCity()));
 	}
 
 	@Getter
@@ -30,16 +40,33 @@ public class CustomerEditView extends GridPane {
 		this.model.setSurname(this.inputSurename.getText());
 		this.model.setForename(this.inputForename.getText());
 		this.model.setBirthday(this.inputBirthday.getValue());
+		this.model.setStreet(this.inputStreet.getText());
+		this.model.setStreetNumber(Integer.valueOf(this.inputStreetNumber.getText()));
+		this.model.setZip(Integer.valueOf(this.inputZip.getText()));
+		this.model.setCity(this.inputCity.getText());
 	}
 
 	public CustomerEditView() {
 		inputSurename.setPromptText("Nachname");
 		inputForename.setPromptText("Vorname");
 		inputBirthday.setPromptText("Geburtstag");
+		inputStreet.setPromptText("Straﬂe");
+		inputStreetNumber.setPromptText("Hausnummer");
+		inputZip.setPromptText("PLZ");
+		inputCity.setPromptText("Stadt");
+
 		add(inputSurename, 0, 0);
 		add(inputForename, 1, 0);
+
 		add(inputBirthday, 0, 1, 2, 1);
-		add(saveCustomerButton, 0, 2);
+
+		add(inputStreet, 0, 2);
+		add(inputStreetNumber, 1, 2);
+
+		add(inputZip, 0, 3);
+		add(inputCity, 1, 3);
+
+		add(saveCustomerButton, 0, 4, 2, 1);
 	}
 
 	public void setSaveAction(EventHandler<ActionEvent> event) {

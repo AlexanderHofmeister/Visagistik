@@ -20,4 +20,16 @@ public class Customer extends BaseEntity {
 
 	private LocalDate birthday;
 
+	private String street;
+
+	private Integer streetNumber;
+
+	private Integer zip;
+
+	private String city;
+
+	public String getAdress() {
+		return street + " " + streetNumber + "\n" + zip + " " + city;
+	}
+
 }

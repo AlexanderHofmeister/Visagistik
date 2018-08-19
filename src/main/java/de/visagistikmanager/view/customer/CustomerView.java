@@ -1,8 +1,5 @@
 package de.visagistikmanager.view.customer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.visagistikmanager.model.Customer;
 import de.visagistikmanager.service.CustomerService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -30,7 +27,7 @@ public class CustomerView extends GridPane {
 		newCustomerButton.setOnAction(e -> {
 			final Customer model = new Customer();
 			this.customerEditView.setModel(model);
-			add(customerEditView, 1, 0, 1, 2);
+			add(customerEditView, 1, 1, 1, 2);
 		});
 
 		customerEditView.setSaveAction(e -> {
@@ -58,6 +55,10 @@ public class CustomerView extends GridPane {
 		birthdayColumn.setMinWidth(100);
 		birthdayColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("birthday"));
 
+		final TableColumn<Customer, String> addressColumn = new TableColumn<>("Adresse");
+		addressColumn.setMinWidth(100);
+		addressColumn.setCellValueFactory(tableCell -> new ReadOnlyObjectWrapper<>(tableCell.getValue().getAdress()));
+
 		TableColumn<Customer, Customer> actionColumn = new TableColumn<>("Aktionen");
 		actionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 
@@ -76,13 +77,13 @@ public class CustomerView extends GridPane {
 				setGraphic(editButton);
 				editButton.setOnAction(event -> {
 					customerEditView.setModel(customer);
-					add(customerEditView, 1, 0, 1, 2);
+					add(customerEditView, 1, 1, 1, 2);
 				});
 			}
 		});
 
 		this.customerTable.getColumns().add(surenameColumn);
-		this.customerTable.getColumns().add(forenameColumn);
+		this.customerTable.getColumns().add(addressColumn);
 		this.customerTable.getColumns().add(birthdayColumn);
 		this.customerTable.getColumns().add(actionColumn);
 		add(customerTable, 0, 1);

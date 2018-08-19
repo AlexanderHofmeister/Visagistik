@@ -71,7 +71,7 @@ public class Starter extends Application {
 
 		final Scene scene = new Scene(this.root, 300, 250);
 		primaryStage.setScene(scene);
-		primaryStage.setTitle(properties.getProperty("title") + "- " + properties.getProperty("version"));
+		primaryStage.setTitle(properties.getProperty("title") + " - " + properties.getProperty("version"));
 		primaryStage.setMaximized(true);
 		primaryStage.show();
 	}
