@@ -113,7 +113,7 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 
 				int column = annotation.column();
 				int row = annotation.row();
-				if (field.getType() == String.class || field.getType() == Integer.class) {
+				if (field.getType() == String.class || field.getType() == Integer.class || field.getType() == int.class) {
 					TextField inputField = new TextField();
 					inputField.setId(field.getName());
 					inputField.setPromptText(annotation.placeholder());

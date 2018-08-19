@@ -5,6 +5,7 @@ import java.util.Properties;
 import de.visagistikmanager.view.OrderView;
 import de.visagistikmanager.view.UpdateView;
 import de.visagistikmanager.view.customer.CustomerView;
+import de.visagistikmanager.view.products.ProductView;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,11 +19,9 @@ public class Starter extends Application {
 
 	private final GridPane root = new GridPane();
 
-	private Button customerViewButton = new Button("Kunden");
-	private Button orderViewButton = new Button("Bestellungen");
-
 	private CustomerView customerView = new CustomerView();
 	private OrderView orderView = new OrderView();
+	private ProductView productView = new ProductView();
 
 	private UpdateView updateView = new UpdateView();
 
@@ -47,6 +46,7 @@ public class Starter extends Application {
 
 		root.setAlignment(Pos.TOP_LEFT);
 
+		Button customerViewButton = new Button("Kunden");
 		customerViewButton.setOnAction(e -> {
 			mainPanel.getChildren().clear();
 			if (!mainPanel.getChildren().contains(customerView)) {
@@ -54,6 +54,7 @@ public class Starter extends Application {
 			}
 		});
 
+		Button orderViewButton = new Button("Bestellungen");
 		orderViewButton.setOnAction(e -> {
 			mainPanel.getChildren().clear();
 			if (!mainPanel.getChildren().contains(orderView)) {
@@ -61,7 +62,15 @@ public class Starter extends Application {
 			}
 		});
 
-		toolbar.getItems().addAll(customerViewButton, orderViewButton);
+		Button productsViewButton = new Button("Produkte");
+		productsViewButton.setOnAction(e -> {
+			mainPanel.getChildren().clear();
+			if (!mainPanel.getChildren().contains(productView)) {
+				mainPanel.add(productView, 0, 1);
+			}
+		});
+
+		toolbar.getItems().addAll(customerViewButton, orderViewButton, productsViewButton);
 		root.add(toolbarGrid, 0, 0);
 		root.add(mainPanel, 0, 1);
 
