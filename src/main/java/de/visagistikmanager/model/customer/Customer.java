@@ -1,9 +1,11 @@
-package de.visagistikmanager.model;
+package de.visagistikmanager.model.customer;
 
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
 
+import de.visagistikmanager.model.BaseEntity;
+import de.visagistikmanager.model.ModelAttribute;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,6 +36,9 @@ public class Customer extends BaseEntity {
 
 	@ModelAttribute(placeholder = "Ort", row = 3, column = 1)
 	private String city;
+
+	@ModelAttribute(placeholder = "Unreinheiten", row = 4, column = 0)
+	private boolean blemishes;
 
 	public String getAdress() {
 		return street + " " + streetNumber + "\n" + zip + " " + city;

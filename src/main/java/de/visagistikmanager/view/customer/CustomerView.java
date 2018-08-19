@@ -1,6 +1,6 @@
 package de.visagistikmanager.view.customer;
 
-import de.visagistikmanager.model.Customer;
+import de.visagistikmanager.model.customer.Customer;
 import de.visagistikmanager.service.CustomerService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;

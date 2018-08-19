@@ -12,6 +12,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import de.visagistikmanager.model.BaseEntity;
 import de.visagistikmanager.model.ModelAttribute;
 import de.visagistikmanager.service.ClassUtil;
+import de.visagistikmanager.view.components.YesNoRadioButtonGroup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -43,19 +44,16 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 					if (node.getId() != null) {
 						if (node.getId().equals(field.getName())) {
 							if (node instanceof TextField) {
-								if (node instanceof TextField) {
-									TextField textField = (TextField) node;
-
-									textField.setText(BeanUtils.getProperty(model, field.getName()));
-								}
 								if (node instanceof DatePicker) {
-									DatePicker datePicker = (DatePicker) node;
-									final LocalDate dt = LocalDate.parse(BeanUtils.getProperty(model, field.getName()));
-									datePicker.setValue(dt);
+									((DatePicker) node)
+											.setValue(LocalDate.parse(BeanUtils.getProperty(model, field.getName())));
+								} else {
+									((TextField) node).setText(BeanUtils.getProperty(model, field.getName()));
 								}
-							}
-							if (node instanceof DatePicker) {
+							} else if (node instanceof DatePicker) {
 								BeanUtils.setProperty(model, field.getName(), ((DatePicker) node).getValue());
+							} else if (node instanceof YesNoRadioButtonGroup) {
+								((YesNoRadioButtonGroup) node).setValue(BeanUtils.getProperty(model, field.getName()));
 							}
 						}
 
@@ -81,13 +79,14 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 				for (Node node : getChildren()) {
 					if (GridPane.getRowIndex(node) == annotation.row()
 							&& GridPane.getColumnIndex(node) == annotation.column()) {
-
 						try {
 							if (node instanceof TextField) {
 								BeanUtils.setProperty(model, field.getName(), ((TextField) node).getText());
-							}
-							if (node instanceof DatePicker) {
+							} else if (node instanceof DatePicker) {
 								BeanUtils.setProperty(model, field.getName(), ((DatePicker) node).getValue());
+							} else if (node instanceof YesNoRadioButtonGroup) {
+								BeanUtils.setProperty(model, field.getName(),
+										((YesNoRadioButtonGroup) node).getValue());
 							}
 
 						} catch (IllegalAccessException | InvocationTargetException e) {
@@ -96,10 +95,8 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 						break;
 					}
 				}
-
 			}
 		}
-
 	}
 
 	public BaseEditView() {
@@ -113,7 +110,8 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 
 				int column = annotation.column();
 				int row = annotation.row();
-				if (field.getType() == String.class || field.getType() == Integer.class || field.getType() == int.class) {
+				if (field.getType() == String.class || field.getType() == Integer.class
+						|| field.getType() == int.class) {
 					TextField inputField = new TextField();
 					inputField.setId(field.getName());
 					inputField.setPromptText(annotation.placeholder());
@@ -123,6 +121,8 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 					dateInputField.setId(field.getName());
 					dateInputField.setPromptText(annotation.placeholder());
 					add(dateInputField, column, row);
+				} else if (field.getType() == boolean.class) {
+					add(new YesNoRadioButtonGroup(annotation.placeholder()), column, row);
 				} else {
 					throw new IllegalArgumentException("No case defined for " + field.getType());
 				}
@@ -131,8 +131,8 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 
 		}
 
-		add(this.saveButton, 0, 4, 2, 1);
-		add(cancelButton, 1, 4, 2, 1);
+		add(saveButton, 0, getChildren().size(), 2, 1);
+		add(cancelButton, 1, getChildren().size() - 1, 2, 1);
 	}
 
 	public void setSaveAction(EventHandler<ActionEvent> event) {
