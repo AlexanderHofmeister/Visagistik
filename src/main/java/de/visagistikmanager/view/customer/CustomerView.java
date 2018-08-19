@@ -27,6 +27,7 @@ public class CustomerView extends GridPane {
 		newCustomerButton.setOnAction(e -> {
 			final Customer model = new Customer();
 			this.customerEditView.setModel(model);
+			getChildren().remove(customerEditView);
 			add(customerEditView, 1, 1, 1, 2);
 		});
 
@@ -41,12 +42,11 @@ public class CustomerView extends GridPane {
 			customerTable.refresh();
 			getChildren().remove(customerEditView);
 		});
-		
-		
+
 		customerEditView.setCancelAction(e -> {
 			getChildren().remove(customerEditView);
 		});
-		
+
 		add(newCustomerButton, 0, 0);
 
 		final TableColumn<Customer, String> surenameColumn = new TableColumn<>("Nachname");
