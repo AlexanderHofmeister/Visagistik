@@ -83,6 +83,7 @@ public class CustomerView extends GridPane {
 				setGraphic(editButton);
 				editButton.setOnAction(event -> {
 					customerEditView.setModel(customer);
+					getChildren().remove(customerEditView);
 					add(customerEditView, 1, 1, 1, 2);
 				});
 			}
