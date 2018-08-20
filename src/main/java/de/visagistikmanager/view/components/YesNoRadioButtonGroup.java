@@ -15,7 +15,6 @@ public class YesNoRadioButtonGroup extends VBox {
 
 		final ToggleGroup toggleGroup = new ToggleGroup();
 		yesRadioButton.setToggleGroup(toggleGroup);
-
 		noRadioButton.setToggleGroup(toggleGroup);
 
 		HBox radioButtonGroup = new HBox();

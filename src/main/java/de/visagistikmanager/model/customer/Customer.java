@@ -1,8 +1,13 @@
 package de.visagistikmanager.model.customer;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import de.visagistikmanager.model.BaseEntity;
 import de.visagistikmanager.model.ModelAttribute;
@@ -40,6 +45,16 @@ public class Customer extends BaseEntity {
 	@ModelAttribute(placeholder = "Unreinheiten", row = 4, column = 0)
 	private boolean blemishes;
 
+	@Enumerated(EnumType.STRING)
+	@ElementCollection
+	@ModelAttribute(placeholder = "Hautmerkmale", row = 5, column = 0)
+	private Set<SkinFeature> skinFeatures = new HashSet<>();
+
+	@Enumerated(EnumType.STRING)
+	@ElementCollection
+	@ModelAttribute(placeholder = "Empfindlichkeit", row = 5, column = 1)
+	private Set<Sensitivity> sensitivities = new HashSet<>();
+	
 	public String getAdress() {
 		return street + " " + streetNumber + "\n" + zip + " " + city;
 	}
