@@ -15,7 +15,6 @@ import org.apache.commons.beanutils.PropertyUtils;
 import de.visagistikmanager.model.BaseEntity;
 import de.visagistikmanager.model.ModelAttribute;
 import de.visagistikmanager.service.ClassUtil;
-import de.visagistikmanager.view.components.EnumDropDown;
 import de.visagistikmanager.view.components.YesNoRadioButtonGroup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import lombok.Getter;
@@ -61,11 +61,11 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 								BeanUtils.setProperty(model, field.getName(), ((DatePicker) node).getValue());
 							} else if (node instanceof YesNoRadioButtonGroup) {
 								((YesNoRadioButtonGroup) node).setValue(BeanUtils.getProperty(model, field.getName()));
-							} else if (node instanceof EnumDropDown) {
+							} else if (node instanceof MenuButton) {
 								ParameterizedType stringListType = (ParameterizedType) field.getGenericType();
 								Class<? extends Enum> enumClass = (Class<? extends Enum>) stringListType
 										.getActualTypeArguments()[0];
-								EnumDropDown enumDropDown = (EnumDropDown) node;
+								MenuButton enumDropDown = (MenuButton) node;
 								enumDropDown.getItems().clear();
 
 								Set<Enum<?>> x = (Set<Enum<?>>) PropertyUtils.getProperty(model, field.getName());
@@ -113,9 +113,9 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 							} else if (node instanceof YesNoRadioButtonGroup) {
 								BeanUtils.setProperty(model, field.getName(),
 										((YesNoRadioButtonGroup) node).getValue());
-							} else if (node instanceof EnumDropDown) {
+							} else if (node instanceof MenuButton) {
 
-								EnumDropDown enumDropDown = (EnumDropDown) node;
+								MenuButton enumDropDown = (MenuButton) node;
 
 								Set<Enum<?>> property = (Set<Enum<?>>) PropertyUtils.getProperty(model,
 										field.getName());
@@ -175,7 +175,7 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 					child.setId(field.getName());
 					add(child, column, row);
 				} else if (field.getType() == Set.class) {
-					EnumDropDown child = new EnumDropDown(annotation.placeholder());
+					MenuButton child = new MenuButton(annotation.placeholder());
 					child.setId(field.getName());
 					add(child, column, row);
 				} else {
