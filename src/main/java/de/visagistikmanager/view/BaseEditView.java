@@ -2,8 +2,8 @@ package de.visagistikmanager.view;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,6 +13,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 
 import de.visagistikmanager.model.BaseEntity;
+import de.visagistikmanager.model.ListAttribute;
 import de.visagistikmanager.model.ModelAttribute;
 import de.visagistikmanager.service.ClassUtil;
 import de.visagistikmanager.view.components.YesNoRadioButtonGroup;
@@ -29,8 +30,6 @@ import lombok.Getter;
 
 public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 
-	private static final String List = null;
-
 	@Getter
 	private E model;
 
@@ -45,9 +44,7 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 
 		try {
 			for (Field field : fields) {
-
 				for (Node node : getChildren()) {
-
 					if (node.getId() != null) {
 						if (node.getId().equals(field.getName())) {
 							if (node instanceof TextField) {
@@ -62,23 +59,24 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 							} else if (node instanceof YesNoRadioButtonGroup) {
 								((YesNoRadioButtonGroup) node).setValue(BeanUtils.getProperty(model, field.getName()));
 							} else if (node instanceof MenuButton) {
-								ParameterizedType stringListType = (ParameterizedType) field.getGenericType();
-								Class<? extends Enum> enumClass = (Class<? extends Enum>) stringListType
-										.getActualTypeArguments()[0];
-								MenuButton enumDropDown = (MenuButton) node;
-								enumDropDown.getItems().clear();
-
-								Set<Enum<?>> x = (Set<Enum<?>>) PropertyUtils.getProperty(model, field.getName());
-
-								for (Object object : enumClass.getEnumConstants()) {
-									CheckMenuItem e = new CheckMenuItem(object.toString());
-									if (x.contains(Enum.valueOf(enumClass, object.toString()))) {
-										e.setSelected(true);
-									}
-
-									enumDropDown.getItems().add(e);
+								ListAttribute annotation = field.getAnnotation(ListAttribute.class);
+								if (annotation != null) {
+									MenuButton menu = (MenuButton) node;
+									menu.getItems().clear();
+									menu.getItems().addAll(Arrays.stream(annotation.value()).map(label -> {
+										CheckMenuItem menuItem = new CheckMenuItem(label);
+										try {
+											if (PropertyUtils.getProperty(model, field.getName()).toString()
+													.contains(label)) {
+												menuItem.setSelected(true);
+											}
+										} catch (IllegalAccessException | InvocationTargetException
+												| NoSuchMethodException e) {
+											e.printStackTrace();
+										}
+										return menuItem;
+									}).collect(Collectors.toList()));
 								}
-
 							}
 
 						}
@@ -87,7 +85,6 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 				}
 			}
 		} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -114,31 +111,17 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 								BeanUtils.setProperty(model, field.getName(),
 										((YesNoRadioButtonGroup) node).getValue());
 							} else if (node instanceof MenuButton) {
-
-								MenuButton enumDropDown = (MenuButton) node;
-
-								Set<Enum<?>> property = (Set<Enum<?>>) PropertyUtils.getProperty(model,
-										field.getName());
-								property.clear();
-								enumDropDown.getItems().stream().map(CheckMenuItem.class::cast)
-										.filter(CheckMenuItem::isSelected).forEach(checkMenuItem -> {
-
-											Class<?> enumClass = (Class<?>) ((ParameterizedType) field.getGenericType())
-													.getActualTypeArguments()[0];
-											property.add(
-													Enum.valueOf((Class<Enum>) enumClass, checkMenuItem.getText()));
-
-											try {
-												PropertyUtils.setProperty(model, field.getName(), property);
-											} catch (IllegalAccessException | InvocationTargetException
-													| NoSuchMethodException e) {
-												e.printStackTrace();
-											}
-										});
-
+								try {
+									BeanUtils.setProperty(model, field.getName(),
+											((MenuButton) node).getItems().stream().map(CheckMenuItem.class::cast)
+													.filter(CheckMenuItem::isSelected).map(CheckMenuItem::getText)
+													.collect(Collectors.toSet()));
+								} catch (IllegalAccessException | InvocationTargetException e) {
+									e.printStackTrace();
+								}
 							}
 
-						} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+						} catch (IllegalAccessException | InvocationTargetException e) {
 							e.printStackTrace();
 						}
 						break;

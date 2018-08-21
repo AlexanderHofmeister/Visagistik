@@ -6,10 +6,9 @@ import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 import de.visagistikmanager.model.BaseEntity;
+import de.visagistikmanager.model.ListAttribute;
 import de.visagistikmanager.model.ModelAttribute;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,16 +44,24 @@ public class Customer extends BaseEntity {
 	@ModelAttribute(placeholder = "Unreinheiten", row = 4, column = 0)
 	private boolean blemishes;
 
-	@Enumerated(EnumType.STRING)
 	@ElementCollection
 	@ModelAttribute(placeholder = "Hautmerkmale", row = 5, column = 0)
-	private Set<SkinFeature> skinFeatures = new HashSet<>();
+	@ListAttribute({ "Trockene Haut", "Normale Haut", "Mischhaut", "Fettige Haut" })
+	private Set<String> skinFeatures = new HashSet<>();
 
-	@Enumerated(EnumType.STRING)
 	@ElementCollection
 	@ModelAttribute(placeholder = "Empfindlichkeit", row = 5, column = 1)
-	private Set<Sensitivity> sensitivities = new HashSet<>();
-	
+	@ListAttribute({ "Nicht empfindlich", "Etwas empfindlich", "Sehr empfindlich" })
+	private Set<String> sensitivities = new HashSet<>();
+
+	@ElementCollection
+	@ModelAttribute(placeholder = "Verbesserungswünsche", row = 5, column = 2)
+	@ListAttribute({ "Hautton ausgleichen", "Fältchen minimieren",
+			"Haut um die Augen straffen, pflegen und Fältchen minimieren", "zusätzliche Feuchtigkeit spenden",
+			"Augen-Make-up entfernen", "Unreinheiten bekämpfen, überschüssiges Hautfett regulieren",
+			"Körper pflegen, die Silhouette straffen", "Hautbild verbessern", "Lippen pflegen", "Hände pflegen" })
+	private Set<String> improvments = new HashSet<>();
+
 	public String getAdress() {
 		return street + " " + streetNumber + "\n" + zip + " " + city;
 	}
