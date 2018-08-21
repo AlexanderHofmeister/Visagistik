@@ -43,6 +43,9 @@ public class Customer extends BaseEntity {
 
 	@ModelAttribute(placeholder = "Unreinheiten", row = 4, column = 0)
 	private boolean blemishes;
+	
+	@ModelAttribute(placeholder = "Allergien", row = 4, column = 1)
+	private boolean allergies;
 
 	@ElementCollection
 	@ModelAttribute(placeholder = "Hautmerkmale", row = 5, column = 0)
