@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import lombok.Getter;
 
 public class CustomerView extends GridPane {
@@ -66,10 +67,12 @@ public class CustomerView extends GridPane {
 		addressColumn.setCellValueFactory(tableCell -> new ReadOnlyObjectWrapper<>(tableCell.getValue().getAdress()));
 
 		TableColumn<Customer, Customer> actionColumn = new TableColumn<>("Aktionen");
+		actionColumn.setMinWidth(150);
 		actionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 
 		actionColumn.setCellFactory(param -> new TableCell<Customer, Customer>() {
 			private final Button editButton = new Button("Editieren");
+			private final Button deleteButton = new Button("Löschen");
 
 			@Override
 			protected void updateItem(Customer customer, boolean empty) {
@@ -80,12 +83,18 @@ public class CustomerView extends GridPane {
 					return;
 				}
 
-				setGraphic(editButton);
+				setGraphic(new HBox(15, editButton, deleteButton));
 				editButton.setOnAction(event -> {
 					customerEditView.setModel(customer);
 					this.getChildren().remove(customerEditView);
 					add(customerEditView, 1, 1, 1, 2);
 				});
+
+				deleteButton.setOnAction(event -> {
+					customerTable.getItems().remove(customer);
+					customerService.delete(customer);
+				});
+
 			}
 		});
 
