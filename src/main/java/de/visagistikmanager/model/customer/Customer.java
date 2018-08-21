@@ -62,6 +62,24 @@ public class Customer extends BaseEntity {
 			"Körper pflegen, die Silhouette straffen", "Hautbild verbessern", "Lippen pflegen", "Hände pflegen" })
 	private Set<String> improvments = new HashSet<>();
 
+	@ElementCollection
+	@ModelAttribute(placeholder = "Derzeitige Hautpflege", row = 6, column = 0)
+	@ListAttribute({ "Reinigung", "Maske", "Gesichtswasser", "Feuchtigkeitscreme", "Grundierung", "Wasser und Seife",
+			"Sonstiges" })
+	private Set<String> currentSkinCare = new HashSet<>();
+
+	@ElementCollection
+	@ModelAttribute(placeholder = "Interessiert an", row = 6, column = 1)
+	@ListAttribute({ "Produkte für Familienmitglieder", "Make-up Tipps", "weitere Hautpflegeprodukte",
+			"Gastgeberinnenprogramm", "Hautpflege für Männer", "Düfte und Körperpflege", "Geschäftsmöglichkeit",
+			"Geschenkideen" })
+	private Set<String> interests = new HashSet<>();
+
+	@ElementCollection
+	@ModelAttribute(placeholder = "Kontaktoptionen", row = 6, column = 2)
+	@ListAttribute({ "E-Mail", "SMS", "Telefon", "Post" })
+	private Set<String> contactOptions = new HashSet<>();
+
 	public String getAdress() {
 		return street + " " + streetNumber + "\n" + zip + " " + city;
 	}
