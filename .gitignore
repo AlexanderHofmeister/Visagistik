@@ -1,3 +1,4 @@
 /target/archive-tmp/*
 /target/generated-sources/*
+/target/classes/*
 /data/
