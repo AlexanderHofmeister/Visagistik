@@ -1,2 +1,3 @@
-/target/
+/target/archive-tmp/*
+/target/generated-sources/*
 /data/
