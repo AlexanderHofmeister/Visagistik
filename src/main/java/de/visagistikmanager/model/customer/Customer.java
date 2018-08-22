@@ -6,10 +6,12 @@ import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 import de.visagistikmanager.model.BaseEntity;
 import de.visagistikmanager.model.ListAttribute;
 import de.visagistikmanager.model.ModelAttribute;
+import de.visagistikmanager.model.order.Order;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,7 +45,7 @@ public class Customer extends BaseEntity {
 
 	@ModelAttribute(placeholder = "Unreinheiten", row = 4, column = 0)
 	private boolean blemishes;
-	
+
 	@ModelAttribute(placeholder = "Allergien", row = 4, column = 1)
 	private boolean allergies;
 
@@ -82,6 +84,9 @@ public class Customer extends BaseEntity {
 	@ModelAttribute(placeholder = "Kontaktoptionen", row = 6, column = 2)
 	@ListAttribute({ "E-Mail", "SMS", "Telefon", "Post" })
 	private Set<String> contactOptions = new HashSet<>();
+
+	@OneToMany
+	private Set<Order> orders;
 
 	public String getAdress() {
 		return street + " " + streetNumber + "\n" + zip + " " + city;
