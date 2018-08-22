@@ -1,6 +1,5 @@
 package de.visagistikmanager.model;
 
-
 import javax.persistence.Entity;
 
 import lombok.Getter;
@@ -18,10 +17,7 @@ public class Product extends BaseEntity {
 
 	@ModelAttribute(placeholder = "Name", row = 0, column = 1)
 	private String name;
-	
-	@ModelAttribute(placeholder = "Beschreibung", row = 1, column = 0)
-	private String description;
-	
+
 	@ModelAttribute(placeholder = "Preis", row = 2, column = 0)
 	private Integer price;
 
