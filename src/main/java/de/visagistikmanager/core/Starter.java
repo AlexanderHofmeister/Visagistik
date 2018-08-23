@@ -19,11 +19,7 @@ public class Starter extends Application {
 
 	private final GridPane root = new GridPane();
 
-	private CustomerView customerView = new CustomerView();
-	private OrderView orderView = new OrderView();
-	private ProductView productView = new ProductView();
-
-	private UpdateView updateView = new UpdateView();
+	private GridPane entityPanel = new GridPane();
 
 	public static void main(final String[] args) {
 		launch();
@@ -32,11 +28,20 @@ public class Starter extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
+		// keep it, this inti. the database
+		new CustomerView();
+
 		final ToolBar toolbar = new ToolBar();
 
 		GridPane toolbarGrid = new GridPane();
-		GridPane mainPanel = new GridPane();
-		mainPanel.add(updateView, 0, 0);
+
+		Button updateViewButton = new Button("Startseite");
+		updateViewButton.setOnAction(e -> {
+			entityPanel.getChildren().clear();
+			entityPanel.add(new UpdateView(), 1, 0);
+		});
+
+		entityPanel.add(new UpdateView(), 0, 0);
 
 		ColumnConstraints toolbarColumn = new ColumnConstraints();
 		toolbarColumn.setPercentWidth(100);
@@ -48,31 +53,25 @@ public class Starter extends Application {
 
 		Button customerViewButton = new Button("Kunden");
 		customerViewButton.setOnAction(e -> {
-			mainPanel.getChildren().clear();
-			if (!mainPanel.getChildren().contains(customerView)) {
-				mainPanel.add(customerView, 0, 1);
-			}
+			entityPanel.getChildren().clear();
+			entityPanel.add(new CustomerView(), 1, 0);
 		});
 
 		Button orderViewButton = new Button("Bestellungen");
 		orderViewButton.setOnAction(e -> {
-			mainPanel.getChildren().clear();
-			if (!mainPanel.getChildren().contains(orderView)) {
-				mainPanel.add(orderView, 0, 1);
-			}
+			entityPanel.getChildren().clear();
+			entityPanel.add(new OrderView(), 1, 0);
 		});
 
 		Button productsViewButton = new Button("Produkte");
 		productsViewButton.setOnAction(e -> {
-			mainPanel.getChildren().clear();
-			if (!mainPanel.getChildren().contains(productView)) {
-				mainPanel.add(productView, 0, 1);
-			}
+			entityPanel.getChildren().clear();
+			entityPanel.add(new ProductView(), 1, 0);
 		});
 
-		toolbar.getItems().addAll(customerViewButton, orderViewButton, productsViewButton);
+		toolbar.getItems().addAll(updateViewButton, customerViewButton, orderViewButton, productsViewButton);
 		root.add(toolbarGrid, 0, 0);
-		root.add(mainPanel, 0, 1);
+		root.add(entityPanel, 0, 1);
 
 		root.setGridLinesVisible(true);
 		final Properties properties = new Properties();

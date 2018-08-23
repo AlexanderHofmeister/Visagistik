@@ -27,16 +27,20 @@ public class Order extends BaseEntity {
 	@ManyToOne
 	private Customer customer;
 
-	@ModelAttribute(placeholder = "Erstellt am", row = 0, column = 0)
+	@ModelAttribute(placeholder = "Quittungsnummmer", row = 0, column = 1)
+	private int receiptNumber;
+
+	@ModelAttribute(placeholder = "Erstellt am", row = 1, column = 0)
 	private LocalDate createdDate;
 
-	@ModelAttribute(placeholder = "Anzahl", row = 0, column = 1)
-	private int count;
+	@Enumerated(EnumType.STRING)
+	@ModelAttribute(placeholder = "Status", row = 1, column = 1)
+	private OrderState state;
 
 	@ElementCollection
 	private Map<Order, Integer> products;
 
-	@ModelAttribute(placeholder = "Lieferdatum", row = 0, column = 0)
+	@ModelAttribute(placeholder = "Lieferdatum", row = 3, column = 1)
 	private LocalDate deliveryDate;
 
 	@Enumerated(EnumType.STRING)
@@ -47,11 +51,5 @@ public class Order extends BaseEntity {
 
 	@OneToMany
 	private Set<Payment> payments;
-	
-	
-	private int receiptNumber;
-
-	@Enumerated(EnumType.STRING)
-	private OrderState state;
 
 }

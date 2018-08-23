@@ -19,4 +19,8 @@ public enum OrderState implements LabeledEnum {
 	@Getter
 	private final String label;
 
+	@Override
+	public String toString() {
+		return label;
+	}
 }

@@ -13,6 +13,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 
 import de.visagistikmanager.model.BaseEntity;
+import de.visagistikmanager.model.LabeledEnum;
 import de.visagistikmanager.model.ListAttribute;
 import de.visagistikmanager.model.ModelAttribute;
 import de.visagistikmanager.service.ClassUtil;
@@ -22,13 +23,16 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import lombok.Getter;
 
-public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
+public class BaseEditView<E extends BaseEntity> extends GridPane {
 
 	@Getter
 	private E model;
@@ -142,42 +146,46 @@ public abstract class BaseEditView<E extends BaseEntity> extends GridPane {
 
 				int column = annotation.column();
 				int row = annotation.row();
-				if (field.getType() == String.class || field.getType() == Integer.class
-						|| field.getType() == int.class) {
+				Class<?> type = field.getType();
+				if (type == String.class || type == Integer.class || type == int.class) {
 					TextField inputField = new TextField();
 					inputField.setId(field.getName());
 					inputField.setPromptText(annotation.placeholder());
 					add(inputField, column, row);
-				} else if (field.getType() == LocalDate.class) {
+				} else if (type == LocalDate.class) {
 					DatePicker dateInputField = new DatePicker();
 					dateInputField.setId(field.getName());
 					dateInputField.setPromptText(annotation.placeholder());
 					add(dateInputField, column, row);
-				} else if (field.getType() == boolean.class) {
+				} else if (type == boolean.class) {
 					YesNoRadioButtonGroup child = new YesNoRadioButtonGroup(annotation.placeholder());
 					child.setId(field.getName());
 					add(child, column, row);
-				} else if (field.getType() == Set.class) {
+				} else if (type == Set.class) {
 					MenuButton child = new MenuButton(annotation.placeholder());
 					child.setId(field.getName());
 					add(child, column, row);
+				} else if (LabeledEnum.class.isAssignableFrom(type)) {
+					ComboBox<LabeledEnum> box = new ComboBox<>();
+					HBox container = new HBox(10, new Label(annotation.placeholder() + ": "), box);
+					box.getItems().addAll(Arrays.asList(((Class<LabeledEnum>) type).getEnumConstants()));
+					add(container, column, row);
 				} else {
-					throw new IllegalArgumentException("No case defined for " + field.getType());
+					throw new IllegalArgumentException("No case defined for " + type);
 				}
 
 			}
 
 		}
-
-		add(saveButton, 0, getChildren().size(), 2, 1);
-		add(cancelButton, 1, getChildren().size() - 1, 2, 1);
+		add(this.saveButton, 0, getChildren().size(), 2, 1);
+		add(this.cancelButton, 1, getChildren().size() - 1, 2, 1);
 	}
 
 	public void setSaveAction(EventHandler<ActionEvent> event) {
-		saveButton.setOnAction(event);
+		this.saveButton.setOnAction(event);
 	}
 
 	public void setCancelAction(EventHandler<ActionEvent> event) {
-		cancelButton.setOnAction(event);
+		this.cancelButton.setOnAction(event);
 	}
 }

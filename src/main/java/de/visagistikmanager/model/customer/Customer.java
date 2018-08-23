@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import de.visagistikmanager.model.BaseEntity;
 import de.visagistikmanager.model.ListAttribute;
 import de.visagistikmanager.model.ModelAttribute;
+import de.visagistikmanager.model.TableAttribute;
+import de.visagistikmanager.model.Title;
 import de.visagistikmanager.model.order.Order;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,17 +20,21 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Title("Kunde")
 public class Customer extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	@ModelAttribute(placeholder = "Nachname", row = 0, column = 0)
+	@TableAttribute(headerLabel = "Nachname", index = 0)
 	private String surname;
 
 	@ModelAttribute(placeholder = "Vorname", row = 0, column = 1)
+	@TableAttribute(headerLabel = "Vorname", index = 1)
 	private String forename;
 
 	@ModelAttribute(placeholder = "Geburtstag", row = 1, column = 0)
+	@TableAttribute(headerLabel = "Geburtstag", index = 4)
 	private LocalDate birthday;
 
 	@ModelAttribute(placeholder = "Straﬂe", row = 2, column = 0)
@@ -88,8 +94,13 @@ public class Customer extends BaseEntity {
 	@OneToMany
 	private Set<Order> orders;
 
+	@TableAttribute(headerLabel = "Anschrift", index = 3)
 	public String getAdress() {
-		return street + " " + streetNumber + "\n" + zip + " " + city;
+		return this.street + " " + this.streetNumber + "\n" + this.zip + " " + this.city;
+	}
+
+	public String getFullNameInverse() {
+		return this.surname + " ," + this.forename;
 	}
 
 }

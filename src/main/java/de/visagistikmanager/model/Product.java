@@ -8,6 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Title("Produkt")
 public class Product extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
