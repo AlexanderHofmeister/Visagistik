@@ -2,10 +2,13 @@ package de.visagistikmanager.view;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -28,6 +31,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import lombok.Getter;
@@ -52,12 +56,7 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 					if (node.getId() != null) {
 						if (node.getId().equals(field.getName())) {
 							if (node instanceof TextField) {
-								if (node instanceof DatePicker) {
-									((DatePicker) node)
-											.setValue(LocalDate.parse(BeanUtils.getProperty(model, field.getName())));
-								} else {
-									((TextField) node).setText(BeanUtils.getProperty(model, field.getName()));
-								}
+								((TextField) node).setText(BeanUtils.getProperty(model, field.getName()));
 							} else if (node instanceof DatePicker) {
 								BeanUtils.setProperty(model, field.getName(), ((DatePicker) node).getValue());
 							} else if (node instanceof YesNoRadioButtonGroup) {
@@ -108,7 +107,12 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 							&& GridPane.getColumnIndex(node) == annotation.column()) {
 						try {
 							if (node instanceof TextField) {
-								BeanUtils.setProperty(model, field.getName(), ((TextField) node).getText());
+								String text = ((TextField) node).getText();
+								if (field.getType() == BigDecimal.class) {
+									text = text.replaceAll(",", ".");
+								}
+								BeanUtils.setProperty(model, field.getName(), text);
+
 							} else if (node instanceof DatePicker) {
 								BeanUtils.setProperty(model, field.getName(), ((DatePicker) node).getValue());
 							} else if (node instanceof YesNoRadioButtonGroup) {
@@ -170,6 +174,21 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 					HBox container = new HBox(10, new Label(annotation.placeholder() + ": "), box);
 					box.getItems().addAll(Arrays.asList(((Class<LabeledEnum>) type).getEnumConstants()));
 					add(container, column, row);
+				} else if (type == BigDecimal.class) {
+					TextField inputField = new TextField();
+
+					Pattern pattern = Pattern.compile("\\d*|\\d+\\,\\d*");
+					TextFormatter<String> formatter = new TextFormatter<String>(
+							(UnaryOperator<TextFormatter.Change>) change -> {
+								return pattern.matcher(change.getControlNewText()).matches() ? change : null;
+							});
+
+					inputField.setTextFormatter(formatter);
+
+					inputField.setId(field.getName());
+					inputField.setPromptText(annotation.placeholder());
+
+					add(inputField, column, row);
 				} else {
 					throw new IllegalArgumentException("No case defined for " + type);
 				}

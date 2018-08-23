@@ -1,13 +1,18 @@
 package de.visagistikmanager.view;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.stream.Stream;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 import de.visagistikmanager.model.BaseEntity;
 import de.visagistikmanager.model.TableAttribute;
 import de.visagistikmanager.service.AbstractEntityService;
 import de.visagistikmanager.service.ClassUtil;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
@@ -37,8 +42,24 @@ public abstract class BaseListView<E extends BaseEntity> extends GridPane {
 		// Fields
 		Stream.of(actualTypeBinding.getDeclaredFields()).filter(f -> f.isAnnotationPresent(TableAttribute.class))
 				.forEach(field -> {
-					createTableColumn(new PropertyValueFactory<E, String>(field.getName()),
-							field.getAnnotation(TableAttribute.class));
+
+					Callback<CellDataFeatures<E, String>, ObservableValue<String>> value;
+					if (field.getType() == BigDecimal.class) {
+						value = tableCell -> {
+							try {
+								return new SimpleStringProperty(String.format("%,.2f",
+										new BigDecimal(BeanUtils.getProperty(tableCell.getValue(), field.getName()))
+												.setScale(2, RoundingMode.DOWN))
+										+ " €");
+							} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+								e.printStackTrace();
+							}
+							return null;
+						};
+					} else {
+						value = new PropertyValueFactory<E, String>(field.getName());
+					}
+					createTableColumn(value, field.getAnnotation(TableAttribute.class));
 				});
 
 		// Getter (Strings only)
@@ -58,7 +79,7 @@ public abstract class BaseListView<E extends BaseEntity> extends GridPane {
 		this.table.setItems(FXCollections.observableArrayList(getService().listAll()));
 
 		TableColumn<E, E> actionColumn = new TableColumn<>("Aktionen");
-		actionColumn.setMinWidth(150);
+		actionColumn.setMinWidth(200);
 
 		actionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 
