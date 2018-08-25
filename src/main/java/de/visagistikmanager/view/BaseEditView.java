@@ -196,8 +196,11 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 			}
 
 		}
-		add(this.saveButton, 0, getChildren().size(), 2, 1);
-		add(this.cancelButton, 1, getChildren().size() - 1, 2, 1);
+
+		HBox buttons = new HBox(10);
+		buttons.getChildren().addAll(cancelButton, saveButton);
+
+		add(buttons, 0, getChildren().size());
 	}
 
 	public void setSaveAction(EventHandler<ActionEvent> event) {

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum PaymentType implements	 LabeledEnum{
+public enum PaymentType implements LabeledEnum {
 
 	CASH("Bar"),
 
@@ -15,5 +15,10 @@ public enum PaymentType implements	 LabeledEnum{
 
 	@Getter
 	private final String label;
+
+	@Override
+	public String toString() {
+		return this.label;
+	}
 
 }
