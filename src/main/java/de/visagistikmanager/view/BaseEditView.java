@@ -196,6 +196,7 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 					add(child, column, row);
 				} else if (LabeledEnum.class.isAssignableFrom(type)) {
 					ComboBox<LabeledEnum> box = new ComboBox<>();
+					box.setPromptText(annotation.placeholder());
 					HBox container = new HBox(10, new Label(annotation.placeholder() + ": "), box);
 					container.setId(field.getName());
 					box.setId(field.getName());
