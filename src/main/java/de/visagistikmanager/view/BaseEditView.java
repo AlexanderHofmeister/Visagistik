@@ -21,6 +21,7 @@ import de.visagistikmanager.model.ListAttribute;
 import de.visagistikmanager.model.ModelAttribute;
 import de.visagistikmanager.service.ClassUtil;
 import de.visagistikmanager.view.components.YesNoRadioButtonGroup;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -34,6 +35,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import lombok.Getter;
 
 public class BaseEditView<E extends BaseEntity> extends GridPane {
@@ -46,42 +48,58 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 
 	public void setModel(final E model) {
 		this.model = model;
+		setModel(model, getChildren());
+	}
 
-		List<Field> fields = Stream.of(model.getClass().getDeclaredFields())
-				.filter(field -> field.isAnnotationPresent(ModelAttribute.class)).collect(Collectors.toList());
-
+	private void setModel(final E model, ObservableList<Node> children) {
 		try {
-			for (Field field : fields) {
-				for (Node node : getChildren()) {
-					if (node.getId() != null) {
-						if (node.getId().equals(field.getName())) {
-							if (node instanceof TextField) {
-								((TextField) node).setText(BeanUtils.getProperty(model, field.getName()));
-							} else if (node instanceof DatePicker) {
-								BeanUtils.setProperty(model, field.getName(), ((DatePicker) node).getValue());
-							} else if (node instanceof YesNoRadioButtonGroup) {
-								((YesNoRadioButtonGroup) node).setValue(BeanUtils.getProperty(model, field.getName()));
-							} else if (node instanceof MenuButton) {
-								ListAttribute annotation = field.getAnnotation(ListAttribute.class);
-								if (annotation != null) {
-									MenuButton menu = (MenuButton) node;
-									menu.getItems().clear();
-									menu.getItems().addAll(Arrays.stream(annotation.value()).map(label -> {
-										CheckMenuItem menuItem = new CheckMenuItem(label);
-										try {
-											if (PropertyUtils.getProperty(model, field.getName()).toString()
-													.contains(label)) {
-												menuItem.setSelected(true);
-											}
-										} catch (IllegalAccessException | InvocationTargetException
-												| NoSuchMethodException e) {
-											e.printStackTrace();
-										}
-										return menuItem;
-									}).collect(Collectors.toList()));
+			for (Field field : Stream.of(model.getClass().getDeclaredFields())
+					.filter(field -> field.isAnnotationPresent(ModelAttribute.class)).collect(Collectors.toList())) {
+				for (Node node : children) {
+					if (node.getId() != null && node.getId().equals(field.getName())) {
+						String property = BeanUtils.getProperty(model, field.getName());
+						if (node instanceof TextField) {
+							if (property != null) {
+								if (field.getType() == BigDecimal.class) {
+									property = property.replace(".", ",");
 								}
 							}
-
+							((TextField) node).setText(property);
+						} else if (node instanceof DatePicker) {
+							DatePicker datePicker = (DatePicker) node;
+							datePicker.setValue(property == null ? null : LocalDate.parse(property));
+						} else if (node instanceof YesNoRadioButtonGroup) {
+							((YesNoRadioButtonGroup) node).setValue(property);
+						} else if (node instanceof MenuButton) {
+							ListAttribute annotation = field.getAnnotation(ListAttribute.class);
+							if (annotation != null) {
+								MenuButton menu = (MenuButton) node;
+								menu.getItems().clear();
+								menu.getItems().addAll(Arrays.stream(annotation.value()).map(label -> {
+									CheckMenuItem menuItem = new CheckMenuItem(label);
+									try {
+										if (PropertyUtils.getProperty(model, field.getName()).toString()
+												.contains(label)) {
+											menuItem.setSelected(true);
+										}
+									} catch (IllegalAccessException | InvocationTargetException
+											| NoSuchMethodException e) {
+										e.printStackTrace();
+									}
+									return menuItem;
+								}).collect(Collectors.toList()));
+							}
+						} else if (node instanceof ComboBox) {
+							@SuppressWarnings("unchecked")
+							ComboBox<Object> comboBox = (ComboBox<Object>) node;
+							Object value = PropertyUtils.getProperty(model, field.getName());
+							if (value != null) {
+								comboBox.setValue(value);
+							}
+						} else if (Pane.class.isAssignableFrom(node.getClass())) {
+							setModel(model, ((Pane) node).getChildren());
+						} else {
+							System.out.println("Missing case for " + node.getClass());
 						}
 
 					}
@@ -90,50 +108,57 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 		} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void applyValuesToModel() {
+		applyValuesToModel(getChildren());
+	}
 
+	private void applyValuesToModel(ObservableList<Node> children) {
 		Class<Object> actualTypeBinding = ClassUtil.getActualTypeBinding(getClass(), BaseEditView.class, 0);
 
-		for (Field field : actualTypeBinding.getDeclaredFields()) {
+		for (Node node : children) {
+			for (Field field : actualTypeBinding.getDeclaredFields()) {
 
-			if (field.isAnnotationPresent(ModelAttribute.class)) {
-				ModelAttribute annotation = field.getAnnotation(ModelAttribute.class);
+				if (field.getName().equals(node.getId())) {
+					try {
+						if (node instanceof TextField) {
+							String text = ((TextField) node).getText();
 
-				for (Node node : getChildren()) {
-					if (GridPane.getRowIndex(node) == annotation.row()
-							&& GridPane.getColumnIndex(node) == annotation.column()) {
-						try {
-							if (node instanceof TextField) {
-								String text = ((TextField) node).getText();
+							if (text != null) {
 								if (field.getType() == BigDecimal.class) {
 									text = text.replaceAll(",", ".");
 								}
 								BeanUtils.setProperty(model, field.getName(), text);
-
-							} else if (node instanceof DatePicker) {
-								BeanUtils.setProperty(model, field.getName(), ((DatePicker) node).getValue());
-							} else if (node instanceof YesNoRadioButtonGroup) {
-								BeanUtils.setProperty(model, field.getName(),
-										((YesNoRadioButtonGroup) node).getValue());
-							} else if (node instanceof MenuButton) {
-								try {
-									BeanUtils.setProperty(model, field.getName(),
-											((MenuButton) node).getItems().stream().map(CheckMenuItem.class::cast)
-													.filter(CheckMenuItem::isSelected).map(CheckMenuItem::getText)
-													.collect(Collectors.toSet()));
-								} catch (IllegalAccessException | InvocationTargetException e) {
-									e.printStackTrace();
-								}
 							}
 
-						} catch (IllegalAccessException | InvocationTargetException e) {
-							e.printStackTrace();
+						} else if (node instanceof DatePicker) {
+							BeanUtils.setProperty(model, field.getName(), ((DatePicker) node).getValue());
+						} else if (node instanceof YesNoRadioButtonGroup) {
+							BeanUtils.setProperty(model, field.getName(), ((YesNoRadioButtonGroup) node).getValue());
+						} else if (node instanceof MenuButton) {
+							try {
+								BeanUtils.setProperty(model, field.getName(),
+										((MenuButton) node).getItems().stream().map(CheckMenuItem.class::cast)
+												.filter(CheckMenuItem::isSelected).map(CheckMenuItem::getText)
+												.collect(Collectors.toSet()));
+							} catch (IllegalAccessException | InvocationTargetException e) {
+								e.printStackTrace();
+							}
+
+						} else if (node instanceof ComboBox) {
+							BeanUtils.setProperty(model, field.getName(), ((ComboBox<?>) node).getValue());
+						} else if (Pane.class.isAssignableFrom(node.getClass())) {
+							applyValuesToModel(((Pane) node).getChildren());
+						} else {
+							System.out.println(field.getClass() + " " + field.getName() + " missing. Case missing: "
+									+ node.getClass());
 						}
-						break;
+
+					} catch (IllegalAccessException | InvocationTargetException e) {
+						e.printStackTrace();
 					}
+					break;
 				}
 			}
 		}
@@ -172,12 +197,16 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 				} else if (LabeledEnum.class.isAssignableFrom(type)) {
 					ComboBox<LabeledEnum> box = new ComboBox<>();
 					HBox container = new HBox(10, new Label(annotation.placeholder() + ": "), box);
-					box.getItems().addAll(Arrays.asList(((Class<LabeledEnum>) type).getEnumConstants()));
+					container.setId(field.getName());
+					box.setId(field.getName());
+					@SuppressWarnings("unchecked")
+					Class<LabeledEnum> clazz = (Class<LabeledEnum>) type;
+					box.getItems().addAll(Arrays.asList(clazz.getEnumConstants()));
 					add(container, column, row);
 				} else if (type == BigDecimal.class) {
 					TextField inputField = new TextField();
 
-					Pattern pattern = Pattern.compile("\\d*|\\d+\\,\\d*");
+					Pattern pattern = Pattern.compile("\\d*|\\d+\\,\\d{0,2}");
 					TextFormatter<String> formatter = new TextFormatter<String>(
 							(UnaryOperator<TextFormatter.Change>) change -> {
 								return pattern.matcher(change.getControlNewText()).matches() ? change : null;

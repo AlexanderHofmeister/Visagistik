@@ -52,7 +52,7 @@ public class Order extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
 	@ModelAttribute(placeholder = "Bezahlstatus", row = 4, column = 0)
-	private PaymentState paymentState = PaymentState.NONE;
+	private PaymentState paymentState;
 
 	@Enumerated(EnumType.STRING)
 	@ModelAttribute(placeholder = "Bezahltyp", row = 4, column = 1)
@@ -63,5 +63,11 @@ public class Order extends BaseEntity {
 
 	@ModelAttribute(placeholder = "Rabatt", row = 5, column = 0)
 	private BigDecimal discount;
+
+	public Order() {
+		this.paymentState = PaymentState.NONE;
+		this.createdDate = LocalDate.now();
+		this.state = OrderState.OPEN;
+	}
 
 }

@@ -79,7 +79,7 @@ public abstract class BaseListView<E extends BaseEntity> extends GridPane {
 		this.table.setItems(FXCollections.observableArrayList(getService().listAll()));
 
 		TableColumn<E, E> actionColumn = new TableColumn<>("Aktionen");
-		actionColumn.setMinWidth(200);
+		actionColumn.setMinWidth(250);
 
 		actionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 
