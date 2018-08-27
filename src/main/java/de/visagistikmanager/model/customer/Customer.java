@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import de.visagistikmanager.model.BaseEntity;
@@ -21,9 +22,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Title("Kunde")
+@NamedQuery(name = Customer.FIND_BY_SURNAME_AND_LASTNAME, query = "SELECT c from Customer c WHERE c.surname = :surname AND c.forename = :forename")
 public class Customer extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
+
+	public static final String FIND_BY_SURNAME_AND_LASTNAME = "findBySurnameAndLastName";
 
 	@ModelAttribute(placeholder = "Nachname", row = 0, column = 0)
 	@TableAttribute(headerLabel = "Nachname", index = 0)
@@ -100,7 +104,12 @@ public class Customer extends BaseEntity {
 	}
 
 	public String getFullNameInverse() {
-		return this.surname + " ," + this.forename;
+		return this.surname + ", " + this.forename;
+	}
+
+	@Override
+	public String toString() {
+		return getFullNameInverse();
 	}
 
 }

@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
@@ -48,7 +47,12 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 
 	public void setModel(final E model) {
 		this.model = model;
+		setCustomModel(model);
 		setModel(model, getChildren());
+	}
+
+	protected void setCustomModel(E model) {
+		// nothing to do, override it if you need
 	}
 
 	private void setModel(final E model, ObservableList<Node> children) {
@@ -118,6 +122,7 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 		Class<Object> actualTypeBinding = ClassUtil.getActualTypeBinding(getClass(), BaseEditView.class, 0);
 
 		for (Node node : children) {
+
 			for (Field field : actualTypeBinding.getDeclaredFields()) {
 
 				if (field.getName().equals(node.getId())) {
@@ -239,5 +244,9 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 
 	public void setCancelAction(EventHandler<ActionEvent> event) {
 		this.cancelButton.setOnAction(event);
+	}
+
+	public E applyCustomValuesToModel(E model) {
+		return model;
 	}
 }

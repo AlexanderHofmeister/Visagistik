@@ -1,5 +1,7 @@
 package de.visagistikmanager.view;
 
+import java.lang.reflect.InvocationTargetException;
+
 import de.visagistikmanager.model.BaseEntity;
 import de.visagistikmanager.model.Title;
 import de.visagistikmanager.service.AbstractEntityService;
@@ -30,8 +32,9 @@ public abstract class BaseEntityView<E extends BaseEntity> extends GridPane {
 		createButton.setOnAction(action -> {
 
 			try {
-				editView.setModel(actualTypeBinding.newInstance());
-			} catch (InstantiationException | IllegalAccessException e) {
+				editView.setModel(actualTypeBinding.getDeclaredConstructor().newInstance());
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 				// TODO log
 				e.printStackTrace();
 			}
@@ -41,8 +44,9 @@ public abstract class BaseEntityView<E extends BaseEntity> extends GridPane {
 
 		editView.setSaveAction(e -> {
 			editView.applyValuesToModel();
-
-			E model = getService().update(editView.getModel());
+			E model = editView.getModel();
+			model = editView.applyCustomValuesToModel(model);
+			model = getService().update(model);
 			TableView<E> table = getListView().getTable();
 			ObservableList<E> items = table.getItems();
 			if (!items.contains(model)) {
@@ -60,5 +64,4 @@ public abstract class BaseEntityView<E extends BaseEntity> extends GridPane {
 		add(getListView(), 0, 1);
 		add(panel, 1, 1);
 	}
-
 }

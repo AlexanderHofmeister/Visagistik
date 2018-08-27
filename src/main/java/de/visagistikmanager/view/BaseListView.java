@@ -6,6 +6,7 @@ import java.math.RoundingMode;
 import java.util.stream.Stream;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 
 import de.visagistikmanager.model.BaseEntity;
 import de.visagistikmanager.model.TableAttribute;
@@ -51,6 +52,21 @@ public abstract class BaseListView<E extends BaseEntity> extends GridPane {
 										new BigDecimal(BeanUtils.getProperty(tableCell.getValue(), field.getName()))
 												.setScale(2, RoundingMode.DOWN))
 										+ " €");
+							} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+								e.printStackTrace();
+							}
+							return null;
+						};
+					} else if (BaseEntity.class.isAssignableFrom(field.getType())) {
+						value = tableCell -> {
+							try {
+
+								Object property = PropertyUtils.getProperty(tableCell.getValue(), field.getName());
+
+								if (property == null) {
+									return new SimpleStringProperty("");
+								}
+								return new SimpleStringProperty(property.toString());
 							} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 								e.printStackTrace();
 							}

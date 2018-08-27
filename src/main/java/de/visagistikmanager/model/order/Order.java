@@ -31,6 +31,7 @@ public class Order extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
+	@TableAttribute(headerLabel = "Kunde", index = 1)
 	private Customer customer;
 
 	@ModelAttribute(placeholder = "Quittungsnummmer", row = 0, column = 1)

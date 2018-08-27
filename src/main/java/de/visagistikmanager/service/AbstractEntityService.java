@@ -36,7 +36,6 @@ public class AbstractEntityService<E extends BaseEntity> {
 	private TypedQuery<Double> addParamsForDouble(final Map<String, Object> params, final TypedQuery<Double> query) {
 		for (final Entry<String, Object> entry : params.entrySet()) {
 			query.setParameter(entry.getKey(), entry.getValue());
-			query.setParameter(entry.getKey(), entry.getValue());
 		}
 		return query;
 	}
