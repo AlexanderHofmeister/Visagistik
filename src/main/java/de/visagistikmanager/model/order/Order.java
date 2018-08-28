@@ -30,20 +30,16 @@ public class Order extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
-	@TableAttribute(headerLabel = "Kunde", index = 1)
-	private Customer customer;
-
 	@ModelAttribute(placeholder = "Quittungsnummmer", row = 0, column = 1)
-	@TableAttribute(headerLabel = "Quittungsnummer", index = 0)
+	@TableAttribute(headerLabel = "Quittungsnummer")
 	private Integer receiptNumber;
+
+	@ManyToOne
+	@TableAttribute(headerLabel = "Kunde")
+	private Customer customer;
 
 	@ModelAttribute(placeholder = "Erstellt am", row = 1, column = 0)
 	private LocalDate createdDate = LocalDate.now();
-
-	@Enumerated(EnumType.STRING)
-	@ModelAttribute(placeholder = "Status", row = 1, column = 1)
-	private OrderState state;
 
 	@ElementCollection
 	private Map<Order, Integer> products;
@@ -53,7 +49,13 @@ public class Order extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
 	@ModelAttribute(placeholder = "Bezahlstatus", row = 4, column = 0)
+	@TableAttribute(headerLabel = "Bezahlstatus")
 	private PaymentState paymentState;
+
+	@Enumerated(EnumType.STRING)
+	@ModelAttribute(placeholder = "Status", row = 1, column = 1)
+	@TableAttribute(headerLabel = "Bestellstatus")
+	private OrderState state;
 
 	@Enumerated(EnumType.STRING)
 	@ModelAttribute(placeholder = "Bezahltyp", row = 4, column = 1)

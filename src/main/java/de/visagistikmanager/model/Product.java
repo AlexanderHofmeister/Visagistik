@@ -20,15 +20,15 @@ public class Product extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ModelAttribute(placeholder = "Produktnummer", row = 0, column = 0)
-	@TableAttribute(headerLabel = "Produktnummer", index = 0)
+	@TableAttribute(headerLabel = "Produktnummer")
 	private Integer number;
 
 	@ModelAttribute(placeholder = "Name", row = 1, column = 0)
-	@TableAttribute(headerLabel = "Name", index = 0)
+	@TableAttribute(headerLabel = "Name")
 	private String name;
 
 	@ModelAttribute(placeholder = "Preis", row = 1, column = 1)
-	@TableAttribute(headerLabel = "Preis", index = 2)
+	@TableAttribute(headerLabel = "Preis")
 	private BigDecimal price;
 
 }

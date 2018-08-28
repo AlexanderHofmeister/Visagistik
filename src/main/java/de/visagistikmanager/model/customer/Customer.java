@@ -30,15 +30,14 @@ public class Customer extends BaseEntity {
 	public static final String FIND_BY_SURNAME_AND_LASTNAME = "findBySurnameAndLastName";
 
 	@ModelAttribute(placeholder = "Nachname", row = 0, column = 0)
-	@TableAttribute(headerLabel = "Nachname", index = 0)
+	@TableAttribute(headerLabel = "Nachname")
 	private String surname;
 
 	@ModelAttribute(placeholder = "Vorname", row = 0, column = 1)
-	@TableAttribute(headerLabel = "Vorname", index = 1)
+	@TableAttribute(headerLabel = "Vorname")
 	private String forename;
 
 	@ModelAttribute(placeholder = "Geburtstag", row = 1, column = 0)
-	@TableAttribute(headerLabel = "Geburtstag", index = 4)
 	private LocalDate birthday;
 
 	@ModelAttribute(placeholder = "Straﬂe", row = 2, column = 0)
@@ -98,7 +97,7 @@ public class Customer extends BaseEntity {
 	@OneToMany
 	private Set<Order> orders;
 
-	@TableAttribute(headerLabel = "Anschrift", index = 3)
+	@TableAttribute(headerLabel = "Anschrift")
 	public String getAdress() {
 		return this.street + " " + this.streetNumber + "\n" + this.zip + " " + this.city;
 	}
