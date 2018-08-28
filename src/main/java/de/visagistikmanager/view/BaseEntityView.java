@@ -7,6 +7,7 @@ import de.visagistikmanager.model.Title;
 import de.visagistikmanager.service.AbstractEntityService;
 import de.visagistikmanager.service.ClassUtil;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
@@ -24,6 +25,11 @@ public abstract class BaseEntityView<E extends BaseEntity> extends GridPane {
 	private Button createButton = new Button();
 
 	public BaseEntityView() {
+
+		setHgap(15);
+		setVgap(15);
+		setPadding(new Insets(10, 10, 10, 10));
+
 		Class<E> actualTypeBinding = ClassUtil.getActualTypeBinding(getClass(), BaseEntityView.class, 0);
 
 		BaseEditView<E> editView = getEditView();
@@ -39,7 +45,7 @@ public abstract class BaseEntityView<E extends BaseEntity> extends GridPane {
 				e.printStackTrace();
 			}
 			panel.getChildren().clear();
-			panel.add(getEditView(), 1, 1, 1, 2);
+			panel.add(getEditView(), 1, 1, 2, 2);
 		});
 
 		editView.setSaveAction(e -> {
