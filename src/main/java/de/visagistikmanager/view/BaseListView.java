@@ -17,6 +17,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -37,7 +38,9 @@ public abstract class BaseListView<E extends BaseEntity> extends GridPane {
 	private final TableView<E> table = new TableView<>();
 
 	public BaseListView(GridPane pane) {
-
+		
+		table.setPlaceholder(new Label("Keine Daten vorhanden!"));
+		
 		Class<E> actualTypeBinding = ClassUtil.getActualTypeBinding(getClass(), BaseListView.class, 0);
 
 		// Fields
