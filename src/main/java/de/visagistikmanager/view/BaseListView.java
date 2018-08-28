@@ -38,9 +38,9 @@ public abstract class BaseListView<E extends BaseEntity> extends GridPane {
 	private final TableView<E> table = new TableView<>();
 
 	public BaseListView(GridPane pane) {
-		
+
 		table.setPlaceholder(new Label("Keine Daten vorhanden!"));
-		
+
 		Class<E> actualTypeBinding = ClassUtil.getActualTypeBinding(getClass(), BaseListView.class, 0);
 
 		// Fields
@@ -136,7 +136,8 @@ public abstract class BaseListView<E extends BaseEntity> extends GridPane {
 
 		table.getColumns().add(actionColumn);
 
-		add(table, 0, 1);
+		add(table, 0, 1, 1, 2);
+		add(new Label(table.getItems().size() + " Datensätze vorhanden"), 0, 3, 1, 1);
 	}
 
 	private void createTableColumn(Callback<CellDataFeatures<E, String>, ObservableValue<String>> value,
