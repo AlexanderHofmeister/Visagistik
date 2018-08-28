@@ -6,6 +6,16 @@ INSERT INTO Product (id, name, number, price) VALUES (2, 'Duschgel', 13041, 3.99
 INSERT INTO Product (id, name, number, price) VALUES (3, 'Handtuch', 13022, 15.5);
 INSERT INTO Product (id, name, number, price) VALUES (4, 'Lippenstift', 13033, 6.5);
 INSERT INTO Product (id, name, number, price) VALUES (5, 'Deo', 13044, 5.5);
-INSERT INTO Product (id, name, number, price) VALUES (6, 'Kosmetikpinsel', 13045, 21.5);
+INSERT INTO Product (id, name, number, price) VALUES (6, 'Kosmetikpinsel', 13045, 5.5);
 INSERT INTO Product (id, name, number, price) VALUES (7, 'Lotion', 13046, 4.9900000000000002131628207280300557613372802734375);
 INSERT INTO Product (id, name, number, price) VALUES (8, 'Creme', 13047, 3.089999999999999857891452847979962825775146484375);
+INSERT INTO Product (id, name, number, price) VALUES (9, 'Teure Seife', 13048, 10.5);
+INSERT INTO Product (id, name, number, price) VALUES (10, 'Teures Deo', 13049, 10.5);
+INSERT INTO Product (id, name, number, price) VALUES (11, 'Teurer Kosmetikpinsel', 13050, 21.5);
+INSERT INTO Product (id, name, number, price) VALUES (12, 'Teure Lotion', 13051, 14.9900000000000002131628207280300557613372802734375);
+INSERT INTO Product (id, name, number, price) VALUES (13, 'Teure Creme', 13052, 13.089999999999999857891452847979962825775146484375);
+INSERT INTO Product (id, name, number, price) VALUES (14, 'Roter Lippenstift', 13053, 6.5);
+INSERT INTO Product (id, name, number, price) VALUES (15, 'Neutrales Deo', 13054, 5.5);
+INSERT INTO Product (id, name, number, price) VALUES (16, 'Neutrale Bodylotion', 13055, 4.9900000000000002131628207280300557613372802734375);
+INSERT INTO Product (id, name, number, price) VALUES (17, 'Deocreme', 13056, 3.089999999999999857891452847979962825775146484375);
+INSERT INTO Product (id, name, number, price) VALUES (18, 'Rasierklingen', 13057, 3.089999999999999857891452847979962825775146484375);

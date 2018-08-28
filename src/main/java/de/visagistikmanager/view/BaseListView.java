@@ -40,7 +40,7 @@ public abstract class BaseListView<E extends BaseEntity> extends GridPane {
 	public BaseListView(GridPane pane) {
 
 		table.setPlaceholder(new Label("Keine Daten vorhanden!"));
-
+		table.setPrefHeight(500);
 		Class<E> actualTypeBinding = ClassUtil.getActualTypeBinding(getClass(), BaseListView.class, 0);
 
 		// Fields

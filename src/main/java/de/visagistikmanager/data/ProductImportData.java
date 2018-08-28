@@ -24,9 +24,20 @@ public class ProductImportData extends AbstractDataProvider {
 		this.entities.add(addProduct(13022, "Handtuch", 15.50));
 		this.entities.add(addProduct(13033, "Lippenstift", 6.50));
 		this.entities.add(addProduct(13044, "Deo", 5.50));
-		this.entities.add(addProduct(13045, "Kosmetikpinsel", 21.50));
+		this.entities.add(addProduct(13045, "Kosmetikpinsel", 5.50));
 		this.entities.add(addProduct(13046, "Lotion", 4.99));
 		this.entities.add(addProduct(13047, "Creme", 3.09));
+		this.entities.add(addProduct(13048, "Teure Seife", 10.50));
+		this.entities.add(addProduct(13049, "Teures Deo", 10.50));
+		this.entities.add(addProduct(13050, "Teurer Kosmetikpinsel", 21.50));
+		this.entities.add(addProduct(13051, "Teure Lotion", 14.99));
+		this.entities.add(addProduct(13052, "Teure Creme", 13.09));
+		this.entities.add(addProduct(13053, "Roter Lippenstift", 6.50));
+		this.entities.add(addProduct(13054, "Neutrales Deo", 5.50));
+		this.entities.add(addProduct(13055, "Neutrale Bodylotion", 4.99));
+		this.entities.add(addProduct(13056, "Deocreme", 3.09));
+		this.entities.add(addProduct(13057, "Rasierklingen", 3.09));
+
 	}
 
 	private Product addProduct(int number, String name, double price) {
