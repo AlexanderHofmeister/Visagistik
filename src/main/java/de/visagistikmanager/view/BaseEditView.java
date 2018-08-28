@@ -23,6 +23,7 @@ import de.visagistikmanager.view.components.YesNoRadioButtonGroup;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
@@ -170,6 +171,10 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 	}
 
 	public BaseEditView() {
+
+		setHgap(20);
+		setVgap(10);
+		setPadding(new Insets(0, 10, 10, 10));
 
 		Class<Object> actualTypeBinding = ClassUtil.getActualTypeBinding(getClass(), BaseEditView.class, 0);
 
