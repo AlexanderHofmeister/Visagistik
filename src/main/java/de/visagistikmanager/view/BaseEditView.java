@@ -238,6 +238,8 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 		}
 
 		HBox buttons = new HBox(10);
+		cancelButton.getStyleClass().add("danger");
+		saveButton.getStyleClass().add("success");
 		buttons.getChildren().addAll(cancelButton, saveButton);
 
 		add(buttons, 0, getChildren().size());
