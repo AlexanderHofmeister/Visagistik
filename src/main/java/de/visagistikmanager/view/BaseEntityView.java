@@ -45,7 +45,7 @@ public abstract class BaseEntityView<E extends BaseEntity> extends GridPane {
 				e.printStackTrace();
 			}
 			panel.getChildren().clear();
-			panel.add(getEditView(), 1, 1, 2, 2);
+			panel.add(editView, 1, 1, 2, 2);
 		});
 
 		editView.setSaveAction(e -> {

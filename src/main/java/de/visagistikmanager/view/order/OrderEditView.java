@@ -2,38 +2,36 @@ package de.visagistikmanager.view.order;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
-
-import org.controlsfx.control.textfield.TextFields;
 
 import de.visagistikmanager.model.customer.Customer;
 import de.visagistikmanager.model.order.Order;
 import de.visagistikmanager.service.CustomerService;
 import de.visagistikmanager.view.BaseEditView;
-import javafx.scene.control.TextField;
+import de.visagistikmanager.view.components.AutoCompleteTextField;
 import lombok.Setter;
 
 public class OrderEditView extends BaseEditView<Order> {
 
 	@Setter
 	private List<Customer> customer = new ArrayList<>();
-	private TextField inputCustomer;
+	private AutoCompleteTextField inputCustomer;
 
 	private CustomerService customerService = new CustomerService();
 
-	public OrderEditView() {
+	public void fillAutoCompleteCustomer(List<Customer> customer) {
+		this.customer = customer;
+		inputCustomer.getEntries().addAll(
+				new TreeSet<>(this.customer.stream().map(Customer::getFullNameInverse).collect(Collectors.toList())));
+	}
 
-		this.inputCustomer = new TextField();
+	public OrderEditView() {
+		this.inputCustomer = new AutoCompleteTextField(new TreeSet<>());
+		customer = customerService.listAll();
+		fillAutoCompleteCustomer(customer);
 		this.inputCustomer.setPromptText("Kunde");
 		add(this.inputCustomer, 0, 0);
-
-		TextFields.bindAutoCompletion(this.inputCustomer, t -> {
-			List<String> collect = this.customer.stream().filter(elem -> {
-				return elem.getSurname().toLowerCase().contains(t.getUserText().toLowerCase())
-						|| elem.getForename().toLowerCase().contains(t.getUserText().toLowerCase());
-			}).map(Customer::getFullNameInverse).collect(Collectors.toList());
-			return collect;
-		});
 
 	}
 
@@ -51,6 +49,7 @@ public class OrderEditView extends BaseEditView<Order> {
 
 	@Override
 	protected void setCustomModel(Order model) {
+		fillAutoCompleteCustomer(customer);
 		Customer customer = model.getCustomer();
 		if (customer != null) {
 			this.inputCustomer.setText(customer.getFullNameInverse());

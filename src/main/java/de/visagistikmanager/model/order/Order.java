@@ -36,7 +36,7 @@ public class Order extends BaseEntity {
 
 	@ModelAttribute(placeholder = "Quittungsnummmer", row = 0, column = 1)
 	@TableAttribute(headerLabel = "Quittungsnummer", index = 0)
-	private int receiptNumber;
+	private Integer receiptNumber;
 
 	@ModelAttribute(placeholder = "Erstellt am", row = 1, column = 0)
 	private LocalDate createdDate = LocalDate.now();
