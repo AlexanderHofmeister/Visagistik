@@ -3,6 +3,7 @@ package de.visagistikmanager.model.product;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 
 import de.visagistikmanager.model.BaseEntity;
 import de.visagistikmanager.model.Heading;
@@ -21,7 +22,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Heading(value = "Stammdaten", row = 0)
+@NamedQuery(name = Product.NQ_FIND_BY_NAME, query = "SELECT p FROM Product p where p.name = :name")
 public class Product extends BaseEntity {
+
+	public static final String NQ_FIND_BY_NAME = "FindByName";
 
 	private static final long serialVersionUID = 1L;
 

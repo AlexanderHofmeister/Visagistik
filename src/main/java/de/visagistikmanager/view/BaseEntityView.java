@@ -22,7 +22,7 @@ public abstract class BaseEntityView<E extends BaseEntity> extends GridPane {
 
 	protected GridPane panel = new GridPane();
 
-	private Button createButton = new Button();
+	private final Button createButton = new Button();
 
 	public BaseEntityView() {
 
@@ -30,22 +30,27 @@ public abstract class BaseEntityView<E extends BaseEntity> extends GridPane {
 		setVgap(15);
 		setPadding(new Insets(10, 10, 10, 10));
 
-		Class<E> actualTypeBinding = ClassUtil.getActualTypeBinding(getClass(), BaseEntityView.class, 0);
+		final Class<E> actualTypeBinding = ClassUtil
+				.getActualTypeBinding(getClass(), BaseEntityView.class, 0);
 
-		BaseEditView<E> editView = getEditView();
-		createButton.setText(actualTypeBinding.getAnnotation(Title.class).value() + " anlegen");
+		final BaseEditView<E> editView = getEditView();
+		this.createButton
+				.setText(actualTypeBinding.getAnnotation(Title.class).value()
+						+ " anlegen");
 
-		createButton.setOnAction(action -> {
+		this.createButton.setOnAction(action -> {
 
 			try {
-				editView.setModel(actualTypeBinding.getDeclaredConstructor().newInstance());
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+				editView.setModel(actualTypeBinding.getDeclaredConstructor()
+						.newInstance());
+			} catch (InstantiationException | IllegalAccessException
+					| IllegalArgumentException | InvocationTargetException
+					| NoSuchMethodException | SecurityException e) {
 				// TODO log
 				e.printStackTrace();
 			}
-			panel.getChildren().clear();
-			panel.add(editView, 1, 1, 2, 2);
+			this.panel.getChildren().clear();
+			this.panel.add(editView, 1, 1, 2, 2);
 		});
 
 		editView.setSaveAction(e -> {
@@ -53,21 +58,21 @@ public abstract class BaseEntityView<E extends BaseEntity> extends GridPane {
 			E model = editView.getModel();
 			model = editView.applyCustomValuesToModel(model);
 			model = getService().update(model);
-			TableView<E> table = getListView().getTable();
-			ObservableList<E> items = table.getItems();
+			final TableView<E> table = getListView().getTable();
+			final ObservableList<E> items = table.getItems();
 			if (!items.contains(model)) {
 				items.add(model);
 			}
 			table.refresh();
-			panel.getChildren().remove(editView);
+			this.panel.getChildren().remove(editView);
 		});
 
 		editView.setCancelAction(e -> {
-			panel.getChildren().remove(editView);
+			this.panel.getChildren().remove(editView);
 		});
 
-		add(createButton, 0, 0);
+		add(this.createButton, 0, 0);
 		add(getListView(), 0, 1);
-		add(panel, 1, 1);
+		add(this.panel, 1, 1);
 	}
 }

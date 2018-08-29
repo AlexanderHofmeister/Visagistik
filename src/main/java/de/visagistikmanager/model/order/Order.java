@@ -19,6 +19,7 @@ import de.visagistikmanager.model.ModelAttribute;
 import de.visagistikmanager.model.TableAttribute;
 import de.visagistikmanager.model.Title;
 import de.visagistikmanager.model.customer.Customer;
+import de.visagistikmanager.model.product.Product;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,7 +54,7 @@ public class Order extends BaseEntity {
 	private OrderState state;
 
 	@ElementCollection
-	private Map<Order, Integer> products;
+	private Map<Product, Integer> products;
 
 	@ModelAttribute(placeholder = "Rabatt", row = 5, column = 0)
 	private BigDecimal discount;
