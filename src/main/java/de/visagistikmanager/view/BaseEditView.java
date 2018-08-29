@@ -15,6 +15,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 
 import de.visagistikmanager.model.BaseEntity;
+import de.visagistikmanager.model.Heading;
 import de.visagistikmanager.model.LabeledEnum;
 import de.visagistikmanager.model.ListAttribute;
 import de.visagistikmanager.model.ModelAttribute;
@@ -36,6 +37,8 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import lombok.Getter;
 
 public class BaseEditView<E extends BaseEntity> extends GridPane {
@@ -172,11 +175,18 @@ public class BaseEditView<E extends BaseEntity> extends GridPane {
 
 	public BaseEditView() {
 
-		setHgap(20);
+		setHgap(15);
 		setVgap(10);
 		setPadding(new Insets(0, 10, 10, 10));
 
 		Class<Object> actualTypeBinding = ClassUtil.getActualTypeBinding(getClass(), BaseEditView.class, 0);
+
+		for (int i = 0; i < actualTypeBinding.getAnnotationsByType(Heading.class).length; i++) {
+			Heading group = actualTypeBinding.getAnnotationsByType(Heading.class)[i];
+			Text label = new Text(group.value());
+			label.setFont(Font.font ("Verdana", 20));
+			add(label, 0, group.row());
+		}
 
 		for (Field field : actualTypeBinding.getDeclaredFields()) {
 

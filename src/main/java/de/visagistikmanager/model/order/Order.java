@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import de.visagistikmanager.model.BaseEntity;
+import de.visagistikmanager.model.Heading;
 import de.visagistikmanager.model.ModelAttribute;
 import de.visagistikmanager.model.TableAttribute;
 import de.visagistikmanager.model.Title;
@@ -26,11 +27,16 @@ import lombok.Setter;
 @Setter
 @Title("Bestellung")
 @Table(name = "\"Order\"")
+@Heading(value = "Stammdaten", row = 0)
+@Heading(value = "Produkte", row = 3)
+@Heading(value = "Zahlung", row = 6)
+@Heading(value = "Lieferung", row = 9)
+@Heading(value = "Erinnerung", row = 11)
 public class Order extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@ModelAttribute(placeholder = "Quittungsnummmer", row = 0, column = 1)
+	@ModelAttribute(placeholder = "Quittungsnummmer", row = 1, column = 1)
 	@TableAttribute(headerLabel = "Quittungsnummer")
 	private Integer receiptNumber;
 
@@ -38,34 +44,34 @@ public class Order extends BaseEntity {
 	@TableAttribute(headerLabel = "Kunde")
 	private Customer customer;
 
-	@ModelAttribute(placeholder = "Erstellt am", row = 1, column = 0)
+	@ModelAttribute(placeholder = "Erstellt am", row = 2, column = 0)
 	private LocalDate createdDate = LocalDate.now();
+
+	@Enumerated(EnumType.STRING)
+	@ModelAttribute(placeholder = "Status", row = 2, column = 1)
+	@TableAttribute(headerLabel = "Bestellstatus")
+	private OrderState state;
 
 	@ElementCollection
 	private Map<Order, Integer> products;
 
-	@ModelAttribute(placeholder = "Lieferdatum", row = 3, column = 0)
-	private LocalDate deliveryDate;
+	@ModelAttribute(placeholder = "Rabatt", row = 5, column = 0)
+	private BigDecimal discount;
 
 	@Enumerated(EnumType.STRING)
-	@ModelAttribute(placeholder = "Bezahlstatus", row = 4, column = 0)
+	@ModelAttribute(placeholder = "Bezahlstatus", row = 7, column = 0)
 	@TableAttribute(headerLabel = "Bezahlstatus")
 	private PaymentState paymentState;
 
 	@Enumerated(EnumType.STRING)
-	@ModelAttribute(placeholder = "Status", row = 1, column = 1)
-	@TableAttribute(headerLabel = "Bestellstatus")
-	private OrderState state;
-
-	@Enumerated(EnumType.STRING)
-	@ModelAttribute(placeholder = "Bezahltyp", row = 4, column = 1)
+	@ModelAttribute(placeholder = "Bezahltyp", row = 7, column = 1)
 	private PaymentType paymentType;
 
 	@OneToMany
 	private Set<Payment> payments;
 
-	@ModelAttribute(placeholder = "Rabatt", row = 5, column = 0)
-	private BigDecimal discount;
+	@ModelAttribute(placeholder = "Lieferdatum", row = 10, column = 0)
+	private LocalDate deliveryDate;
 
 	public Order() {
 		this.paymentState = PaymentState.NONE;

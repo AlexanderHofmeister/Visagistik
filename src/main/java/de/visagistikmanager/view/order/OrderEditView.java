@@ -31,7 +31,7 @@ public class OrderEditView extends BaseEditView<Order> {
 		customer = customerService.listAll();
 		fillAutoCompleteCustomer(customer);
 		this.inputCustomer.setPromptText("Kunde");
-		add(this.inputCustomer, 0, 0);
+		add(this.inputCustomer, 0, 1);
 
 	}
 

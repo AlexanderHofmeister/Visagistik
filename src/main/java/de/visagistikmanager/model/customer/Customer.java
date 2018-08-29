@@ -10,6 +10,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import de.visagistikmanager.model.BaseEntity;
+import de.visagistikmanager.model.Heading;
 import de.visagistikmanager.model.ListAttribute;
 import de.visagistikmanager.model.ModelAttribute;
 import de.visagistikmanager.model.TableAttribute;
@@ -23,21 +24,24 @@ import lombok.Setter;
 @Setter
 @Title("Kunde")
 @NamedQuery(name = Customer.FIND_BY_SURNAME_AND_LASTNAME, query = "SELECT c from Customer c WHERE c.surname = :surname AND c.forename = :forename")
+@Heading(value = "Stammdaten", row = 0)
+@Heading(value = "Profil", row = 4)
+@Heading(value = "Sonstiges", row = 7)
 public class Customer extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIND_BY_SURNAME_AND_LASTNAME = "findBySurnameAndLastName";
 
-	@ModelAttribute(placeholder = "Nachname", row = 0, column = 0)
+	@ModelAttribute(placeholder = "Nachname", row = 1, column = 0)
 	@TableAttribute(headerLabel = "Nachname")
 	private String surname;
 
-	@ModelAttribute(placeholder = "Vorname", row = 0, column = 1)
+	@ModelAttribute(placeholder = "Vorname", row = 1, column = 1)
 	@TableAttribute(headerLabel = "Vorname")
 	private String forename;
 
-	@ModelAttribute(placeholder = "Geburtstag", row = 1, column = 0)
+	@ModelAttribute(placeholder = "Geburtstag", row = 1, column = 2)
 	private LocalDate birthday;
 
 	@ModelAttribute(placeholder = "Straße", row = 2, column = 0)
@@ -52,24 +56,24 @@ public class Customer extends BaseEntity {
 	@ModelAttribute(placeholder = "Ort", row = 3, column = 1)
 	private String city;
 
-	@ModelAttribute(placeholder = "Unreinheiten", row = 4, column = 0)
+	@ModelAttribute(placeholder = "Unreinheiten", row = 5, column = 0)
 	private boolean blemishes;
 
-	@ModelAttribute(placeholder = "Allergien", row = 4, column = 1)
+	@ModelAttribute(placeholder = "Allergien", row = 5, column = 1)
 	private boolean allergies;
 
 	@ElementCollection
-	@ModelAttribute(placeholder = "Hautmerkmale", row = 5, column = 0)
+	@ModelAttribute(placeholder = "Hautmerkmale", row = 6, column = 0)
 	@ListAttribute({ "Trockene Haut", "Normale Haut", "Mischhaut", "Fettige Haut" })
 	private Set<String> skinFeatures = new HashSet<>();
 
 	@ElementCollection
-	@ModelAttribute(placeholder = "Empfindlichkeit", row = 5, column = 1)
+	@ModelAttribute(placeholder = "Empfindlichkeit", row = 6, column = 1)
 	@ListAttribute({ "Nicht empfindlich", "Etwas empfindlich", "Sehr empfindlich" })
 	private Set<String> sensitivities = new HashSet<>();
 
 	@ElementCollection
-	@ModelAttribute(placeholder = "Verbesserungswünsche", row = 5, column = 2)
+	@ModelAttribute(placeholder = "Verbesserungswünsche", row = 6, column = 2)
 	@ListAttribute({ "Hautton ausgleichen", "Fältchen minimieren",
 			"Haut um die Augen straffen, pflegen und Fältchen minimieren", "zusätzliche Feuchtigkeit spenden",
 			"Augen-Make-up entfernen", "Unreinheiten bekämpfen, überschüssiges Hautfett regulieren",
@@ -77,20 +81,20 @@ public class Customer extends BaseEntity {
 	private Set<String> improvments = new HashSet<>();
 
 	@ElementCollection
-	@ModelAttribute(placeholder = "Derzeitige Hautpflege", row = 6, column = 0)
+	@ModelAttribute(placeholder = "Derzeitige Hautpflege", row = 6, column = 3)
 	@ListAttribute({ "Reinigung", "Maske", "Gesichtswasser", "Feuchtigkeitscreme", "Grundierung", "Wasser und Seife",
 			"Sonstiges" })
 	private Set<String> currentSkinCare = new HashSet<>();
 
 	@ElementCollection
-	@ModelAttribute(placeholder = "Interessiert an", row = 6, column = 1)
+	@ModelAttribute(placeholder = "Interessiert an", row = 8, column = 0)
 	@ListAttribute({ "Produkte für Familienmitglieder", "Make-up Tipps", "weitere Hautpflegeprodukte",
 			"Gastgeberinnenprogramm", "Hautpflege für Männer", "Düfte und Körperpflege", "Geschäftsmöglichkeit",
 			"Geschenkideen" })
 	private Set<String> interests = new HashSet<>();
 
 	@ElementCollection
-	@ModelAttribute(placeholder = "Kontaktoptionen", row = 6, column = 2)
+	@ModelAttribute(placeholder = "Kontaktoptionen", row = 8, column = 1)
 	@ListAttribute({ "E-Mail", "SMS", "Telefon", "Post" })
 	private Set<String> contactOptions = new HashSet<>();
 

@@ -15,19 +15,20 @@ import lombok.Setter;
 @Title("Produkt")
 @AllArgsConstructor
 @NoArgsConstructor
+@Heading(value = "Stammdaten", row = 0)
 public class Product extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@ModelAttribute(placeholder = "Produktnummer", row = 0, column = 0)
+	@ModelAttribute(placeholder = "Produktnummer", row = 1, column = 0)
 	@TableAttribute(headerLabel = "Produktnummer")
 	private Integer number;
 
-	@ModelAttribute(placeholder = "Name", row = 1, column = 0)
+	@ModelAttribute(placeholder = "Name", row = 2, column = 0)
 	@TableAttribute(headerLabel = "Name")
 	private String name;
 
-	@ModelAttribute(placeholder = "Preis", row = 1, column = 1)
+	@ModelAttribute(placeholder = "Preis", row = 2, column = 1)
 	@TableAttribute(headerLabel = "Preis")
 	private BigDecimal price;
 

@@ -6,14 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value = ElementType.FIELD)
-public @interface ModelAttribute {
-
-	public String placeholder() default "";
-
-	public int row() default 0;
-
-	public int column() default 0;
-
-
+@Target(value = ElementType.TYPE)
+public @interface Headings {
+	
+	Heading[] value();
 }
