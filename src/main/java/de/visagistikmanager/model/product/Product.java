@@ -1,9 +1,14 @@
-package de.visagistikmanager.model;
+package de.visagistikmanager.model.product;
 
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 
+import de.visagistikmanager.model.BaseEntity;
+import de.visagistikmanager.model.Heading;
+import de.visagistikmanager.model.ModelAttribute;
+import de.visagistikmanager.model.TableAttribute;
+import de.visagistikmanager.model.Title;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.fastnate.data.AbstractDataProvider;
 
-import de.visagistikmanager.model.Product;
+import de.visagistikmanager.model.product.Product;
 import lombok.Getter;
 
 public class ProductImportData extends AbstractDataProvider {

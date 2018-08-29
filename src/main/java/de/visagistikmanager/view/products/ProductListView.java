@@ -1,6 +1,6 @@
 package de.visagistikmanager.view.products;
 
-import de.visagistikmanager.model.Product;
+import de.visagistikmanager.model.product.Product;
 import de.visagistikmanager.service.ProductService;
 import de.visagistikmanager.view.BaseListView;
 import javafx.scene.layout.GridPane;
