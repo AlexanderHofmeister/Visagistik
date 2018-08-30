@@ -15,6 +15,7 @@ import de.visagistikmanager.service.ProductService;
 import de.visagistikmanager.view.BaseEditView;
 import de.visagistikmanager.view.components.AutoCompleteTextField;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.GridPane;
@@ -59,6 +60,8 @@ public class OrderEditView extends BaseEditView<Order> {
 
 	private final GridPane productListGrid = new GridPane();
 
+	private final Label subtotal = new Label();
+
 	public void fillAutoCompleteCustomer(final List<Customer> customer) {
 		this.customer = customer;
 		this.inputCustomer.getEntries()
@@ -68,6 +71,7 @@ public class OrderEditView extends BaseEditView<Order> {
 	}
 
 	public OrderEditView() {
+
 		this.inputCustomer = new AutoCompleteTextField(new TreeSet<>());
 		this.customer = this.customerService.listAll();
 		this.products = this.productService.listAll();
@@ -83,6 +87,7 @@ public class OrderEditView extends BaseEditView<Order> {
 			createProductRow();
 		});
 
+		this.productGrid.add(this.subtotal, 0, 5);
 		this.productGrid.add(createProduct, 0, 0);
 		this.productGrid.add(this.productListGrid, 0, 1);
 
@@ -94,9 +99,17 @@ public class OrderEditView extends BaseEditView<Order> {
 		final ProductRow pr = new ProductRow(this.products);
 		this.productRows.add(pr);
 		this.productGrid.add(pr.getProduct(), 0, this.productRows.size());
-		this.productGrid.add(pr.getCount(), 1, this.productRows.size());
+		final Spinner<Integer> count = pr.getCount();
+		this.productGrid.add(count, 1, this.productRows.size());
 		this.productGrid.add(pr.getRemoveButton(), 2, this.productRows.size());
 		pr.fillAutoComplete(this.products);
+		setListenerForCount(count);
+	}
+
+	private void setListenerForCount(final Spinner<Integer> count) {
+		count.valueProperty().addListener((observable, oldValue, newValue) -> {
+			this.subtotal.setText(getModel().getZwischenSummeForProducts());
+		});
 	}
 
 	@Override
@@ -116,7 +129,8 @@ public class OrderEditView extends BaseEditView<Order> {
 			final Integer count = productRow.getCount().getValue();
 			products.put(product, count);
 		});
-		model.setProducts(products);
+		model.getProducts().clear();
+		model.getProducts().putAll(products);
 
 		return model;
 	}
@@ -142,6 +156,7 @@ public class OrderEditView extends BaseEditView<Order> {
 				this.productGrid.add(product, 0, this.productRows.size());
 
 				final Spinner<Integer> count = pr.getCount();
+				setListenerForCount(count);
 				count.getValueFactory().setValue(entry.getValue());
 				this.productGrid.add(count, 1, this.productRows.size());
 				this.productGrid.add(pr.getRemoveButton(), 2,
@@ -150,7 +165,6 @@ public class OrderEditView extends BaseEditView<Order> {
 
 			});
 		}
-
 	}
 
 	private void fillAutoCompleteProduct(final List<Product> products) {

@@ -2,7 +2,9 @@ package de.visagistikmanager.model.order;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.persistence.ElementCollection;
@@ -75,9 +77,20 @@ public class Order extends BaseEntity {
 	private LocalDate deliveryDate;
 
 	public Order() {
+		this.products = new HashMap<>();
 		this.paymentState = PaymentState.NONE;
 		this.createdDate = LocalDate.now();
 		this.state = OrderState.OPEN;
+	}
+
+	public String getZwischenSummeForProducts() {
+		BigDecimal sum = BigDecimal.ZERO;
+		for (final Entry<Product, Integer> product : this.products.entrySet()) {
+			sum = sum.add(product.getKey().getPrice()
+					.multiply(new BigDecimal(product.getValue())));
+		}
+		return "Zwischensumme " + sum.toString() + " €";
+
 	}
 
 }
