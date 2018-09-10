@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.visagistikmanager</groupId>
@@ -101,6 +100,13 @@
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+
+		<dependency>
+			<groupId>de.jensd</groupId>
+			<artifactId>fontawesomefx</artifactId>
+			<version>8.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -122,7 +128,7 @@
 							<goal>import-data</goal>
 						</goals>
 						<configuration>
-						<sqlFile>src/main/resources/data.sql</sqlFile>
+							<sqlFile>src/main/resources/data.sql</sqlFile>
 							<packages>de.visagistikmanager.data</packages>
 						</configuration>
 					</execution>

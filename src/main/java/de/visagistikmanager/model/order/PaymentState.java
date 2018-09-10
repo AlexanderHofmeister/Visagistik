@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum PaymentState implements LabeledEnum {
 
-	COMPLETE("Vollst‰ndig bezahlt"),
+	COMPLETE("Vollst√§ndig bezahlt"),
 
 	PARTIALLY("Teilweise bezahlt"),
 

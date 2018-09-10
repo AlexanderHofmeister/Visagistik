@@ -1,4 +1,4 @@
-package de.visagistikmanager.view.components;
+package de.visagistikmanager.view.controller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

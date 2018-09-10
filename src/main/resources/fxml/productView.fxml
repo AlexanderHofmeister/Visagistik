@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="595.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.ProductViewController">
+	<children>
+		<Label fx:id="name" layoutX="14.0" layoutY="25.0" prefHeight="36.0" prefWidth="458.0" text="Produkt">
+			<font>
+				<Font name="Calibri Light" size="27.0" />
+			</font>
+		</Label>
+      <VBox layoutX="10.0" layoutY="87.0" prefHeight="61.0" prefWidth="100.0">
+         <children>
+            <Label fx:id="surname11" prefHeight="36.0" prefWidth="207.0" text="Geburtstag" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="birthday" prefHeight="36.0" prefWidth="207.0" text="birthday">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Label fx:id="adress" layoutX="399.0" layoutY="32.0" prefHeight="48.0" prefWidth="166.0" text="Straße 14&#10;29219 Berlin">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="surname111" layoutX="10.0" layoutY="193.0" prefHeight="36.0" prefWidth="573.0" style="-fx-background-color: #AAAAAA;" text="Profil" textAlignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <VBox layoutX="10.0" layoutY="235.0" prefHeight="60.0" prefWidth="100.0">
+         <children>
+            <Label fx:id="surname112" prefHeight="36.0" prefWidth="207.0" text="Unreinheiten" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="blemishes" prefHeight="36.0" prefWidth="207.0" text="blemishes">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="143.0" layoutY="235.0" prefHeight="60.0" prefWidth="100.0">
+         <children>
+            <Label fx:id="surname1121" prefHeight="36.0" prefWidth="207.0" text="Allergien" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="allergies" prefHeight="36.0" prefWidth="207.0" text="allergies">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="10.0" layoutY="315.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="surname1122" prefHeight="30.0" prefWidth="222.0" text="Hautmerkmale" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="skinFeatures" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="57.0" prefWidth="207.0" text="skinFeatures">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="230.0" layoutY="315.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="surname11221" prefHeight="30.0" prefWidth="222.0" text="Empfindlichkeit" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="sensitivities" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="57.0" prefWidth="207.0" text="sensitivities">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="10.0" layoutY="435.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="surname112211" prefHeight="30.0" prefWidth="222.0" text="Verbesserungswünsche" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="improvements" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="57.0" prefWidth="207.0" text="improvements">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="230.0" layoutY="435.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="surname1122111" prefHeight="30.0" prefWidth="222.0" text="Derzeitige Hautpflege" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="currentSkinCare" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="57.0" prefWidth="207.0" text="currentSkinCare">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Label layoutX="10.0" layoutY="517.0" prefHeight="36.0" prefWidth="573.0" style="-fx-background-color: #AAAAAA;" text="Sonstiges" textAlignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <VBox layoutX="10.0" layoutY="570.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="surname11222" prefHeight="30.0" prefWidth="222.0" text="Kontaktoptionen" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="contactOptions" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="57.0" prefWidth="207.0" text="contactOptions">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="230.0" layoutY="570.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="surname112221" prefHeight="30.0" prefWidth="222.0" text="Interessiert an" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="interests" alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="57.0" prefWidth="207.0" text="interests">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+	</children>
+</Pane>

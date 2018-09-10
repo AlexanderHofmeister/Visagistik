@@ -9,7 +9,7 @@ public enum PaymentType implements LabeledEnum {
 
 	CASH("Bar"),
 
-	TRANSFER("Überweisung"),
+	TRANSFER("Ãœberweisung"),
 
 	PAYPAL("PayPal");
 
