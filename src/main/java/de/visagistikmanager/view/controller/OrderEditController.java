@@ -10,12 +10,14 @@ import org.controlsfx.control.textfield.TextFields;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName;
+import de.visagistikmanager.model.customer.Customer;
 import de.visagistikmanager.model.order.Order;
 import de.visagistikmanager.model.order.OrderState;
 import de.visagistikmanager.model.order.PaymentState;
 import de.visagistikmanager.model.order.PaymentType;
 import de.visagistikmanager.model.order.ProductRow;
 import de.visagistikmanager.model.product.Product;
+import de.visagistikmanager.service.CustomerService;
 import de.visagistikmanager.service.OrderService;
 import de.visagistikmanager.service.ProductService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -46,6 +48,9 @@ public class OrderEditController implements Initializable {
 
 	@FXML
 	public TextField receiptNumber;
+
+	@FXML
+	public TextField customer;
 
 	@FXML
 	public DatePicker createdDate;
@@ -89,6 +94,8 @@ public class OrderEditController implements Initializable {
 
 	private final ProductService productService = new ProductService();
 
+	private final CustomerService customerService = new CustomerService();
+
 	@FXML
 	private TableColumn<ProductRow, String> productColumn;
 
@@ -121,6 +128,9 @@ public class OrderEditController implements Initializable {
 
 		TextFields.bindAutoCompletion(this.product,
 				this.productService.listAll().stream().map(Product::getName).collect(Collectors.toList()));
+
+		TextFields.bindAutoCompletion(this.customer,
+				this.customerService.listAll().stream().map(Customer::getFullNameInverse).collect(Collectors.toList()));
 
 		this.addProduct.setOnAction(e -> {
 			final Product foundProduct = this.productService.findByName(this.product.getText());
@@ -181,6 +191,7 @@ public class OrderEditController implements Initializable {
 
 	public void setOrder(final Order order) {
 		this.order = order;
+		this.customer.setText(order.getCustomer() == null ? "" : order.getCustomer().getFullNameInverse());
 		this.heading.setText(
 				order.isNew() ? "Bestellung anlegen" : "Bestellung " + order.getReceiptNumber() + "  bearbeiten");
 		this.receiptNumber.setText(String.valueOf(order.getReceiptNumber()));
@@ -195,6 +206,9 @@ public class OrderEditController implements Initializable {
 	}
 
 	public void saveOrder() {
+		final String[] customerInputText = this.customer.getText().split(",");
+		this.order.setCustomer(this.customerService.findBySurnameAndforename(customerInputText[0].trim(),
+				customerInputText[1].trim()));
 		this.order.setReceiptNumber(Integer.valueOf(this.receiptNumber.getText()));
 		this.order.setCreatedDate(this.createdDate.getValue());
 		this.order.setState(this.state.getValue());
