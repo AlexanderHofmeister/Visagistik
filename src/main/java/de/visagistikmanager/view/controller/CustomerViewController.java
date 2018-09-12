@@ -62,7 +62,7 @@ public class CustomerViewController implements Initializable {
 		this.name.setText(this.customer.getFullNameInverse());
 		this.birthday.setText(this.customer.getBirthday().toString());
 		this.blemishes.setText(this.customer.isBlemishes() ? "Ja" : "Nein");
-		this.allergies.setText(this.customer.isAllergies() ? "Ja" : "Nein");
+		this.allergies.setText(this.customer.getAllergies());
 		this.skinFeatures.setText(String.join("\n", this.customer.getSkinFeatures()));
 		this.sensitivities.setText(String.join("\n", this.customer.getSensitivities()));
 		this.improvements.setText(String.join("\n", this.customer.getImprovments()));

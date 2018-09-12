@@ -47,7 +47,7 @@ public class CustomerEditController implements Initializable {
 	public ToggleSwitch blemishes;
 
 	@FXML
-	public ToggleSwitch allergies;
+	public TextField allergies;
 
 	private Customer customer;
 
@@ -101,7 +101,7 @@ public class CustomerEditController implements Initializable {
 		this.zip.setText(String.valueOf(customer.getZip()));
 		this.city.setText(customer.getCity());
 		this.blemishes.setSelected(customer.isBlemishes());
-		this.allergies.setSelected(customer.isAllergies());
+		this.allergies.setText(customer.getAllergies());
 		customer.getSkinFeatures().forEach(this.skinFeatures.getCheckModel()::check);
 		customer.getSensitivities().forEach(this.sensitivities.getCheckModel()::check);
 		customer.getImprovments().forEach(this.improvements.getCheckModel()::check);
@@ -120,7 +120,7 @@ public class CustomerEditController implements Initializable {
 		this.customer.setZip(Integer.valueOf(this.zip.getText()));
 		this.customer.setCity(this.city.getText());
 		this.customer.setBlemishes(this.blemishes.isSelected());
-		this.customer.setAllergies(this.allergies.isSelected());
+		this.customer.setAllergies(this.allergies.getText());
 		this.customer.setSkinFeatures(new HashSet<>(this.skinFeatures.getCheckModel().getCheckedItems()));
 		this.customer.setSensitivities(new HashSet<>(this.sensitivities.getCheckModel().getCheckedItems()));
 		this.customer.setImprovments(new HashSet<>(this.improvements.getCheckModel().getCheckedItems()));

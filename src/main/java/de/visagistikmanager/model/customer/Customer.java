@@ -42,7 +42,7 @@ public class Customer extends BaseEntity {
 
 	private boolean blemishes;
 
-	private boolean allergies;
+	private String allergies;
 
 	@ElementCollection
 	private Set<String> skinFeatures = new HashSet<>();
