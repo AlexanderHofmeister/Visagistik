@@ -3,6 +3,7 @@ package de.visagistikmanager.view.controller;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName;
 import de.visagistikmanager.model.customer.Customer;
 import de.visagistikmanager.model.order.Order;
 import de.visagistikmanager.model.order.OrderState;
+import de.visagistikmanager.model.order.Payment;
 import de.visagistikmanager.model.order.PaymentState;
 import de.visagistikmanager.model.order.PaymentType;
 import de.visagistikmanager.model.order.ProductRow;
@@ -68,7 +70,7 @@ public class OrderEditController implements Initializable {
 	public ComboBox<PaymentState> paymentState;
 
 	@FXML
-	public ComboBox<PaymentType> paymentType;
+	private TableView<Payment> payments;
 
 	@FXML
 	public DatePicker deliveryDate;
@@ -88,7 +90,19 @@ public class OrderEditController implements Initializable {
 	private Spinner<Integer> amount;
 
 	@FXML
+	private DatePicker paymentDate;
+
+	@FXML
+	private TextField paymentAmount;
+
+	@FXML
+	private ComboBox<PaymentType> paymentType;
+
+	@FXML
 	private Button addProduct;
+
+	@FXML
+	private Button addPayment;
 
 	private final OrderService orderService = new OrderService();
 
@@ -106,7 +120,19 @@ public class OrderEditController implements Initializable {
 	private TableColumn<ProductRow, BigDecimal> priceColumn;
 
 	@FXML
-	private TableColumn<ProductRow, ProductRow> actionColumn;
+	private TableColumn<Payment, LocalDate> paymentDateColumn;
+
+	@FXML
+	private TableColumn<Payment, BigDecimal> paymentAmountColumn;
+
+	@FXML
+	private TableColumn<Payment, PaymentType> paymentTypeColumn;
+
+	@FXML
+	private TableColumn<ProductRow, ProductRow> productActionColumn;
+
+	@FXML
+	private TableColumn<Payment, Payment> paymentActionColumn;
 
 	@FXML
 	private Label subTotal;
@@ -117,8 +143,6 @@ public class OrderEditController implements Initializable {
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		calculateAndSetSums();
-
-		this.actionColumn.setPrefWidth(100);
 
 		this.discount.textProperty().addListener((observable, oldValue, newValue) -> {
 			calculateAndSetSums();
@@ -143,8 +167,10 @@ public class OrderEditController implements Initializable {
 		this.productColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getProduct().getName()));
 		this.amountColumn.setCellValueFactory(new PropertyValueFactory<ProductRow, Integer>("amount"));
 		this.priceColumn.setCellValueFactory(new PropertyValueFactory<ProductRow, BigDecimal>("price"));
-		this.actionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		this.actionColumn.setCellFactory(param -> {
+
+		this.productActionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		this.productActionColumn.setPrefWidth(100);
+		this.productActionColumn.setCellFactory(param -> {
 			return new TableCell<ProductRow, ProductRow>() {
 
 				@Override
@@ -172,9 +198,48 @@ public class OrderEditController implements Initializable {
 			};
 		});
 
+		this.paymentDateColumn.setCellValueFactory(new PropertyValueFactory<Payment, LocalDate>("date"));
+		this.paymentAmountColumn.setCellValueFactory(new PropertyValueFactory<Payment, BigDecimal>("value"));
+		this.paymentTypeColumn.setCellValueFactory(new PropertyValueFactory<Payment, PaymentType>("type"));
+		this.paymentActionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		this.paymentActionColumn.setPrefWidth(100);
+		this.paymentActionColumn.setCellFactory(param -> {
+			return new TableCell<Payment, Payment>() {
+
+				@Override
+				protected void updateItem(final Payment entity, final boolean empty) {
+					super.updateItem(entity, empty);
+
+					if (entity == null) {
+						setGraphic(null);
+						return;
+					}
+
+					final Button deleteButton = new Button();
+					final FontAwesomeIcon deleteIcon = new FontAwesomeIcon();
+					deleteIcon.setIcon(FontAwesomeIconName.TRASH);
+					deleteButton.setGraphic(deleteIcon);
+					deleteButton.getStyleClass().add("button");
+					deleteButton.setOnAction(event -> {
+						OrderEditController.this.payments.getItems().remove(entity);
+					});
+
+					setGraphic(new HBox(15, deleteButton));
+
+				}
+			};
+
+		});
+
+		this.addPayment.setOnAction(e -> {
+			this.payments.getItems().add(new Payment(this.paymentDate.getValue(),
+					new BigDecimal(this.paymentAmount.getText()), this.paymentType.getValue()));
+		});
+
 		this.state.setItems(FXCollections.observableArrayList(OrderState.values()));
 		this.paymentState.setItems(FXCollections.observableArrayList(PaymentState.values()));
 		this.paymentType.setItems(FXCollections.observableArrayList(PaymentType.values()));
+
 	}
 
 	public void calculateAndSetSums() {
@@ -199,24 +264,26 @@ public class OrderEditController implements Initializable {
 		this.state.setValue(order.getState());
 		this.discount.setText(order.getDiscount() == null ? "" : order.getDiscount().toString());
 		this.paymentState.setValue(order.getPaymentState());
-		this.paymentType.setValue(order.getPaymentType());
 		this.deliveryDate.setValue(order.getDeliveryDate());
 		this.products.getItems().setAll(order.getProducts());
+		this.payments.getItems().setAll(order.getPayments());
 
 	}
 
 	public void saveOrder() {
 		final String[] customerInputText = this.customer.getText().split(",");
-		this.order.setCustomer(this.customerService.findBySurnameAndforename(customerInputText[0].trim(),
-				customerInputText[1].trim()));
+		if (customerInputText.length == 2) {
+			this.order.setCustomer(this.customerService.findBySurnameAndforename(customerInputText[0].trim(),
+					customerInputText[1].trim()));
+		}
 		this.order.setReceiptNumber(Integer.valueOf(this.receiptNumber.getText()));
 		this.order.setCreatedDate(this.createdDate.getValue());
 		this.order.setState(this.state.getValue());
 		this.order.setDiscount(new BigDecimal(this.discount.getText()));
 		this.order.setPaymentState(this.paymentState.getValue());
-		this.order.setPaymentType(this.paymentType.getValue());
 		this.order.setDeliveryDate(this.deliveryDate.getValue());
 		this.order.setProducts(this.products.getItems());
+		this.order.setPayments(this.payments.getItems());
 		this.orderService.update(this.order);
 	}
 

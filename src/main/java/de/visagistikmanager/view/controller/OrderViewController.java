@@ -53,7 +53,6 @@ public class OrderViewController implements Initializable {
 		this.state.setText(this.order.getState().getLabel());
 		this.discount.setText(this.order.getDiscount() + " %");
 		this.paymentState.setText(this.order.getPaymentState().getLabel());
-		this.paymentType.setText(this.order.getPaymentType().getLabel());
 		this.deliveryDate.setText(this.order.getDeliveryDate().toString());
 		this.createdDate.setText(this.order.getCreatedDate().toString());
 	}
