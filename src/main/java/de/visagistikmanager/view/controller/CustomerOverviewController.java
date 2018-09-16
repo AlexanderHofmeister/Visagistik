@@ -105,7 +105,6 @@ public class CustomerOverviewController implements Initializable {
 						CustomerOverviewController.this.customerService.delete(entity);
 						loadTable();
 					});
-
 					setGraphic(new HBox(15, editButton, deleteButton));
 
 				}

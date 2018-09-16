@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.CheckListView?>
+<?import org.controlsfx.control.ToggleSwitch?>
+
+<AnchorPane prefHeight="244.0" prefWidth="1400.0"
+	stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="de.visagistikmanager.view.controller.CustomerEditProfileController">
+	<VBox minWidth="1400.0" prefWidth="1400.0">
+		<children>
+			<Label prefHeight="36.0" prefWidth="1400.0"
+				style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Profil"
+				textAlignment="RIGHT">
+				<font>
+					<Font name="System Bold" size="20.0" />
+				</font>
+				<padding>
+					<Insets left="10.0" />
+				</padding>
+			</Label>
+			<HBox>
+				<children>
+					<VBox>
+						<children>
+							<Label fx:id="surname11312" prefHeight="36.0" prefWidth="207.0"
+								text="Unreinheiten" textAlignment="CENTER">
+								<font>
+									<Font name="System Bold" size="16.0" />
+								</font>
+							</Label>
+							<ToggleSwitch fx:id="blemishes" contentDisplay="TOP"
+								textAlignment="JUSTIFY" />
+						</children>
+					</VBox>
+					<VBox>
+						<children>
+							<Label prefHeight="36.0" prefWidth="207.0" text="Allergien"
+								textAlignment="CENTER">
+								<font>
+									<Font name="System Bold" size="16.0" />
+								</font>
+							</Label>
+							<TextField fx:id="allergies" prefWidth="150.0"
+								promptText="Allergien" />
+						</children>
+					</VBox>
+				</children>
+				<padding>
+					<Insets left="15.0" />
+				</padding>
+			</HBox>
+			<HBox spacing="20.0">
+				<children>
+					<VBox prefWidth="221.0">
+						<children>
+							<Label fx:id="surname1131211" prefHeight="36.0" prefWidth="207.0"
+								text="Hautmerkmale" textAlignment="CENTER">
+								<font>
+									<Font name="System Bold" size="16.0" />
+								</font>
+							</Label>
+							<CheckListView fx:id="skinFeatures" fixedCellSize="25.0"
+								minWidth="-Infinity" prefHeight="125.0" prefWidth="300.0" />
+						</children>
+					</VBox>
+					<VBox prefWidth="221.0">
+						<children>
+							<Label fx:id="surname11312111" prefHeight="36.0" prefWidth="207.0"
+								text="Empfindlichkeiten" textAlignment="CENTER">
+								<font>
+									<Font name="System Bold" size="16.0" />
+								</font>
+							</Label>
+							<CheckListView fx:id="sensitivities" fixedCellSize="25.0"
+								minWidth="-Infinity" prefHeight="125.0" prefWidth="300.0" />
+						</children>
+					</VBox>
+					<VBox prefWidth="221.0">
+						<children>
+							<Label fx:id="surname11312112" prefHeight="36.0" prefWidth="207.0"
+								text="Verbesserungswünsche" textAlignment="CENTER">
+								<font>
+									<Font name="System Bold" size="16.0" />
+								</font>
+							</Label>
+							<CheckListView fx:id="improvements" fixedCellSize="25.0"
+								minWidth="-Infinity" prefHeight="125.0" prefWidth="300.0" />
+						</children>
+					</VBox>
+					<VBox prefWidth="221.0">
+						<children>
+							<Label fx:id="surname11312113" prefHeight="36.0" prefWidth="207.0"
+								text="Derzeitige Hautpflege" textAlignment="CENTER">
+								<font>
+									<Font name="System Bold" size="16.0" />
+								</font>
+							</Label>
+							<CheckListView fx:id="currentSkincare"
+								fixedCellSize="25.0" minWidth="-Infinity" prefHeight="125.0"
+								prefWidth="300.0" />
+						</children>
+					</VBox>
+				</children>
+				<padding>
+					<Insets left="15.0" />
+				</padding>
+			</HBox>
+		</children>
+	</VBox>
+
+</AnchorPane>

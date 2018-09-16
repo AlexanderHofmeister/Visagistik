@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import de.visagistikmanager.model.BaseEntity;
@@ -53,6 +54,32 @@ public class Order extends BaseEntity {
 		this.paymentState = PaymentState.NONE;
 		this.createdDate = LocalDate.now();
 		this.state = OrderState.OPEN;
+	}
+
+	@PreUpdate
+	private void preUpdate() {
+		System.out.println("aa");
+		System.out.println("Before: " + this.paymentState);
+		calcPaymentState();
+		System.out.println("After: " + this.paymentState);
+	}
+
+	public void calcPaymentState() {
+
+		final BigDecimal paymentSum = this.payments.stream().map(Payment::getValue).reduce(BigDecimal.ZERO,
+				BigDecimal::add);
+
+		final BigDecimal productSum = this.products.stream().map(ProductRow::getPrice).reduce(BigDecimal.ZERO,
+				BigDecimal::add);
+
+		if (paymentSum.compareTo(BigDecimal.ZERO) == 0) {
+			this.paymentState = PaymentState.NONE;
+		} else if (paymentSum.compareTo(productSum) > 0) {
+			this.paymentState = PaymentState.COMPLETE;
+		} else if (paymentSum.compareTo(productSum) < 0) {
+			this.paymentState = PaymentState.PARTIALLY;
+		}
+
 	}
 
 }

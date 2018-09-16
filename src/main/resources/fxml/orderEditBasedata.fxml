@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="150.0" prefWidth="1400.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.OrderEditBasedataController">
+   <VBox>
+      <children>
+      	<Label prefHeight="36.0" prefWidth="1400.0" style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Stammdaten" textAlignment="RIGHT">
+      		<font>
+      			<Font name="System Bold" size="20.0" />
+      		</font>
+      		<padding>
+      			<Insets left="10.0" />
+      		</padding>
+      	</Label>
+      	<HBox prefHeight="100.0" prefWidth="1350.0" spacing="100.0">
+      		<children>
+      			<VBox fillWidth="false" prefHeight="20.0" prefWidth="150.0">
+      				<children>
+      					<Label prefHeight="36.0" prefWidth="207.0" text="Quittungsnummer" textAlignment="CENTER">
+      						<font>
+      							<Font name="System Bold" size="16.0" />
+      						</font>
+      					</Label>
+      					<TextField fx:id="receiptNumber" prefWidth="150.0" promptText="Quittungsnummer" />
+      				</children>
+      			</VBox>
+      			<VBox fillWidth="false" layoutX="25.0" layoutY="10.0" prefHeight="20.0" prefWidth="150.0">
+      				<children>
+      					<Label prefHeight="36.0" prefWidth="207.0" text="Kunde" textAlignment="CENTER">
+      						<font>
+      							<Font name="System Bold" size="16.0" />
+      						</font>
+      					</Label>
+      					<TextField fx:id="customer" prefWidth="150.0" promptText="Kunde" />
+      				</children>
+      			</VBox>
+      			<VBox prefHeight="60.0" prefWidth="150.0">
+      				<children>
+      					<Label prefHeight="36.0" prefWidth="207.0" text="Erstellt am" textAlignment="CENTER">
+      						<font>
+      							<Font name="System Bold" size="16.0" />
+      						</font>
+      					</Label>
+      					<DatePicker fx:id="createdDate" promptText="Erstellt am" />
+      				</children>
+      			</VBox>
+      			<VBox layoutX="260.0" layoutY="10.0" prefHeight="60.0" prefWidth="150.0">
+      				<children>
+      					<Label prefHeight="36.0" prefWidth="207.0" text="Status" textAlignment="CENTER">
+      						<font>
+      							<Font name="System Bold" size="16.0" />
+      						</font>
+      					</Label>
+      					<ComboBox fx:id="state" prefWidth="150.0" promptText="Status" />
+      				</children>
+      			</VBox>
+      		</children>
+      		<padding>
+      			<Insets left="15.0" />
+      		</padding>
+      	</HBox>
+      </children>
+   </VBox>
+</AnchorPane>

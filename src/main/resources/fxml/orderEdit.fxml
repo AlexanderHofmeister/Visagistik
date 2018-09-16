@@ -15,235 +15,52 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="entityPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.OrderEditController">
+<Pane fx:id="entityPane" maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+	prefWidth="1000.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.OrderEditController">
 	<children>
-      <ScrollPane>
-         <content>
-      				<VBox prefHeight="800.0" prefWidth="1350.0" spacing="25.0">
-      					<children>
-      						<Label fx:id="heading" prefHeight="63.0" prefWidth="1045.0" text="heading">
-      							<font>
-      								<Font name="System Bold" size="27.0" />
-      							</font>
-      							<padding>
-      								<Insets left="10.0" top="10.0" />
-      							</padding>
-      						</Label>
-      						<Label layoutX="10.0" layoutY="69.0" prefHeight="36.0" prefWidth="1000.0" style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Stammdaten" textAlignment="RIGHT">
-      							<font>
-      								<Font name="System Bold" size="20.0" />
-      							</font>
-      							<padding>
-      								<Insets left="10.0" />
-      							</padding>
-      						</Label>
-      						<HBox fx:id="a" prefHeight="100.0" prefWidth="1350.0" spacing="100.0">
-      							<children>
-      								<VBox fillWidth="false" prefHeight="20.0" prefWidth="150.0">
-      									<children>
-      										<Label prefHeight="36.0" prefWidth="207.0" text="Quittungsnummer" textAlignment="CENTER">
-      											<font>
-      												<Font name="System Bold" size="16.0" />
-      											</font>
-      										</Label>
-      										<TextField fx:id="receiptNumber" prefWidth="150.0" promptText="Quittungsnummer" />
-      									</children>
-      								</VBox>
-                        <VBox fillWidth="false" layoutX="25.0" layoutY="10.0" prefHeight="20.0" prefWidth="150.0">
-                           <children>
-                              <Label prefHeight="36.0" prefWidth="207.0" text="Kunde" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="customer" prefWidth="150.0" promptText="Kunde" />
-                           </children>
-                        </VBox>
-      								<VBox prefHeight="60.0" prefWidth="150.0">
-      									<children>
-      										<Label prefHeight="36.0" prefWidth="207.0" text="Erstellt am" textAlignment="CENTER">
-      											<font>
-      												<Font name="System Bold" size="16.0" />
-      											</font>
-      										</Label>
-      										<DatePicker fx:id="createdDate" promptText="Erstellt am" />
-      									</children>
-      								</VBox>
-      								<VBox layoutX="260.0" layoutY="10.0" prefHeight="60.0" prefWidth="150.0">
-      									<children>
-      										<Label prefHeight="36.0" prefWidth="207.0" text="Status" textAlignment="CENTER">
-      											<font>
-      												<Font name="System Bold" size="16.0" />
-      											</font>
-      										</Label>
-      										<ComboBox fx:id="state" prefWidth="150.0" promptText="Status" />
-      									</children>
-      								</VBox>
-      							</children>
-      							<padding>
-      								<Insets left="15.0" />
-      							</padding>
-      						</HBox>
-      						<Label fx:id="surname11111" prefHeight="36.0" prefWidth="1000.0" style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Produkte" textAlignment="RIGHT">
-      							<font>
-      								<Font name="System Bold" size="20.0" />
-      							</font>
-      							<padding>
-      								<Insets left="10.0" />
-      							</padding>
-      						</Label>
-      						<VBox spacing="20.0">
-      							<children>
-      								<TableView fx:id="products" editable="true" fixedCellSize="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="500.0">
-      									<placeholder>
-      										<Label text="" />
-      									</placeholder>
-      									<columns>
-      										<TableColumn fx:id="productColumn" prefWidth="200.0" sortable="false" text="Produkt" />
-      										<TableColumn fx:id="amountColumn" editable="false" prefWidth="100.0" text="Anzahl" />
-                              <TableColumn fx:id="priceColumn" editable="false" prefWidth="100.0" text="Preis" />
-                              <TableColumn fx:id="productActionColumn" editable="false" prefWidth="100.0" text="Aktionen" />
-      									</columns>
-      									<VBox.margin>
-      										<Insets bottom="100.0" />
-      									</VBox.margin>
-      								</TableView>
-      								<HBox>
-      									<children>
-      										<TextField fx:id="product" promptText="Produkt" />
-      										<Spinner fx:id="amount" editable="true" />
-      										<Button fx:id="addProduct" mnemonicParsing="false" text="Produkt hinzufügen" />
-      									</children>
-      								</HBox>
-                        <HBox spacing="5.0">
-                           <children>
-                              <Label fx:id="subtotal1" text="Zwischensumme:">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="subTotal" text="0 €">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-      								<VBox>
-      									<children>
-      										<Label prefHeight="36.0" prefWidth="207.0" text="Rabatt" textAlignment="CENTER">
-      											<font>
-      												<Font name="System Bold" size="16.0" />
-      											</font>
-      										</Label>
-      										<TextField fx:id="discount" prefWidth="150.0" promptText="Rabatt" />
-      									</children>
-      								</VBox>
-                        <HBox spacing="5.0">
-                           <children>
-                              <Label fx:id="subtotal11" text="Summe:">
-                                 <font>
-                                    <Font name="System Bold" size="17.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="total" text="0 €">
-                                 <font>
-                                    <Font name="System Bold" size="17.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-      							</children>
-      							<padding>
-      								<Insets left="10.0" />
-      							</padding>
-      						</VBox>
-      						<Label fx:id="surname111111" prefHeight="0.0" prefWidth="1000.0" style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Zahlung" textAlignment="RIGHT">
-      							<font>
-      								<Font name="System Bold" size="20.0" />
-      							</font>
-      							<padding>
-      								<Insets left="10.0" />
-      							</padding>
-      						</Label>
-      						<HBox spacing="20.0">
-      							<padding>
-      								<Insets left="10.0" />
-      							</padding>
-                     <children>
-            								<VBox fillWidth="false" prefHeight="20.0" prefWidth="150.0">
-            									<children>
-            										<Label prefHeight="36.0" prefWidth="207.0" text="Bezahlstatus" textAlignment="CENTER">
-            											<font>
-            												<Font name="System Bold" size="16.0" />
-            											</font>
-            										</Label>
-            										<ComboBox fx:id="paymentState" prefWidth="150.0" promptText="Bezahlstatus" />
-            									</children>
-            								</VBox>
-                     </children>
-      						</HBox>
-                  <VBox spacing="10.0">
-                     <children>
-                        <TableView fx:id="payments" editable="true" fixedCellSize="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="500.0">
-                           <placeholder>
-                              <Label text="" />
-                           </placeholder>
-                           <columns>
-                              <TableColumn fx:id="paymentDateColumn" prefWidth="200.0" sortable="false" text="Datum" />
-                              <TableColumn fx:id="paymentAmountColumn" editable="false" prefWidth="100.0" text="Betrag" />
-                              <TableColumn fx:id="paymentTypeColumn" editable="false" prefWidth="100.0" text="Bezahlart" />
-                              <TableColumn fx:id="paymentActionColumn" editable="false" prefWidth="100.0" text="Aktionen" />
-                           </columns>
-                        </TableView>
-                        <HBox spacing="10.0">
-                           <children>
-                              <DatePicker fx:id="paymentDate" promptText="Datum" />
-                              <TextField fx:id="paymentAmount" promptText="Betrag" />
-                              <ComboBox fx:id="paymentType" prefWidth="150.0" />
-                              <Button fx:id="addPayment" mnemonicParsing="false" text="Zahlung hinzufügen" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-      						<Label fx:id="surname1111111" prefHeight="36.0" prefWidth="1000.0" style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Lieferung" textAlignment="RIGHT">
-      							<font>
-      								<Font name="System Bold" size="20.0" />
-      							</font>
-      							<padding>
-      								<Insets left="10.0" />
-      							</padding>
-      						</Label>
-      						<HBox spacing="20.0">
-      							<children>
-      								<VBox fillWidth="false" prefHeight="20.0" prefWidth="150.0">
-      									<children>
-      										<Label prefHeight="36.0" prefWidth="207.0" text="Lieferdatum" textAlignment="CENTER">
-      											<font>
-      												<Font name="System Bold" size="16.0" />
-      											</font>
-      										</Label>
-      										<DatePicker fx:id="deliveryDate" promptText="Lieferdatum" />
-      									</children>
-      								</VBox>
-      							</children>
-      							<padding>
-      								<Insets left="10.0" />
-      							</padding>
-      						</HBox>
-      
-                  						<HBox minHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-      							<children>
-      								<Button fx:id="cancel" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" styleClass="cancelButton" text="Abbrechen" />
-      								<Button fx:id="save" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" styleClass="saveButton" text="Speichern" />
-      							</children>
-      							<padding>
-      								<Insets left="15.0" />
-      							</padding>
-      						</HBox>
-      					</children>
-      				</VBox>
-         </content>
-      </ScrollPane>
+		<ScrollPane>
+			<content>
+				<VBox prefHeight="800.0" prefWidth="1350.0" spacing="25.0">
+					<children>
+						<Label fx:id="heading" prefHeight="63.0" prefWidth="1045.0"
+							text="heading">
+							<font>
+								<Font name="System Bold" size="27.0" />
+							</font>
+							<padding>
+								<Insets left="10.0" top="10.0" />
+							</padding>
+						</Label>
+
+
+						<fx:include fx:id="basedata" minHeight="-Infinity"
+							prefWidth="1400.0" source="orderEditBasedata.fxml" />
+						<fx:include fx:id="products" minHeight="-Infinity"
+							prefWidth="1400.0" source="orderEditProducts.fxml" />
+						<fx:include fx:id="payments" minHeight="-Infinity"
+							prefWidth="1400.0" source="orderEditPayments.fxml" />
+						<fx:include fx:id="delivery" minHeight="-Infinity"
+							prefWidth="1400.0" source="orderEditDelivery.fxml" />
+
+						<HBox minHeight="-Infinity" prefHeight="100.0" prefWidth="200.0"
+							spacing="20.0">
+							<children>
+								<Button fx:id="cancel" mnemonicParsing="false"
+									prefHeight="35.0" prefWidth="100.0" styleClass="cancelButton"
+									text="Abbrechen" />
+								<Button fx:id="save" layoutX="10.0" layoutY="10.0"
+									mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0"
+									styleClass="saveButton" text="Speichern" />
+							</children>
+							<padding>
+								<Insets left="15.0" />
+							</padding>
+						</HBox>
+					</children>
+				</VBox>
+			</content>
+		</ScrollPane>
 	</children>
 </Pane>

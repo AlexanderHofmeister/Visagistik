@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -11,18 +10,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.CheckListView?>
-<?import org.controlsfx.control.ToggleSwitch?>
 
-<Pane fx:id="entityPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.CustomerEditController">
+<Pane fx:id="entityPane" maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+	prefWidth="1000.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.CustomerEditController">
+
+
 	<children>
-		<ScrollPane fx:id="entityPane" prefHeight="800.0" prefWidth="1000.0" style="-fx-focus-color: transparent;">
+		<ScrollPane fx:id="entityPane" prefHeight="800.0"
+			prefWidth="1400.0" style="-fx-focus-color: transparent;">
 			<content>
-				<VBox prefHeight="800.0" prefWidth="1350.0" />
-			</content>
-			<content>
-				<VBox prefHeight="800.0" prefWidth="1350.0" spacing="25.0">
+				<VBox prefHeight="800.0" prefWidth="1400.0" spacing="25.0">
 					<children>
-						<Label fx:id="heading" prefHeight="63.0" prefWidth="1045.0" text="heading">
+						<Label fx:id="heading" prefHeight="49.0" prefWidth="1399.0"
+							text="heading">
 							<font>
 								<Font name="System Bold" size="27.0" />
 							</font>
@@ -30,219 +32,24 @@
 								<Insets left="10.0" top="10.0" />
 							</padding>
 						</Label>
-						<Label fx:id="surname1111" layoutX="10.0" layoutY="69.0" prefHeight="36.0" prefWidth="1000.0" style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Stammdaten" textAlignment="RIGHT">
-							<font>
-								<Font name="System Bold" size="20.0" />
-							</font>
-							<padding>
-								<Insets left="10.0" />
-							</padding>
-						</Label>
-						<HBox prefHeight="100.0" prefWidth="1350.0" spacing="100.0">
+
+						<fx:include fx:id="basedata" minHeight="-Infinity"
+							prefWidth="1400.0" source="customerEditBasedata.fxml" />
+						<fx:include fx:id="profile" minHeight="-Infinity"
+							prefWidth="1400.0" source="customerEditProfile.fxml" />
+						<fx:include fx:id="misc" minHeight="-Infinity"
+							prefWidth="1400.0" source="customerEditMisc.fxml" />
+
+
+						<HBox minHeight="-Infinity" prefHeight="100.0" prefWidth="200.0"
+							spacing="20.0">
 							<children>
-								<VBox fillWidth="false" prefHeight="20.0" prefWidth="150.0">
-									<children>
-										<Label fx:id="surname1131" prefHeight="36.0" prefWidth="207.0" text="Nachname" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<TextField fx:id="surname" prefWidth="150.0" promptText="Nachname" />
-									</children>
-								</VBox>
-								<VBox prefHeight="60.0" prefWidth="150.0">
-									<children>
-										<Label fx:id="surname11311" prefHeight="36.0" prefWidth="207.0" text="Vorname" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<TextField fx:id="forename" promptText="Vorname" />
-									</children>
-								</VBox>
-								<VBox layoutX="260.0" layoutY="10.0" prefHeight="60.0" prefWidth="150.0">
-									<children>
-										<Label fx:id="surname113111" prefHeight="36.0" prefWidth="207.0" text="Geburtstag" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<DatePicker fx:id="birthday" promptText="Geburtstag" />
-									</children>
-								</VBox>
-							</children>
-							<padding>
-								<Insets left="15.0" />
-							</padding>
-						</HBox>
-						<HBox prefHeight="100.0" prefWidth="1350.0" spacing="100.0">
-							<children>
-								<VBox fillWidth="false" prefHeight="20.0" prefWidth="150.0">
-									<children>
-										<Label fx:id="surname113" prefHeight="36.0" prefWidth="207.0" text="Straße" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<TextField fx:id="street" prefWidth="150.0" promptText="Straße" />
-									</children>
-								</VBox>
-								<VBox prefHeight="60.0" prefWidth="150.0">
-									<children>
-										<Label fx:id="surname1131" prefHeight="36.0" prefWidth="207.0" text="Hausnummer" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<TextField fx:id="streetNumber" promptText="Hausnummer" />
-									</children>
-								</VBox>
-								<VBox layoutX="260.0" layoutY="10.0" prefHeight="60.0" prefWidth="150.0">
-									<children>
-										<Label fx:id="surname11311" prefHeight="36.0" prefWidth="207.0" text="Postleitzahl" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<TextField fx:id="zip" prefWidth="150.0" promptText="Postleitzahl" />
-									</children>
-								</VBox>
-								<VBox layoutX="275.0" layoutY="10.0" prefHeight="60.0" prefWidth="150.0">
-									<children>
-										<Label fx:id="surname11313" prefHeight="36.0" prefWidth="207.0" text="Ort" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<TextField fx:id="city" promptText="Ort" />
-									</children>
-								</VBox>
-							</children>
-							<padding>
-								<Insets left="15.0" />
-							</padding>
-						</HBox>
-						<Label fx:id="surname11111" prefHeight="36.0" prefWidth="1000.0" style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Profil" textAlignment="RIGHT">
-							<font>
-								<Font name="System Bold" size="20.0" />
-							</font>
-							<padding>
-								<Insets left="10.0" />
-							</padding>
-						</Label>
-						<HBox>
-							<children>
-								<VBox>
-									<children>
-										<Label fx:id="surname11312" prefHeight="36.0" prefWidth="207.0" text="Unreinheiten" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<ToggleSwitch fx:id="blemishes" contentDisplay="TOP" textAlignment="JUSTIFY" />
-									</children>
-								</VBox>
-								<VBox>
-									<children>
-										<Label prefHeight="36.0" prefWidth="207.0" text="Allergien" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-                              <TextField fx:id="allergies" prefWidth="150.0" promptText="Allergien" />
-									</children>
-								</VBox>
-							</children>
-							<padding>
-								<Insets left="15.0" />
-							</padding>
-						</HBox>
-						<HBox spacing="20.0">
-							<children>
-								<VBox prefWidth="221.0">
-									<children>
-										<Label fx:id="surname1131211" prefHeight="36.0" prefWidth="207.0" text="Hautmerkmale" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<CheckListView fx:id="skinFeatures" prefHeight="200.0" prefWidth="200.0" />
-									</children>
-								</VBox>
-								<VBox prefWidth="221.0">
-									<children>
-										<Label fx:id="surname11312111" prefHeight="36.0" prefWidth="207.0" text="Empfindlichkeiten" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<CheckListView fx:id="sensitivities" prefHeight="200.0" prefWidth="200.0" />
-									</children>
-								</VBox>
-								<VBox prefWidth="221.0">
-									<children>
-										<Label fx:id="surname11312112" prefHeight="36.0" prefWidth="207.0" text="Verbesserungswünsche" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<CheckListView fx:id="improvements" prefHeight="200.0" prefWidth="200.0" />
-									</children>
-								</VBox>
-								<VBox prefWidth="221.0">
-									<children>
-										<Label fx:id="surname11312113" prefHeight="36.0" prefWidth="207.0" text="Derzeitige Hautpflege" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<CheckListView fx:id="currentSkincare" prefHeight="200.0" prefWidth="200.0" />
-									</children>
-								</VBox>
-							</children>
-							<padding>
-								<Insets left="15.0" />
-							</padding>
-						</HBox>
-						<Label fx:id="surname111111" prefHeight="36.0" prefWidth="1000.0" style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Sonstiges" textAlignment="RIGHT">
-							<font>
-								<Font name="System Bold" size="20.0" />
-							</font>
-							<padding>
-								<Insets left="10.0" />
-							</padding>
-						</Label>
-						<HBox prefWidth="1350.0" spacing="20.0">
-							<children>
-								<VBox prefWidth="221.0">
-									<children>
-										<Label fx:id="surname113121131" prefHeight="36.0" prefWidth="207.0" text="Kontaktoptionen" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<CheckListView fx:id="contactOptions" prefHeight="200.0" prefWidth="200.0" />
-									</children>
-								</VBox>
-								<VBox layoutX="25.0" layoutY="10.0" prefWidth="221.0">
-									<children>
-										<Label prefHeight="36.0" prefWidth="207.0" text="Interessen" textAlignment="CENTER">
-											<font>
-												<Font name="System Bold" size="16.0" />
-											</font>
-										</Label>
-										<CheckListView fx:id="interests" prefHeight="200.0" prefWidth="200.0" />
-									</children>
-								</VBox>
-							</children>
-							<padding>
-								<Insets left="15.0" />
-							</padding>
-						</HBox>
-						<HBox minHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-							<children>
-								<Button fx:id="cancel" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" styleClass="cancelButton" text="Abbrechen" />
-								<Button fx:id="save" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" styleClass="saveButton" text="Speichern" />
+								<Button fx:id="cancel" mnemonicParsing="false"
+									prefHeight="35.0" prefWidth="100.0" styleClass="cancelButton"
+									text="Abbrechen" />
+								<Button fx:id="save" layoutX="10.0" layoutY="10.0"
+									mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0"
+									styleClass="saveButton" text="Speichern" />
 							</children>
 							<padding>
 								<Insets left="15.0" />
