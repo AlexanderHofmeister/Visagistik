@@ -70,16 +70,11 @@ public class ProductOverviewController implements Initializable {
 			return row;
 		});
 
-		final TableColumn<Product, Product> actionColumn = new TableColumn<>("Aktionen");
-		actionColumn.setMinWidth(250);
-
+		final TableColumn<Product, Product> actionColumn = controller.getAction();
 		actionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		productTable.getColumns().add(actionColumn);
 
 		actionColumn.setCellFactory(param -> {
 			return new TableCell<Product, Product>() {
-
-				//
 
 				@Override
 				protected void updateItem(final Product entity, final boolean empty) {

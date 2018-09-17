@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="819.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.CustomerTableController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.CustomerTableController">
 	<children>
       <VBox fillWidth="false" prefHeight="800.0" prefWidth="824.0" spacing="20.0">
          <children>
@@ -17,12 +17,12 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-      		<TableView fx:id="customerTable" fixedCellSize="60.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="525.0">
+      		<TableView fx:id="customerTable" fixedCellSize="60.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="620.0">
       			<columns>
       				<TableColumn fx:id="surname" prefWidth="150.0" resizable="false" text="Vorname" />
-      				<TableColumn fx:id="forename" prefWidth="150.0" resizable="false" text="Nachname" />
-      				<TableColumn fx:id="adress" maxWidth="150.0" prefWidth="100.0" resizable="false" text="Anschrift" />
-                  <TableColumn fx:id="action" editable="false" maxWidth="150.0" prefWidth="107.20001220703125" resizable="false" sortable="false" text="Aktionen" />
+      				<TableColumn fx:id="forename" maxWidth="150.0" prefWidth="150.0" resizable="false" text="Nachname" />
+      				<TableColumn fx:id="adress" maxWidth="150.0" prefWidth="150.0" resizable="false" text="Anschrift" />
+                  <TableColumn fx:id="action" editable="false" maxWidth="150.0" prefWidth="150.0" resizable="false" sortable="false" text="Aktionen" />
       			</columns>
       			<cursor>
       				<Cursor fx:constant="DEFAULT" />
