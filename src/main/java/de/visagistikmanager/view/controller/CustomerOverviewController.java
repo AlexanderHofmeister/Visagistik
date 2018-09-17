@@ -70,11 +70,8 @@ public class CustomerOverviewController implements Initializable {
 			return row;
 		});
 
-		final TableColumn<Customer, Customer> actionColumn = new TableColumn<>("Aktionen");
-		actionColumn.setMinWidth(250);
-
+		final TableColumn<Customer, Customer> actionColumn = controller.getAction();
 		actionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		customerTable.getColumns().add(actionColumn);
 
 		actionColumn.setCellFactory(param -> {
 			return new TableCell<Customer, Customer>() {

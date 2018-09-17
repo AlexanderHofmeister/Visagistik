@@ -22,18 +22,21 @@ public class CustomerImportData extends AbstractDataProvider {
 	/** Create the entities. */
 	@Override
 	public void buildEntities() throws IOException {
-		addCustomer("Alexander", "Mustermann", "Straße", "14D", 12020, "Berlüüün", true, "Senf",
-				new HashSet<>(Arrays.asList("Trockene Haut", "Fettige Haut")));
-		addCustomer("Bugs", "Bunny", "Straße", "14D", 12020, "Berlüüün", false, "Senf",
-				new HashSet<>(Arrays.asList("Trockene Haut", "Fettige Haut")));
-		addCustomer("Daisy", "Duck", "Straße", "14D", 12020, "Berlüüün", true, "Erdnüsse",
-				new HashSet<>(Arrays.asList("Trockene Haut", "Fettige Haut")));
-		addCustomer("Donal", "Duck", "Straße", "14D", 12020, "Berlüüün", true, "Mais",
-				new HashSet<>(Arrays.asList("Trockene Haut", "Fettige Haut")));
-		addCustomer("Nina", "Hagen", "Straße", "14D", 12020, "Berlüüün", true, "Soja",
-				new HashSet<>(Arrays.asList("Trockene Haut", "Fettige Haut")));
-		addCustomer("Jennie", "Musterfrau", "Straße", "14D", 12020, "Blub", true, "Weizen",
-				new HashSet<>(Arrays.asList("Trockene Haut", "Fettige Haut")));
+		for (int i = 0; i < 40; i++) {
+
+			addCustomer("Alexander", "Mustermann", "Straße", "14D", 12020, "Berlüüün", true, "Senf",
+					new HashSet<>(Arrays.asList("Trockene Haut", "Fettige Haut")));
+			addCustomer("Bugs", "Bunny", "Straße", "14D", 12020, "Berlüüün", false, "Senf",
+					new HashSet<>(Arrays.asList("Trockene Haut", "Fettige Haut")));
+			addCustomer("Daisy", "Duck", "Straße", "14D", 12020, "Berlüüün", true, "Erdnüsse",
+					new HashSet<>(Arrays.asList("Trockene Haut", "Fettige Haut")));
+			addCustomer("Donald", "Duck", "Straße", "14D", 12020, "Berlüüün", true, "Mais",
+					new HashSet<>(Arrays.asList("Trockene Haut", "Fettige Haut")));
+			addCustomer("Nina", "Hagen", "Straße", "14D", 12020, "Berlüüün", true, "Soja",
+					new HashSet<>(Arrays.asList("Trockene Haut", "Fettige Haut")));
+			addCustomer("Jennie", "Musterfrau", "Straße", "14D", 12020, "Blub", true, "Weizen",
+					new HashSet<>(Arrays.asList("Trockene Haut", "Fettige Haut")));
+		}
 	}
 
 	private void addCustomer(final String forename, final String surename, final String street,
