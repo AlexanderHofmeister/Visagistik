@@ -18,7 +18,7 @@
       				<TableColumn fx:id="number" prefWidth="150.0" resizable="false" text="Produktnummer" />
       				<TableColumn fx:id="name" prefWidth="150.0" resizable="false" text="Name" />
       				<TableColumn fx:id="price" prefWidth="150.0" resizable="false" text="Preis" />
-                  <TableColumn fx:id="action" prefWidth="170.0" resizable="false" text="Aktionen" />
+                  <TableColumn fx:id="action" maxWidth="170.0" prefWidth="170.0" resizable="false" text="Aktionen" />
       			</columns>
       			<cursor>
       				<Cursor fx:constant="DEFAULT" />

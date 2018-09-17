@@ -12,11 +12,7 @@
 	<children>
       <VBox fillWidth="false" prefHeight="800.0" prefWidth="824.0" spacing="20.0">
          <children>
-            <TextField fx:id="filterField" prefHeight="25.0" prefWidth="250.0" promptText="Suchbegriff">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </TextField>
+            <TextField fx:id="filterField" prefHeight="25.0" prefWidth="250.0" promptText="Suchbegriff"/>
       		<TableView fx:id="customerTable" fixedCellSize="60.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="620.0">
       			<columns>
       				<TableColumn fx:id="surname" prefWidth="150.0" resizable="false" text="Vorname" />

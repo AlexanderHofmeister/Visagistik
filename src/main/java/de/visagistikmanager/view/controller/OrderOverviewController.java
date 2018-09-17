@@ -69,8 +69,7 @@ public class OrderOverviewController implements Initializable {
 			return row;
 		});
 
-		final TableColumn<Order, Order> actionColumn = new TableColumn<>("Aktionen");
-		actionColumn.setMinWidth(250);
+		final TableColumn<Order, Order> actionColumn = controller.getAction();
 
 		actionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		orderTable.getColumns().add(actionColumn);

@@ -22,7 +22,9 @@ public class OrderImportData extends AbstractDataProvider {
 	/** Create the entities. */
 	@Override
 	public void buildEntities() throws IOException {
-		addOrder(5, PaymentState.COMPLETE, OrderState.OPEN, new BigDecimal(20));
+		for (int i = 0; i < 100; i++) {
+			addOrder(i, PaymentState.values()[i % 3], OrderState.values()[i % 3], new BigDecimal(i));
+		}
 	}
 
 	private void addOrder(final Integer receiptNumber, final PaymentState paymentState, final OrderState orderState,

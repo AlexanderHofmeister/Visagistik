@@ -58,10 +58,7 @@ public class Order extends BaseEntity {
 
 	@PreUpdate
 	private void preUpdate() {
-		System.out.println("aa");
-		System.out.println("Before: " + this.paymentState);
 		calcPaymentState();
-		System.out.println("After: " + this.paymentState);
 	}
 
 	public void calcPaymentState() {
