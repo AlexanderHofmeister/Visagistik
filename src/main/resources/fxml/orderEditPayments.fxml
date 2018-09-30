@@ -13,10 +13,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="350.0" prefWidth="1400.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.OrderEditPaymentsController">
+<AnchorPane prefHeight="350.0" prefWidth="1400.0"
+	stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="de.visagistikmanager.view.controller.OrderEditPaymentsController">
 	<VBox spacing="20.0">
 		<children>
-			<Label prefHeight="36.0" prefWidth="1000.0" style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Zahlung" textAlignment="RIGHT">
+			<Label prefHeight="36.0" prefWidth="1000.0"
+				style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Zahlung"
+				textAlignment="RIGHT">
 				<font>
 					<Font name="System Bold" size="20.0" />
 				</font>
@@ -26,50 +31,44 @@
 			</Label>
 			<HBox spacing="20.0">
 				<children>
-							<TableView fx:id="payments" editable="true" fixedCellSize="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0">
-								<placeholder>
-									<Label text="" />
-								</placeholder>
-								<columns>
-									<TableColumn fx:id="dateColumn" prefWidth="200.0" sortable="false" text="Datum" />
-									<TableColumn fx:id="amountColumn" editable="false" prefWidth="100.0" text="Betrag" />
-									<TableColumn fx:id="typeColumn" editable="false" prefWidth="100.0" text="Bezahlart" />
-									<TableColumn fx:id="actionColumn" editable="false" prefWidth="100.0" text="Aktionen" />
-								</columns>
-                  <padding>
-                     <Insets left="10.0" />
-                  </padding>
-							</TableView>
-					<VBox spacing="20.0">
-						<children>
-							<VBox fillWidth="false" prefHeight="20.0" prefWidth="150.0">
-								<children>
-									<Label prefHeight="36.0" prefWidth="207.0" text="Bezahlstatus" textAlignment="CENTER">
-										<font>
-											<Font name="System Bold" size="16.0" />
-										</font>
-									</Label>
-									<Label fx:id="paymentState" text="paymentState" />
-								</children>
-							</VBox>
-						</children>
-					</VBox>
+					<TableView fx:id="payments" editable="true"
+						fixedCellSize="40.0" maxHeight="-Infinity" maxWidth="-Infinity"
+						minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0"
+						prefWidth="500.0">
+						<placeholder>
+							<Label text="" />
+						</placeholder>
+						<columns>
+							<TableColumn fx:id="dateColumn" prefWidth="200.0"
+								sortable="false" text="Datum" />
+							<TableColumn fx:id="amountColumn" editable="false"
+								prefWidth="100.0" text="Betrag" />
+							<TableColumn fx:id="typeColumn" editable="false"
+								prefWidth="100.0" text="Bezahlart" />
+							<TableColumn fx:id="actionColumn" editable="false"
+								prefWidth="100.0" text="Aktionen" />
+						</columns>
+						<padding>
+							<Insets left="10.0" />
+						</padding>
+					</TableView>
 				</children>
 			</HBox>
-      							<HBox spacing="10.0">
-      								<children>
-      									<DatePicker fx:id="date" promptText="Datum" />
-      									<TextField fx:id="amount" promptText="Betrag" />
-      									<ComboBox fx:id="type" prefWidth="150.0" />
-      									<Button fx:id="addPayment" mnemonicParsing="false" text="Zahlung hinzufügen" />
-      								</children>
-            <padding>
-               <Insets left="10.0" />
-            </padding>
-      							</HBox>
+			<HBox spacing="10.0">
+				<children>
+					<DatePicker fx:id="date" promptText="Datum" />
+					<TextField fx:id="amount" promptText="Betrag" />
+					<ComboBox fx:id="type" prefWidth="150.0" />
+					<Button fx:id="addPayment" mnemonicParsing="false"
+						text="Zahlung hinzufügen" />
+				</children>
+				<padding>
+					<Insets left="10.0" />
+				</padding>
+			</HBox>
 		</children>
 	</VBox>
-   <padding>
-      <Insets bottom="20.0" />
-   </padding>
+	<padding>
+		<Insets bottom="20.0" />
+	</padding>
 </AnchorPane>
