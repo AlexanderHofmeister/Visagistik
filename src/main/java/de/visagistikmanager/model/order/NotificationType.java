@@ -13,4 +13,9 @@ public enum NotificationType implements LabeledEnum {
 
 	@Getter
 	private final String label;
+
+	@Override
+	public String toString() {
+		return this.label;
+	}
 }

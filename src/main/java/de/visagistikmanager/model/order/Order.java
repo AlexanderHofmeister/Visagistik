@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
@@ -55,7 +54,7 @@ public class Order extends BaseEntity {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "OrderNotifications")
-	private Set<Notification> notifications;
+	private List<Notification> notifications;
 
 	public Order() {
 		this.products = new ArrayList<>();

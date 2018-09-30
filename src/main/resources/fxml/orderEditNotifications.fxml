@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="350.0" prefWidth="1400.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.OrderEditNotificationsController">
+	<VBox spacing="20.0">
+		<children>
+			<Label prefHeight="36.0" prefWidth="1000.0" style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Benachrichtigungen" textAlignment="RIGHT">
+				<font>
+					<Font name="System Bold" size="20.0" />
+				</font>
+				<padding>
+					<Insets left="10.0" />
+				</padding>
+			</Label>
+			<HBox>
+				<VBox.margin>
+					<Insets />
+				</VBox.margin>
+				<children>
+					<TableView fx:id="notifications" editable="true" fixedCellSize="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0">
+						<placeholder>
+							<Label text="" />
+						</placeholder>
+						<columns>
+							<TableColumn fx:id="typeColumn" prefWidth="200.0" sortable="false" text="Typ" />
+							<TableColumn fx:id="dateColumn" editable="false" prefWidth="100.0" text="Datum" />
+							<TableColumn fx:id="doneColumn" editable="false" prefWidth="100.0" text="Erledigt" />
+							<TableColumn fx:id="notificationActionColumn" editable="false" prefWidth="100.0" text="Aktionen" />
+						</columns>
+						<padding>
+							<Insets left="10.0" />
+						</padding>
+					</TableView>
+				</children>
+			</HBox>
+			<HBox fillHeight="false" spacing="10.0">
+				<children>
+               <ComboBox fx:id="notificationType" prefWidth="150.0" promptText="Typ" />
+               <DatePicker fx:id="date" />
+					<Button fx:id="addNotification" mnemonicParsing="false" text="Benachrichtigung hinzufügen" />
+				</children>
+				<padding>
+					<Insets left="10.0" />
+				</padding>
+			</HBox>
+		</children>
+	</VBox>
+	<padding>
+		<Insets bottom="20.0" />
+	</padding>
+</AnchorPane>

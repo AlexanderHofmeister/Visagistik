@@ -21,6 +21,9 @@ public class OrderEditController {
 	@FXML
 	private OrderEditDeliveryController deliveryController;
 
+	@FXML
+	private OrderEditNotificationsController notificationsController;
+
 	private Order order;
 
 	@FXML
@@ -44,6 +47,7 @@ public class OrderEditController {
 		this.productsController.setValuesFromEntity(order);
 		this.paymentsController.setValuesFromEntity(order);
 		this.deliveryController.setValuesFromEntity(order);
+		this.notificationsController.setValuesFromEntity(order);
 
 	}
 
@@ -52,6 +56,7 @@ public class OrderEditController {
 		this.productsController.applyValuesToEntity(this.order);
 		this.paymentsController.applyValuesToEntity(this.order);
 		this.deliveryController.applyValuesToEntity(this.order);
+		this.notificationsController.applyValuesToEntity(this.order);
 		this.orderService.update(this.order);
 	}
 

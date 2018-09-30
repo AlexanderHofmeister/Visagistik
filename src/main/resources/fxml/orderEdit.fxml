@@ -43,6 +43,8 @@
 							prefWidth="1400.0" source="orderEditPayments.fxml" />
 						<fx:include fx:id="delivery" minHeight="-Infinity"
 							prefWidth="1400.0" source="orderEditDelivery.fxml" />
+						<fx:include fx:id="notifications" minHeight="-Infinity"
+							prefWidth="1400.0" source="orderEditNotifications.fxml" />
 
 						<HBox minHeight="-Infinity" prefHeight="100.0" prefWidth="200.0"
 							spacing="20.0">
