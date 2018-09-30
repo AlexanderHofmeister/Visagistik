@@ -70,7 +70,7 @@
 }
 
 .table-view .scroll-bar:horizontal {
-    -fx-scale-y: 0;
+    -fx-scale-y: 0.0;
 }
 
  .increment-button:hover , .decrement-button:hover {
@@ -101,5 +101,31 @@
 .cancelButton {
 	-fx-background-color: #ea123a;
 	-fx-font-weight: bold;
+}
+
+.calendar{
+	-fx-background-color: #685e5e;
+}
+
+.calendarCell{
+	-fx-font-weight: bold;
+	-fx-text-background-color: white;
+}
+
+.selectedDayCell{
+	-fx-border-color:black; -fx-border-width: 1.0; -fx-border-style:solid;
+}
+
+.todayDayCell{
+	-fx-background-color: lightblue;
+}
+
+.notCurrentMonthCell{
+	-fx-text-background-color: gray;
+}
+
+.hasNotification{
+	-fx-font-weight: bold;
+	 -fx-text-background-color: red;
 }
 
