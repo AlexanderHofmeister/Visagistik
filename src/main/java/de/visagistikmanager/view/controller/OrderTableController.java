@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import de.visagistikmanager.model.order.Order;
+import de.visagistikmanager.model.order.OrderState;
 import de.visagistikmanager.service.OrderService;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
@@ -38,7 +39,7 @@ public class OrderTableController implements Initializable {
 	private TableColumn<Order, String> customer;
 
 	@FXML
-	private TableColumn<Order, String> state;
+	private TableColumn<Order, OrderState> state;
 
 	@FXML
 	private TableColumn<Order, String> paymentState;
@@ -104,7 +105,7 @@ public class OrderTableController implements Initializable {
 			return new SimpleStringProperty(tableCell.getValue().getCustomer().getFullNameInverse());
 		});
 
-		this.state.setCellValueFactory(new PropertyValueFactory<Order, String>("state"));
+		this.state.setCellValueFactory(new PropertyValueFactory<Order, OrderState>("state"));
 		this.paymentState.setCellValueFactory(new PropertyValueFactory<Order, String>("paymentState"));
 		this.orderTable.maxHeightProperty()
 				.bind(Bindings.size(this.orderTable.getItems()).multiply(this.orderTable.getFixedCellSize()).add(30));

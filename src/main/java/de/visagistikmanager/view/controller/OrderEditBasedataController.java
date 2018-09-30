@@ -43,15 +43,6 @@ public class OrderEditBasedataController implements BaseEditController<Order>, I
 
 	@Override
 	public void applyValuesToEntity(final Order order) {
-		this.receiptNumber.setText(String.valueOf(order.getReceiptNumber()));
-		this.customer.setText(order.getCustomer() == null ? "" : order.getCustomer().getFullNameInverse());
-		this.createdDate.setValue(order.getCreatedDate());
-		this.state.setValue(order.getState());
-
-	}
-
-	@Override
-	public void setValuesFromEntity(final Order order) {
 		order.setReceiptNumber(
 				this.receiptNumber.getText().isEmpty() ? null : Integer.valueOf(this.receiptNumber.getText()));
 		final String[] customerInputText = this.customer.getText().split(",");
@@ -61,6 +52,17 @@ public class OrderEditBasedataController implements BaseEditController<Order>, I
 		}
 		order.setCreatedDate(this.createdDate.getValue());
 		order.setState(this.state.getValue());
+
 	}
 
+	@Override
+	public void setValuesFromEntity(final Order order) {
+		final Integer currentReceiptNumber = order.getReceiptNumber();
+		if (currentReceiptNumber != null) {
+			this.receiptNumber.setText(String.valueOf(currentReceiptNumber));
+		}
+		this.customer.setText(order.getCustomer() == null ? "" : order.getCustomer().getFullNameInverse());
+		this.createdDate.setValue(order.getCreatedDate());
+		this.state.setValue(order.getState());
+	}
 }
