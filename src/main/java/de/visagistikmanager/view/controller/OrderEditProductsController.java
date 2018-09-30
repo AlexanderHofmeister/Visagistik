@@ -80,7 +80,6 @@ public class OrderEditProductsController implements Initializable, BaseEditContr
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		calculateAndSetSums();
 
 		this.discount.textProperty().addListener((observable, oldValue, newValue) -> {
 			calculateAndSetSums();
@@ -132,7 +131,7 @@ public class OrderEditProductsController implements Initializable, BaseEditContr
 				}
 			};
 		});
-
+		calculateAndSetSums();
 	}
 
 	public void calculateAndSetSums() {
@@ -156,6 +155,7 @@ public class OrderEditProductsController implements Initializable, BaseEditContr
 	public void setValuesFromEntity(final Order order) {
 		this.discount.setText(order.getDiscount() == null ? "" : order.getDiscount().toString());
 		this.products.getItems().setAll(order.getProducts());
+		calculateAndSetSums();
 	}
 
 }
