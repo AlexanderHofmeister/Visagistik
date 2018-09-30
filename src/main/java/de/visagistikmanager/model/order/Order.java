@@ -42,6 +42,8 @@ public class Order extends BaseEntity {
 	@ElementCollection
 	private List<ProductRow> products;
 
+	private BigDecimal discountPercentage;
+
 	private BigDecimal discount;
 
 	@Enumerated(EnumType.STRING)

@@ -39,7 +39,10 @@ public class OrderEditProductsController implements Initializable, BaseEditContr
 	private TableView<ProductRow> products;
 
 	@FXML
-	public TextField discount;
+	public TextField discountPercentage;
+
+	@FXML
+	public Label discount;
 
 	@FXML
 	@Getter
@@ -81,7 +84,7 @@ public class OrderEditProductsController implements Initializable, BaseEditContr
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 
-		this.discount.textProperty().addListener((observable, oldValue, newValue) -> {
+		this.discountPercentage.textProperty().addListener((observable, oldValue, newValue) -> {
 			calculateAndSetSums();
 		});
 
@@ -138,23 +141,28 @@ public class OrderEditProductsController implements Initializable, BaseEditContr
 		final BigDecimal subTotalSum = this.products.getItems().stream().map(ProductRow::getPrice)
 				.reduce(BigDecimal.ZERO, BigDecimal::add);
 		this.subTotal.setText(subTotalSum + " €");
-		final String currentDiscount = this.discount.getText();
-		this.total.setText(subTotalSum
-				.subtract(subTotalSum.divide(new BigDecimal(100))
-						.multiply(currentDiscount.isEmpty() ? BigDecimal.ZERO : new BigDecimal(currentDiscount)))
-				.setScale(2, RoundingMode.CEILING) + " €");
+		final String currentDiscount = this.discountPercentage.getText();
+		final BigDecimal discountValue = subTotalSum.divide(new BigDecimal(100))
+				.multiply(currentDiscount.isEmpty() ? BigDecimal.ZERO : new BigDecimal(currentDiscount))
+				.setScale(2, RoundingMode.CEILING);
+		final BigDecimal total = subTotalSum.subtract(discountValue).setScale(2, RoundingMode.CEILING);
+		this.total.setText(total + " €");
+		this.discount.setText(discountValue.toString());
 	}
 
 	@Override
 	public void applyValuesToEntity(final Order order) {
-		order.setDiscount(new BigDecimal(this.discount.getText()));
+		order.setDiscountPercentage(new BigDecimal(this.discountPercentage.getText()));
 		order.setProducts(this.products.getItems());
+		order.setDiscount(new BigDecimal(this.discount.getText()));
 	}
 
 	@Override
 	public void setValuesFromEntity(final Order order) {
-		this.discount.setText(order.getDiscount() == null ? "" : order.getDiscount().toString());
+		this.discountPercentage
+				.setText(order.getDiscountPercentage() == null ? "" : order.getDiscountPercentage().toString());
 		this.products.getItems().setAll(order.getProducts());
+		this.discount.setText(order.getDiscount() == null ? "" : order.getDiscount().toString());
 		calculateAndSetSums();
 	}
 

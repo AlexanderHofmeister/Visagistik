@@ -68,7 +68,7 @@
             							<Font name="System Bold" size="16.0" />
             						</font>
             					</Label>
-            					<TextField fx:id="discount" prefWidth="150.0" promptText="Rabatt" />
+            					<TextField fx:id="discountPercentage" prefWidth="150.0" promptText="Rabatt" />
             				</children>
                         <padding>
                            <Insets left="10.0" />
@@ -76,12 +76,12 @@
             			</VBox>
             			<HBox fillHeight="false" spacing="5.0">
             				<children>
-            					<Label text="Summe:">
+            					<Label text="Rabatt: ">
             						<font>
             							<Font name="System Bold" size="17.0" />
             						</font>
             					</Label>
-            					<Label fx:id="total" text="0 €">
+            					<Label fx:id="discount" text="0 €">
             						<font>
             							<Font name="System Bold" size="17.0" />
             						</font>
@@ -91,6 +91,23 @@
                            <Insets left="10.0" />
                         </padding>
             			</HBox>
+                     <HBox fillHeight="false" layoutX="10.0" layoutY="131.0" spacing="5.0">
+                        <children>
+                           <Label text="Summe:">
+                              <font>
+                                 <Font name="System Bold" size="17.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="total" text="0 €">
+                              <font>
+                                 <Font name="System Bold" size="17.0" />
+                              </font>
+                           </Label>
+                        </children>
+                        <padding>
+                           <Insets left="10.0" />
+                        </padding>
+                     </HBox>
                   </children>
                </VBox>
             </children>

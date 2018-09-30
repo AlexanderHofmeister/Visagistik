@@ -29,14 +29,14 @@ public class OrderImportData extends AbstractDataProvider {
 
 	private void addOrder(final Integer receiptNumber, final PaymentState paymentState, final OrderState orderState,
 			final BigDecimal discount) {
-		final Order Order = new Order();
-		Order.setReceiptNumber(receiptNumber);
-		Order.setCreatedDate(LocalDate.now());
-		Order.setDeliveryDate(LocalDate.now());
-		Order.setPaymentState(paymentState);
-		Order.setState(orderState);
-		Order.setDiscount(discount);
-		this.entities.add(Order);
+		final Order order = new Order();
+		order.setReceiptNumber(receiptNumber);
+		order.setCreatedDate(LocalDate.now());
+		order.setDeliveryDate(LocalDate.now());
+		order.setPaymentState(paymentState);
+		order.setState(orderState);
+		order.setDiscountPercentage(discount);
+		this.entities.add(order);
 
 	}
 }
