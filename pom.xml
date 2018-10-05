@@ -114,12 +114,18 @@
 			<type>pom</type>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity -->
 		<dependency>
-			<groupId>com.calendarfx</groupId>
-			<artifactId>view</artifactId>
-			<version>11.5.0</version>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>html2pdf</artifactId>
+			<version>2.1.0</version>
+		</dependency>
 
 
 	</dependencies>
@@ -165,7 +171,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<main-class>de.visagistikmanager.core.Starter</main-class>
+							<main-class>de.visagistikmanager.view.controller.Starter</main-class>
 						</manifest>
 					</archive>
 					<descriptorRefs>
