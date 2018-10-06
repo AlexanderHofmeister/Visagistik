@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 import de.visagistikmanager.model.order.Notification;
 import de.visagistikmanager.service.NotificationService;
+import de.visagistikmanager.util.DateUtil;
 import de.visagistikmanager.view.components.CalendarView;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -75,13 +76,9 @@ public class StartController implements Initializable {
 				.min(Comparator.comparingLong(item -> ChronoUnit.DAYS.between(now, item)));
 
 		if (firstNotificationDayAfterToday.isPresent()) {
-			this.notificationDayLabel.setText(buildNotificationDateLabel(firstNotificationDayAfterToday.get()));
+			this.notificationDayLabel.setText(DateUtil.formatDate(firstNotificationDayAfterToday.get()));
 		}
 
-	}
-
-	private String buildNotificationDateLabel(final LocalDate date) {
-		return date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 	}
 
 	private void buildCalendarView() {
@@ -147,7 +144,7 @@ public class StartController implements Initializable {
 								}
 							}
 
-							this.notificationDayLabel.setText(buildNotificationDateLabel(selectedDate));
+							this.notificationDayLabel.setText(DateUtil.formatDate(selectedDate));
 						}
 					}
 

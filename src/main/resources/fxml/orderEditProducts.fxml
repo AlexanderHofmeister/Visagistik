@@ -12,119 +12,118 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="350.0" prefWidth="1400.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.OrderEditProductsController">
-   <VBox spacing="20.0">
-      <children>
-      	<Label prefHeight="36.0" prefWidth="1000.0" style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Produkte" textAlignment="RIGHT">
-      		<font>
-      			<Font name="System Bold" size="20.0" />
-      		</font>
-            <padding>
-               <Insets left="10.0" />
-            </padding>
-      	</Label>
-         <HBox>
-            <VBox.margin>
-               <Insets />
-            </VBox.margin>
-            <children>
-      			<TableView fx:id="products" editable="true" fixedCellSize="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0">
-      				<placeholder>
-      					<Label text="" />
-      				</placeholder>
-      				<columns>
-      					<TableColumn fx:id="productColumn" prefWidth="200.0" sortable="false" text="Produkt" />
-      					<TableColumn fx:id="amountColumn" editable="false" prefWidth="100.0" text="Anzahl" />
-      					<TableColumn fx:id="priceColumn" editable="false" prefWidth="100.0" text="Preis" />
-      					<TableColumn fx:id="productActionColumn" editable="false" prefWidth="100.0" text="Aktionen" />
-      				</columns>
-                  <padding>
-                     <Insets left="10.0" />
-                  </padding>
-      			</TableView>
-               <VBox spacing="20.0">
-                  <children>
-            			<HBox fillHeight="false" spacing="5.0">
-            				<children>
-            					<Label text="Zwischensumme:">
-            						<font>
-            							<Font name="System Bold" size="14.0" />
-            						</font>
-            					</Label>
-            					<Label fx:id="subTotal" text="0 €">
-            						<font>
-            							<Font name="System Bold" size="14.0" />
-            						</font>
-            					</Label>
-            				</children>
-                        <padding>
-                           <Insets left="10.0" />
-                        </padding>
-            			</HBox>
-            			<VBox fillWidth="false">
-            				<children>
-            					<Label prefHeight="36.0" prefWidth="207.0" text="Rabatt" textAlignment="CENTER">
-            						<font>
-            							<Font name="System Bold" size="16.0" />
-            						</font>
-            					</Label>
-            					<TextField fx:id="discountPercentage" prefWidth="150.0" promptText="Rabatt" />
-            				</children>
-                        <padding>
-                           <Insets left="10.0" />
-                        </padding>
-            			</VBox>
-            			<HBox fillHeight="false" spacing="5.0">
-            				<children>
-            					<Label text="Rabatt: ">
-            						<font>
-            							<Font name="System Bold" size="17.0" />
-            						</font>
-            					</Label>
-            					<Label fx:id="discount" text="0 €">
-            						<font>
-            							<Font name="System Bold" size="17.0" />
-            						</font>
-            					</Label>
-            				</children>
-                        <padding>
-                           <Insets left="10.0" />
-                        </padding>
-            			</HBox>
-                     <HBox fillHeight="false" layoutX="10.0" layoutY="131.0" spacing="5.0">
-                        <children>
-                           <Label text="Summe:">
-                              <font>
-                                 <Font name="System Bold" size="17.0" />
-                              </font>
-                           </Label>
-                           <Label fx:id="total" text="0 €">
-                              <font>
-                                 <Font name="System Bold" size="17.0" />
-                              </font>
-                           </Label>
-                        </children>
-                        <padding>
-                           <Insets left="10.0" />
-                        </padding>
-                     </HBox>
-                  </children>
-               </VBox>
-            </children>
-         </HBox>
+<AnchorPane prefHeight="350.0" prefWidth="1400.0"
+	stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="de.visagistikmanager.view.controller.OrderEditProductsController">
+	<VBox spacing="20.0">
+		<children>
+			<Label prefHeight="36.0" prefWidth="1000.0"
+				style="-fx-background-color: 45B7AF;" styleClass="subheading" text="Produkte"
+				textAlignment="RIGHT">
+				<font>
+					<Font name="System Bold" size="20.0" />
+				</font>
+				<padding>
+					<Insets left="10.0" />
+				</padding>
+			</Label>
+			<HBox>
+				<VBox.margin>
+					<Insets />
+				</VBox.margin>
+				<children>
+					<TableView fx:id="products" editable="true"
+						fixedCellSize="40.0" maxHeight="-Infinity" maxWidth="-Infinity"
+						minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0"
+						prefWidth="500.0">
+						<placeholder>
+							<Label text="" />
+						</placeholder>
+						<columns>
+							<TableColumn fx:id="productColumn" prefWidth="200.0"
+								sortable="false" text="Produkt" />
+							<TableColumn fx:id="amountColumn" editable="false"
+								prefWidth="100.0" text="Anzahl" />
+							<TableColumn fx:id="priceColumn" editable="false"
+								prefWidth="100.0" text="Preis" />
+							<TableColumn fx:id="productActionColumn" editable="false"
+								prefWidth="100.0" text="Aktionen" />
+						</columns>
+						<padding>
+							<Insets left="10.0" />
+						</padding>
+					</TableView>
+					<VBox spacing="20.0">
+						<children>
+							<HBox fillHeight="false" spacing="5.0">
+								<children>
+									<Label text="Zwischensumme:">
+										<font>
+											<Font name="System Bold" size="14.0" />
+										</font>
+									</Label>
+									<Label fx:id="subTotal" text="0 €">
+										<font>
+											<Font name="System Bold" size="14.0" />
+										</font>
+									</Label>
+								</children>
+								<padding>
+									<Insets left="10.0" />
+								</padding>
+							</HBox>
+							<VBox fillWidth="false">
+								<children>
+									<Label prefHeight="36.0" prefWidth="207.0" text="Rabatt"
+										textAlignment="CENTER">
+										<font>
+											<Font name="System Bold" size="16.0" />
+										</font>
+									</Label>
+									<TextField fx:id="discount" prefWidth="150.0"
+										promptText="Rabatt" />
+								</children>
+								<padding>
+									<Insets left="10.0" />
+								</padding>
+							</VBox>
+							<HBox fillHeight="false" layoutX="10.0" layoutY="131.0"
+								spacing="5.0">
+								<children>
+									<Label text="Summe:">
+										<font>
+											<Font name="System Bold" size="17.0" />
+										</font>
+									</Label>
+									<Label fx:id="total" text="0 €">
+										<font>
+											<Font name="System Bold" size="17.0" />
+										</font>
+									</Label>
+								</children>
+								<padding>
+									<Insets left="10.0" />
+								</padding>
+							</HBox>
+						</children>
+					</VBox>
+				</children>
+			</HBox>
 			<HBox fillHeight="false">
 				<children>
 					<TextField fx:id="product" promptText="Produkt" />
 					<Spinner fx:id="amount" editable="true" />
-					<Button fx:id="addProduct" mnemonicParsing="false" text="Produkt hinzufügen" />
+					<Button fx:id="addProduct" mnemonicParsing="false"
+						text="Produkt hinzufügen" />
 				</children>
-            <padding>
-               <Insets left="10.0" />
-            </padding>
+				<padding>
+					<Insets left="10.0" />
+				</padding>
 			</HBox>
-      </children>
-   </VBox>
-   <padding>
-      <Insets bottom="20.0" />
-   </padding>
+		</children>
+	</VBox>
+	<padding>
+		<Insets bottom="20.0" />
+	</padding>
 </AnchorPane>

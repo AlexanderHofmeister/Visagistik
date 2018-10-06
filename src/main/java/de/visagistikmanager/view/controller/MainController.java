@@ -36,6 +36,14 @@ public class MainController {
 		loadEntityOverview("productOverview");
 	}
 
+	public void switchToSettingsPane() throws IOException {
+		loadEntityOverview("settingsOverview");
+	}
+
+	public void switchToUserPane() throws IOException {
+		loadEntityOverview("userOverview");
+	}
+
 	public void exitApplication() {
 		Platform.exit();
 	}

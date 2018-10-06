@@ -42,8 +42,6 @@ public class Order extends BaseEntity {
 	@ElementCollection
 	private List<ProductRow> products;
 
-	private BigDecimal discountPercentage;
-
 	private BigDecimal discount;
 
 	@Enumerated(EnumType.STRING)
@@ -58,6 +56,10 @@ public class Order extends BaseEntity {
 	@JoinColumn(name = "OrderNotifications")
 	private List<Notification> notifications;
 
+	private BigDecimal subtotal;
+
+	private BigDecimal total;
+
 	public Order() {
 		this.products = new ArrayList<>();
 		this.paymentState = PaymentState.NONE;
@@ -67,7 +69,22 @@ public class Order extends BaseEntity {
 
 	@PreUpdate
 	private void preUpdate() {
+		this.subtotal = calculateSubtotal();
+		this.total = calculateTotal();
 		calcPaymentState();
+	}
+
+	public BigDecimal calculateTotal() {
+		return this.subtotal.subtract(calculateDiscount());
+
+	}
+
+	public BigDecimal calculateDiscount() {
+		return this.subtotal.divide(new BigDecimal(100)).multiply(this.discount);
+	}
+
+	public BigDecimal calculateSubtotal() {
+		return this.products.stream().map(ProductRow::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
 	public void calcPaymentState() {
@@ -75,14 +92,11 @@ public class Order extends BaseEntity {
 		final BigDecimal paymentSum = this.payments.stream().map(Payment::getValue).reduce(BigDecimal.ZERO,
 				BigDecimal::add);
 
-		final BigDecimal productSum = this.products.stream().map(ProductRow::getPrice).reduce(BigDecimal.ZERO,
-				BigDecimal::add);
-
 		if (paymentSum.compareTo(BigDecimal.ZERO) == 0) {
 			this.paymentState = PaymentState.NONE;
-		} else if (paymentSum.compareTo(productSum) > 0) {
+		} else if (paymentSum.compareTo(this.total) > 0) {
 			this.paymentState = PaymentState.COMPLETE;
-		} else if (paymentSum.compareTo(productSum) < 0) {
+		} else if (paymentSum.compareTo(this.total) < 0) {
 			this.paymentState = PaymentState.PARTIALLY;
 		}
 

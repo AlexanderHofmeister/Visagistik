@@ -35,7 +35,7 @@ public class OrderImportData extends AbstractDataProvider {
 		order.setDeliveryDate(LocalDate.now());
 		order.setPaymentState(paymentState);
 		order.setState(orderState);
-		order.setDiscountPercentage(discount);
+		order.setDiscount(discount);
 		this.entities.add(order);
 
 	}

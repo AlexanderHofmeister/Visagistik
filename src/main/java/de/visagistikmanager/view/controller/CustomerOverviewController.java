@@ -102,6 +102,7 @@ public class CustomerOverviewController implements Initializable {
 						CustomerOverviewController.this.customerService.delete(entity);
 						loadTable();
 					});
+
 					setGraphic(new HBox(15, editButton, deleteButton));
 
 				}
@@ -116,7 +117,6 @@ public class CustomerOverviewController implements Initializable {
 		try {
 			viewPane = (Pane) customerViewLoader.load();
 		} catch (final IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		final CustomerViewController customerViewController = customerViewLoader.getController();

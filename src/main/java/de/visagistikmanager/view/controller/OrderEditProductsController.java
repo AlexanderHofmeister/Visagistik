@@ -1,7 +1,6 @@
 package de.visagistikmanager.view.controller;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -14,6 +13,7 @@ import de.visagistikmanager.model.order.Order;
 import de.visagistikmanager.model.order.ProductRow;
 import de.visagistikmanager.model.product.Product;
 import de.visagistikmanager.service.ProductService;
+import de.visagistikmanager.view.components.CurrencyUtil;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -39,10 +39,7 @@ public class OrderEditProductsController implements Initializable, BaseEditContr
 	private TableView<ProductRow> products;
 
 	@FXML
-	public TextField discountPercentage;
-
-	@FXML
-	public Label discount;
+	public TextField discount;
 
 	@FXML
 	@Getter
@@ -84,7 +81,7 @@ public class OrderEditProductsController implements Initializable, BaseEditContr
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 
-		this.discountPercentage.textProperty().addListener((observable, oldValue, newValue) -> {
+		this.discount.textProperty().addListener((observable, oldValue, newValue) -> {
 			calculateAndSetSums();
 		});
 
@@ -138,31 +135,25 @@ public class OrderEditProductsController implements Initializable, BaseEditContr
 	}
 
 	public void calculateAndSetSums() {
-		final BigDecimal subTotalSum = this.products.getItems().stream().map(ProductRow::getPrice)
-				.reduce(BigDecimal.ZERO, BigDecimal::add);
-		this.subTotal.setText(subTotalSum + " €");
-		final String currentDiscount = this.discountPercentage.getText();
-		final BigDecimal discountValue = subTotalSum.divide(new BigDecimal(100))
-				.multiply(currentDiscount.isEmpty() ? BigDecimal.ZERO : new BigDecimal(currentDiscount))
-				.setScale(2, RoundingMode.CEILING);
-		final BigDecimal total = subTotalSum.subtract(discountValue).setScale(2, RoundingMode.CEILING);
-		this.total.setText(total + " €");
-		this.discount.setText(discountValue.toString());
+		final BigDecimal subTotalSum = CurrencyUtil
+				.sumBigDecimal(this.products.getItems().stream().map(ProductRow::getPrice));
+		this.subTotal.setText(CurrencyUtil.toEuro(subTotalSum));
+
+		final BigDecimal discountValue = CurrencyUtil.calculateDiscountValue(subTotalSum, this.discount.getText());
+
+		this.total.setText(CurrencyUtil.toEuro(CurrencyUtil.calculateTotal(subTotalSum, discountValue)));
 	}
 
 	@Override
 	public void applyValuesToEntity(final Order order) {
-		order.setDiscountPercentage(new BigDecimal(this.discountPercentage.getText()));
 		order.setProducts(this.products.getItems());
 		order.setDiscount(new BigDecimal(this.discount.getText()));
 	}
 
 	@Override
 	public void setValuesFromEntity(final Order order) {
-		this.discountPercentage
-				.setText(order.getDiscountPercentage() == null ? "" : order.getDiscountPercentage().toString());
-		this.products.getItems().setAll(order.getProducts());
 		this.discount.setText(order.getDiscount() == null ? "" : order.getDiscount().toString());
+		this.products.getItems().setAll(order.getProducts());
 		calculateAndSetSums();
 	}
 

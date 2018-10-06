@@ -1,15 +1,31 @@
 package de.visagistikmanager.view.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
 import org.controlsfx.control.Notifications;
+
+import com.itextpdf.html2pdf.HtmlConverter;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName;
+import de.visagistikmanager.model.customer.Customer;
 import de.visagistikmanager.model.order.Order;
+import de.visagistikmanager.model.order.ProductRow;
+import de.visagistikmanager.model.property.TemplateFile;
+import de.visagistikmanager.model.property.TemplateType;
 import de.visagistikmanager.service.OrderService;
+import de.visagistikmanager.service.TemplateFileService;
+import de.visagistikmanager.service.UserService;
+import de.visagistikmanager.util.DateUtil;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +35,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -32,6 +49,10 @@ public class OrderOverviewController implements Initializable {
 	private Button createOrderButton;
 
 	private final OrderService orderService = new OrderService();
+
+	private final UserService userService = new UserService();
+
+	private final TemplateFileService templateFileService = new TemplateFileService();
 
 	public void createOrder() throws IOException {
 		buildOrderEdit(new Order());
@@ -72,7 +93,6 @@ public class OrderOverviewController implements Initializable {
 		final TableColumn<Order, Order> actionColumn = controller.getAction();
 
 		actionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		orderTable.getColumns().add(actionColumn);
 
 		actionColumn.setCellFactory(param -> {
 			return new TableCell<Order, Order>() {
@@ -104,7 +124,42 @@ public class OrderOverviewController implements Initializable {
 						loadTable();
 					});
 
-					setGraphic(new HBox(15, editButton, deleteButton));
+					final Button billButton = new Button();
+					billButton.setTooltip(new Tooltip("Rechnung"));
+					final FontAwesomeIcon billIcon = new FontAwesomeIcon();
+					billIcon.setIcon(FontAwesomeIconName.FILE_PDF_ALT);
+					billButton.setGraphic(billIcon);
+					billButton.getStyleClass().add("button");
+					billButton.setOnAction(event -> {
+
+						final TemplateFile billTemplate = OrderOverviewController.this.templateFileService
+								.findByType(TemplateType.BILL);
+
+						if (billTemplate != null) {
+
+							final VelocityContext context = new VelocityContext();
+							final List<ProductRow> orders = entity.getProducts();
+							final Customer customer = entity.getCustomer();
+							context.put("orders", orders);
+							context.put("customer", customer);
+							context.put("user", OrderOverviewController.this.userService.findUser());
+							context.put("today", DateUtil.formatDate(LocalDate.now()));
+							context.put("totalAmount", entity.getTotal());
+
+							final StringWriter stringWriter = new StringWriter();
+							Velocity.evaluate(context, stringWriter, "PackageTemplatesVelocity",
+									new String(billTemplate.getData()));
+
+							try {
+								HtmlConverter.convertToPdf(stringWriter.toString(),
+										new FileOutputStream(new File("a.pdf")));
+							} catch (final IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					});
+					setGraphic(new HBox(15, editButton, deleteButton, billButton));
 
 				}
 			};
