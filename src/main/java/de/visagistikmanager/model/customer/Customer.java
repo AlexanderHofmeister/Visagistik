@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
@@ -19,12 +20,16 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NamedQuery(name = Customer.FIND_BY_SURNAME_AND_LASTNAME, query = "SELECT c from Customer c WHERE c.surname = :surname AND c.forename = :forename")
+@NamedQueries(value = {
+		@NamedQuery(name = Customer.FIND_BY_SURNAME_AND_LASTNAME, query = "SELECT c from Customer c WHERE c.surname = :surname AND c.forename = :forename"),
+		@NamedQuery(name = Customer.FIND_CUSTOMER_WITH_BIRTHDAYS, query = "SELECT c from Customer c WHERE c.birthday is not null") })
 public class Customer extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIND_BY_SURNAME_AND_LASTNAME = "findBySurnameAndLastName";
+
+	public static final String FIND_CUSTOMER_WITH_BIRTHDAYS = "findCustomerWithBirthdays";
 
 	private String surname;
 
@@ -72,6 +77,10 @@ public class Customer extends BaseEntity {
 
 	public String getFullNameInverse() {
 		return this.surname + ", " + this.forename;
+	}
+
+	public String getFullName() {
+		return this.forename + " " + this.surname;
 	}
 
 	@Override

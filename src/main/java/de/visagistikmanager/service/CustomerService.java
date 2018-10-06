@@ -13,6 +13,10 @@ public class CustomerService extends AbstractEntityService<Customer> {
 						.get();
 	}
 
+	public List<Customer> findBirthdays() {
+		return findWithNamedQuery(Customer.FIND_CUSTOMER_WITH_BIRTHDAYS);
+	}
+
 	public static List<String> getSkinFeatures() {
 		return Arrays.asList("Trockene Haut", "Normale Haut", "Mischhaut", "Fettige Haut");
 	}

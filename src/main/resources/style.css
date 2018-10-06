@@ -124,7 +124,7 @@
 	-fx-text-background-color: gray;
 }
 
-.hasNotification{
+.hasEvent{
 	-fx-font-weight: bold;
 	 -fx-text-background-color: red;
 }

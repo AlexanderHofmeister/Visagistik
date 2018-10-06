@@ -17,7 +17,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import de.visagistikmanager.model.customer.Customer;
 import de.visagistikmanager.model.order.Notification;
+import de.visagistikmanager.service.CustomerService;
 import de.visagistikmanager.service.NotificationService;
 import de.visagistikmanager.util.DateUtil;
 import de.visagistikmanager.view.components.CalendarView;
@@ -45,6 +47,8 @@ public class StartController implements Initializable {
 
 	private final NotificationService notificationService = new NotificationService();
 
+	private final CustomerService customerService = new CustomerService();
+
 	private Map<LocalDate, List<Notification>> allNotifications;
 
 	@FXML
@@ -56,11 +60,16 @@ public class StartController implements Initializable {
 	@FXML
 	private VBox notifications;
 
+	private Map<LocalDate, List<Customer>> customerWithBirthdays;
+
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 
 		this.allNotifications = this.notificationService.findCurrentNotifications().stream()
 				.collect(Collectors.groupingBy(Notification::getDate));
+
+		this.customerWithBirthdays = this.customerService.findBirthdays().stream()
+				.collect(Collectors.groupingBy(Customer::getBirthday));
 
 		final LocalDate now = LocalDate.now();
 		this.selectedDay = now.getDayOfMonth();
@@ -116,11 +125,11 @@ public class StartController implements Initializable {
 							final LocalDate selectedDate = LocalDate.of(this.selectedYear, this.selectedMonth,
 									Integer.parseInt(source.getText()));
 
-							final List<Notification> list = this.allNotifications.get(selectedDate);
-
-							if (list != null) {
-								for (int j = 0; j < list.size(); j++) {
-									final Notification notification = list.get(j);
+							final List<Notification> notificationsForDate = this.allNotifications.get(selectedDate);
+							if (notificationsForDate != null) {
+								this.notifications.getChildren().add(new Label("Benachrichtungen: "));
+								for (int j = 0; j < notificationsForDate.size(); j++) {
+									final Notification notification = notificationsForDate.get(j);
 									final HBox box = new HBox(10);
 
 									box.getChildren().add(new Label(notification.getNotificationType().getLabel()));
@@ -144,6 +153,15 @@ public class StartController implements Initializable {
 								}
 							}
 
+							final List<Customer> customerForBirthday = this.customerWithBirthdays.get(selectedDate);
+							if (customerForBirthday != null) {
+								this.notifications.getChildren().add(new Label("Geburtstage: "));
+								for (int j = 0; j < customerForBirthday.size(); j++) {
+									this.notifications.getChildren()
+											.add(new Label(customerForBirthday.get(j).getFullName()));
+								}
+							}
+
 							this.notificationDayLabel.setText(DateUtil.formatDate(selectedDate));
 						}
 					}
@@ -159,9 +177,15 @@ public class StartController implements Initializable {
 				cell.getStyleClass().remove("selectedDayCell");
 			});
 
-			this.allNotifications.keySet().forEach(d -> {
-				if (date.equals(d)) {
-					cell.getStyleClass().add("hasNotification");
+			this.allNotifications.keySet().forEach(notificationDate -> {
+				if (date.equals(notificationDate)) {
+					cell.getStyleClass().add("hasEvent");
+				}
+			});
+
+			this.customerWithBirthdays.keySet().forEach(birthday -> {
+				if (date.equals(birthday)) {
+					cell.getStyleClass().add("hasEvent");
 				}
 			});
 
