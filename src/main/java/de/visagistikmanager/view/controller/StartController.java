@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 import de.visagistikmanager.model.customer.Customer;
 import de.visagistikmanager.model.order.Notification;
+import de.visagistikmanager.model.order.Order;
 import de.visagistikmanager.service.CustomerService;
 import de.visagistikmanager.service.NotificationService;
 import de.visagistikmanager.util.DateUtil;
@@ -131,6 +132,12 @@ public class StartController implements Initializable {
 								for (int j = 0; j < notificationsForDate.size(); j++) {
 									final Notification notification = notificationsForDate.get(j);
 									final HBox box = new HBox(10);
+									box.setMinWidth(200);
+
+									final Order order = notification.getOrder();
+									if (order != null) {
+										box.getChildren().add(new Label(order.getCustomer().getFullName() + " |"));
+									}
 
 									box.getChildren().add(new Label(notification.getNotificationType().getLabel()));
 									final CheckBox checkbox = new CheckBox();

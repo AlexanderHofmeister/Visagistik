@@ -11,6 +11,7 @@ import de.visagistikmanager.model.order.NotificationType;
 import de.visagistikmanager.model.order.Order;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -96,7 +97,11 @@ public class OrderEditNotificationsController implements Initializable, BaseEdit
 
 	@Override
 	public void applyValuesToEntity(final Order order) {
-		order.setNotifications(this.notifications.getItems());
+		final ObservableList<Notification> items = this.notifications.getItems();
+		for (final Notification notification : items) {
+			notification.setOrder(order);
+		}
+		order.setNotifications(items);
 
 	}
 
