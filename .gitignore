@@ -3,3 +3,4 @@
 /target/classes/**
 /data/
 /target/
+src/main/resources/templates/
