@@ -65,6 +65,8 @@ public class Order extends BaseEntity {
 		this.paymentState = PaymentState.NONE;
 		this.createdDate = LocalDate.now();
 		this.state = OrderState.OPEN;
+		this.payments = new ArrayList<>();
+		this.notifications = new ArrayList<>();
 	}
 
 	@PreUpdate

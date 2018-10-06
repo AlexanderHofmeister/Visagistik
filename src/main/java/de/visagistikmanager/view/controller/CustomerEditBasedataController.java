@@ -1,5 +1,7 @@
 package de.visagistikmanager.view.controller;
 
+import org.apache.commons.lang3.StringUtils;
+
 import de.visagistikmanager.model.customer.Customer;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -37,7 +39,10 @@ public class CustomerEditBasedataController implements BaseEditController<Custom
 		customer.setBirthday(this.birthday.getValue());
 		customer.setStreet(this.street.getText());
 		customer.setStreetNumber(this.streetNumber.getText());
-		customer.setZip(Integer.valueOf(this.zip.getText()));
+		final String zip = this.zip.getText();
+		if (StringUtils.isNotBlank(zip)) {
+			customer.setZip(Integer.valueOf(zip));
+		}
 		customer.setCity(this.city.getText());
 	}
 
@@ -48,7 +53,11 @@ public class CustomerEditBasedataController implements BaseEditController<Custom
 		this.birthday.setValue(customer.getBirthday());
 		this.street.setText(customer.getStreet());
 		this.streetNumber.setText(customer.getStreetNumber());
-		this.zip.setText(String.valueOf(customer.getZip()));
+
+		final Integer zip = customer.getZip();
+		if (zip != null) {
+			this.zip.setText(String.valueOf(zip));
+		}
 		this.city.setText(customer.getCity());
 
 	}

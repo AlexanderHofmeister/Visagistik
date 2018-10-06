@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.apache.commons.lang3.StringUtils;
+
 import de.visagistikmanager.model.product.Product;
 import de.visagistikmanager.service.ProductService;
 import javafx.fxml.FXML;
@@ -48,16 +50,25 @@ public class ProductEditController implements Initializable {
 	public void setProduct(final Product prodcut) {
 		this.product = prodcut;
 		this.heading.setText(prodcut.isNew() ? "Produkt anlegen" : "Produkt " + prodcut.getName() + " bearbeiten");
-		this.number.setText(String.valueOf(prodcut.getNumber()));
+		final Integer number = prodcut.getNumber();
+		if (number != null) {
+			this.number.setText(String.valueOf(number));
+		}
 		this.name.setText(prodcut.getName());
 		this.price.setText(prodcut.getPrice() == null ? "" : prodcut.getPrice().toString());
 
 	}
 
 	public void saveCustomer() {
-		this.product.setNumber(Integer.parseInt(this.number.getText()));
+		final String number = this.number.getText();
+		if (StringUtils.isNotBlank(number)) {
+			this.product.setNumber(Integer.parseInt(number));
+		}
 		this.product.setName(this.name.getText());
-		this.product.setPrice(new BigDecimal(this.price.getText()));
+		final String price = this.price.getText();
+		if (StringUtils.isNotBlank(price)) {
+			this.product.setPrice(new BigDecimal(price));
+		}
 		this.productService.update(this.product);
 	}
 

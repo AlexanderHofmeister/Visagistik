@@ -147,7 +147,10 @@ public class OrderEditProductsController implements Initializable, BaseEditContr
 	@Override
 	public void applyValuesToEntity(final Order order) {
 		order.setProducts(this.products.getItems());
-		order.setDiscount(new BigDecimal(this.discount.getText()));
+		final String discountText = this.discount.getText();
+		if (!discountText.isEmpty()) {
+			order.setDiscount(new BigDecimal(discountText));
+		}
 	}
 
 	@Override
