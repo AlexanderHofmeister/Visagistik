@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="settingsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1350.0" style="-fx-background-color: white;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.SettingsOverviewController">
+<Pane fx:id="templatesPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1350.0" style="-fx-background-color: white;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.TemplatesOverviewController">
 	<children>
 		<VBox prefHeight="900.0" prefWidth="1350.0" spacing="20.0">
 			<children>
@@ -21,7 +21,7 @@
       
       				<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="100" prefWidth="1109.0" styleClass="subheading">
       					<children>
-      						<Label layoutX="15.0" layoutY="24.0" prefHeight="43.0" prefWidth="468.0" text="Einstellungen" textFill="#7c8184">
+      						<Label layoutX="15.0" layoutY="24.0" prefHeight="43.0" prefWidth="468.0" text="Dateivorlagen" textFill="#7c8184">
       							<font>
       								<Font size="36.0" />
       							</font>

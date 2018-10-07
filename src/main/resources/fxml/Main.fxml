@@ -133,14 +133,14 @@
 						</Label>
 					</children>
 				</HBox>
-				<HBox alignment="CENTER_LEFT" onMouseClicked="#switchToSettingsPane" prefHeight="50.0" prefWidth="325.0" styleClass="buttons">
+				<HBox alignment="CENTER_LEFT" onMouseClicked="#switchToTemplatesPane" prefHeight="50.0" prefWidth="325.0" styleClass="buttons">
 					<children>
 						<FontAwesomeIcon fill="#7c8184" iconName="TASKS" HBox.hgrow="ALWAYS">
 							<HBox.margin>
 								<Insets left="10.0" top="10.0" />
 							</HBox.margin>
 						</FontAwesomeIcon>
-						<Label alignment="TOP_LEFT" text="Einstellungen" HBox.hgrow="ALWAYS">
+						<Label alignment="TOP_LEFT" text="Dateivorlagen" HBox.hgrow="ALWAYS">
 							<padding>
 								<Insets left="10.0" />
 							</padding>

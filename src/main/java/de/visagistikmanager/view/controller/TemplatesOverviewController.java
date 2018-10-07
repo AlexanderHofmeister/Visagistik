@@ -34,10 +34,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import lombok.Getter;
 
-public class SettingsOverviewController implements Initializable {
+public class TemplatesOverviewController implements Initializable {
 
 	@FXML
-	private Pane settingsPane;
+	private Pane templatesPane;
 
 	@FXML
 	private TableView<TemplateFile> templateFileTable;
@@ -100,7 +100,7 @@ public class SettingsOverviewController implements Initializable {
 					deleteButton.setGraphic(deleteIcon);
 					deleteButton.getStyleClass().add("button");
 					deleteButton.setOnAction(event -> {
-						SettingsOverviewController.this.templateFileService.delete(entity);
+						TemplatesOverviewController.this.templateFileService.delete(entity);
 
 					});
 
@@ -117,8 +117,8 @@ public class SettingsOverviewController implements Initializable {
 				.collect(Collectors.toCollection(() -> EnumSet.noneOf(TemplateType.class)));
 		this.templateTypes.setItems(FXCollections.observableArrayList(EnumSet.complementOf(temp)));
 
-		this.settingsPane.setOnDragOver(event -> {
-			if (event.getGestureSource() != SettingsOverviewController.this.settingsPane
+		this.templatesPane.setOnDragOver(event -> {
+			if (event.getGestureSource() != TemplatesOverviewController.this.templatesPane
 					&& event.getDragboard().hasFiles()) {
 				/* allow for both copying and moving, whatever user chooses */
 				event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
@@ -127,7 +127,7 @@ public class SettingsOverviewController implements Initializable {
 		});
 
 		// Dropping over surface
-		this.settingsPane.setOnDragDropped(event -> {
+		this.templatesPane.setOnDragDropped(event -> {
 			final Dragboard db = event.getDragboard();
 			boolean success = false;
 			if (db.hasFiles()) {
@@ -142,7 +142,7 @@ public class SettingsOverviewController implements Initializable {
 	}
 
 	public void uploadFile() {
-		this.selectedFile = this.fileChooser.showOpenDialog(this.settingsPane.getScene().getWindow());
+		this.selectedFile = this.fileChooser.showOpenDialog(this.templatesPane.getScene().getWindow());
 	}
 
 	public void save() throws FileNotFoundException, IOException {

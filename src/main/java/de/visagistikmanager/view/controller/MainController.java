@@ -40,8 +40,8 @@ public class MainController {
 		loadEntityOverview("productOverview");
 	}
 
-	public void switchToSettingsPane() throws IOException {
-		loadEntityOverview("settingsOverview");
+	public void switchToTemplatesPane() throws IOException {
+		loadEntityOverview("templatesOverview");
 	}
 
 	public void switchToUserPane() throws IOException {
