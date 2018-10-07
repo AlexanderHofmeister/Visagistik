@@ -33,8 +33,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -77,18 +75,6 @@ public class OrderOverviewController implements Initializable {
 
 		this.entityPane.getChildren().clear();
 		this.entityPane.getChildren().add(pane);
-
-		final TableView<Order> orderTable = controller.getOrderTable();
-
-		orderTable.setRowFactory(tv -> {
-			final TableRow<Order> row = new TableRow<>();
-			row.setOnMouseClicked(event -> {
-				if (event.getClickCount() == 2 && !row.isEmpty()) {
-					buildOrderView(row.getItem());
-				}
-			});
-			return row;
-		});
 
 		final TableColumn<Order, Order> actionColumn = controller.getAction();
 
@@ -164,22 +150,6 @@ public class OrderOverviewController implements Initializable {
 				}
 			};
 		});
-	}
-
-	private void buildOrderView(final Order order) {
-		final FXMLLoader orderViewLoader = new FXMLLoader();
-		orderViewLoader.setLocation(getClass().getClassLoader().getResource("fxml/orderView.fxml"));
-		Pane viewPane = null;
-		try {
-			viewPane = (Pane) orderViewLoader.load();
-		} catch (final IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		final OrderViewController orderViewController = orderViewLoader.getController();
-		orderViewController.setOrder(order);
-		this.entityPane.getChildren().clear();
-		this.entityPane.getChildren().add(viewPane);
 	}
 
 	private void buildOrderEdit(final Order Order) {

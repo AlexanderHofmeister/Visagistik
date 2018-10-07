@@ -17,8 +17,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -56,19 +54,6 @@ public class CustomerOverviewController implements Initializable {
 
 		this.entityPane.getChildren().clear();
 		this.entityPane.getChildren().add(pane);
-
-		final TableView<Customer> customerTable = controller.getCustomerTable();
-
-		customerTable.setRowFactory(tv -> {
-			final TableRow<Customer> row = new TableRow<>();
-			row.setOnMouseClicked(event -> {
-				if (event.getClickCount() == 2 && !row.isEmpty()) {
-					final Customer selectedCustomer = row.getItem();
-					buildCustomerView(selectedCustomer);
-				}
-			});
-			return row;
-		});
 
 		final TableColumn<Customer, Customer> actionColumn = controller.getAction();
 		actionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
@@ -108,21 +93,6 @@ public class CustomerOverviewController implements Initializable {
 				}
 			};
 		});
-	}
-
-	private void buildCustomerView(final Customer selectedCustomer) {
-		final FXMLLoader customerViewLoader = new FXMLLoader();
-		customerViewLoader.setLocation(getClass().getClassLoader().getResource("fxml/customerView.fxml"));
-		Pane viewPane = null;
-		try {
-			viewPane = (Pane) customerViewLoader.load();
-		} catch (final IOException e) {
-			e.printStackTrace();
-		}
-		final CustomerViewController customerViewController = customerViewLoader.getController();
-		customerViewController.setCustomer(selectedCustomer);
-		this.entityPane.getChildren().clear();
-		this.entityPane.getChildren().add(viewPane);
 	}
 
 	private void buildCustomerEdit(final Customer customer) {
