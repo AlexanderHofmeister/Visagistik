@@ -134,10 +134,11 @@ public class OrderOverviewController implements Initializable {
 							context.put("user", OrderOverviewController.this.userService.findUser());
 							context.put("today", DateUtil.formatDate(LocalDate.now()));
 							context.put("totalAmount", order.getTotal());
-							TemplateUtil.buildPdfFromTemplate(billTemplate, context,
+							TemplateUtil.buildBill(billTemplate, context,
 									order.getReceiptNumber() + "_"
 											+ DateUtil.formatDateForFilename(order.getDeliveryDate()) + "_"
-											+ order.getCustomer().getFullNameForFiles() + ".pdf");
+											+ order.getCustomer().getFullNameForFiles() + ".pdf",
+									order.getDeliveryDate());
 						}
 					});
 					setGraphic(new HBox(15, editButton, deleteButton, billButton));
