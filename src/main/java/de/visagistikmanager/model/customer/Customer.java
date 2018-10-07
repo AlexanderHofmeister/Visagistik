@@ -79,6 +79,10 @@ public class Customer extends BaseEntity {
 		return this.surname + ", " + this.forename;
 	}
 
+	public String getFullNameForFiles() {
+		return this.surname + this.forename;
+	}
+
 	public String getFullName() {
 		return this.forename + " " + this.surname;
 	}

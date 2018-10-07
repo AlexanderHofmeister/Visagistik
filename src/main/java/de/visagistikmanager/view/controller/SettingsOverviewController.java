@@ -14,8 +14,8 @@ import org.apache.commons.io.IOUtils;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName;
-import de.visagistikmanager.model.property.TemplateFile;
-import de.visagistikmanager.model.property.TemplateType;
+import de.visagistikmanager.model.template.TemplateFile;
+import de.visagistikmanager.model.template.TemplateType;
 import de.visagistikmanager.service.TemplateFileService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;

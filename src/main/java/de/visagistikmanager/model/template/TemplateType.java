@@ -1,4 +1,4 @@
-package de.visagistikmanager.model.property;
+package de.visagistikmanager.model.template;
 
 import de.visagistikmanager.model.LabeledEnum;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package de.visagistikmanager.service;
 
-import de.visagistikmanager.model.property.TemplateFile;
-import de.visagistikmanager.model.property.TemplateType;
+import de.visagistikmanager.model.template.TemplateFile;
+import de.visagistikmanager.model.template.TemplateType;
 
 public class TemplateFileService extends AbstractEntityService<TemplateFile> {
 

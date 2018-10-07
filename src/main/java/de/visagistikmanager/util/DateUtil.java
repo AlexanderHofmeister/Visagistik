@@ -9,4 +9,8 @@ public class DateUtil {
 		return date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 	}
 
+	public static String formatDateForFilename(final LocalDate date) {
+		return date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+	}
+
 }
