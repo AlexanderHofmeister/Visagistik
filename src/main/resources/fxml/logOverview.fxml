@@ -7,24 +7,33 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="logPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1350.0" style="-fx-background-color: white;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.visagistikmanager.view.controller.LogOverviewController">
+<Pane fx:id="logPane" maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0"
+	prefWidth="1350.0" style="-fx-background-color: white;" stylesheets="@../style.css"
+	xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="de.visagistikmanager.view.controller.LogOverviewController">
 	<children>
 		<VBox prefHeight="1024.0" prefWidth="1350.0">
 			<children>
-				<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1350.0" styleClass="subheading">
+				<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="100"
+					prefWidth="1109.0" styleClass="subheading">
 					<children>
-      						<Label layoutX="15.0" layoutY="24.0" prefHeight="43.0" prefWidth="468.0" text="Protokoll">
-      							<font>
-      								<Font size="36.0" />
-      							</font>
-      						</Label>
+						<Label layoutX="15.0" layoutY="24.0" prefHeight="43.0"
+							prefWidth="468.0" text="Protokoll" textFill="#7c8184">
+							<font>
+								<Font size="36.0" />
+							</font>
+						</Label>
 					</children>
 				</Pane>
-      				<TextArea fx:id="logMessages" editable="false" prefHeight="800.0" prefWidth="1350.0" style="-fx-text-fill: black; -fx-background-color: black; -fx-control-inner-background: white;" wrapText="true">
-      					<font>
-      						<Font name="System Bold" size="15.0" />
-      					</font>
-      				</TextArea>
+				<TextArea fx:id="logMessages" editable="false" prefHeight="800.0"
+					prefWidth="1350.0"
+					style="-fx-text-fill: black; -fx-background-color: black; -fx-control-inner-background: white;"
+					wrapText="true">
+					<font>
+						<Font name="System Bold" size="15.0" />
+					</font>
+				</TextArea>
 			</children>
 		</VBox>
 	</children>
