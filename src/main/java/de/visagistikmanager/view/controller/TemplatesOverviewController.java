@@ -75,7 +75,7 @@ public class TemplatesOverviewController implements Initializable {
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 
-		this.templateFileTable.getItems().setAll(this.templateFileService.listAll());
+		init();
 
 		this.templateType.setCellValueFactory(new PropertyValueFactory<TemplateFile, TemplateType>("type"));
 		this.fileName.setCellValueFactory(new PropertyValueFactory<TemplateFile, String>("fileName"));
@@ -86,10 +86,10 @@ public class TemplatesOverviewController implements Initializable {
 			return new TableCell<TemplateFile, TemplateFile>() {
 
 				@Override
-				protected void updateItem(final TemplateFile entity, final boolean empty) {
-					super.updateItem(entity, empty);
+				protected void updateItem(final TemplateFile templateFile, final boolean empty) {
+					super.updateItem(templateFile, empty);
 
-					if (entity == null) {
+					if (templateFile == null) {
 						setGraphic(null);
 						return;
 					}
@@ -100,7 +100,9 @@ public class TemplatesOverviewController implements Initializable {
 					deleteButton.setGraphic(deleteIcon);
 					deleteButton.getStyleClass().add("button");
 					deleteButton.setOnAction(event -> {
-						TemplatesOverviewController.this.templateFileService.delete(entity);
+						TemplatesOverviewController.this.templateFileService.delete(templateFile);
+						TemplatesOverviewController.this.templateFileTable.getItems().remove(templateFile);
+						init();
 
 					});
 
@@ -111,11 +113,6 @@ public class TemplatesOverviewController implements Initializable {
 		});
 
 		this.fileChooser.setTitle("Vorlage hochladen");
-
-		this.templateFiles = this.templateFileService.listAll();
-		final EnumSet<TemplateType> temp = this.templateFiles.stream().map(TemplateFile::getType)
-				.collect(Collectors.toCollection(() -> EnumSet.noneOf(TemplateType.class)));
-		this.templateTypes.setItems(FXCollections.observableArrayList(EnumSet.complementOf(temp)));
 
 		this.templatesPane.setOnDragOver(event -> {
 			if (event.getGestureSource() != TemplatesOverviewController.this.templatesPane
@@ -141,6 +138,13 @@ public class TemplatesOverviewController implements Initializable {
 
 	}
 
+	private void init() {
+		this.templateFiles = this.templateFileService.listAll();
+		final EnumSet<TemplateType> temp = this.templateFiles.stream().map(TemplateFile::getType)
+				.collect(Collectors.toCollection(() -> EnumSet.noneOf(TemplateType.class)));
+		this.templateTypes.setItems(FXCollections.observableArrayList(EnumSet.complementOf(temp)));
+	}
+
 	public void uploadFile() {
 		this.selectedFile = this.fileChooser.showOpenDialog(this.templatesPane.getScene().getWindow());
 	}
@@ -151,9 +155,11 @@ public class TemplatesOverviewController implements Initializable {
 				this.selectedFile.getName());
 		this.templateFileService.create(templateFile);
 		this.templateTypes.getItems().remove(this.templateTypes.getValue());
+		this.templateFileTable.getItems().add(templateFile);
 		this.selectedFileLabel.setText("");
 		this.templateTypes.setValue(null);
 		this.selectedFile = null;
+		init();
 
 	}
 }
