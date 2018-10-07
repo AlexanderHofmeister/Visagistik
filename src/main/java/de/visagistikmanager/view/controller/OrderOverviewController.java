@@ -129,7 +129,8 @@ public class OrderOverviewController implements Initializable {
 
 						if (billTemplate != null) {
 							final VelocityContext context = new VelocityContext();
-							context.put("productRow", order.getProducts());
+							context.put("productRows", order.getProducts());
+							context.put("order", order);
 							context.put("customer", order.getCustomer());
 							context.put("user", OrderOverviewController.this.userService.findUser());
 							context.put("today", DateUtil.formatDate(LocalDate.now()));
