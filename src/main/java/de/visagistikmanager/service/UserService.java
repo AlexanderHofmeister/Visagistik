@@ -3,7 +3,7 @@ package de.visagistikmanager.service;
 import java.util.List;
 import java.util.Map;
 
-import de.visagistikmanager.data.User;
+import de.visagistikmanager.model.user.User;
 
 public class UserService extends AbstractEntityService<User> {
 

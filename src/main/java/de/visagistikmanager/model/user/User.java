@@ -1,4 +1,4 @@
-package de.visagistikmanager.data;
+package de.visagistikmanager.model.user;
 
 import javax.persistence.Entity;
 
@@ -13,30 +13,43 @@ public class User extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	private String company;
-
-	private String street;
-
-	private String streetNumber;
-
-	private Integer zip;
-
-	private String city;
-
-	private String telephone;
-
-	private String email;
-
-	private String url;
-
-	private String secondUrl;
-
+	@Label("Nachname")
 	private String surname;
 
+	@Label("Vorname")
 	private String forename;
 
+	@Label("Firmenname")
+	private String company;
+
+	@Label("Straße")
+	private String street;
+
+	@Label("Hausnummer")
+	private String streetNumber;
+
+	@Label("Postleitzahl")
+	private Integer zip;
+
+	@Label("Ort")
+	private String city;
+
+	@Label("Telefon")
+	private String telephone;
+
+	@Label("E-Mail")
+	private String email;
+
+	@Label("Website")
+	private String url;
+
+	@Label("Website")
+	private String secondUrl;
+
+	@Label("Bank")
 	private String bank;
 
+	@Label("IBAN")
 	private String iban;
 
 }

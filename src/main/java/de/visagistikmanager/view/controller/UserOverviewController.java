@@ -10,26 +10,22 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import de.visagistikmanager.data.User;
+import de.visagistikmanager.model.user.Label;
+import de.visagistikmanager.model.user.User;
 import de.visagistikmanager.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class UserOverviewController implements Initializable {
 
 	@FXML
-	private Pane entityPane;
-
-	@FXML
-	private GridPane userContent;
+	private VBox userContent;
 
 	@FXML
 	private final Button saveButton = new Button("Speichern");
@@ -42,17 +38,22 @@ public class UserOverviewController implements Initializable {
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		this.user = this.userService.findUser();
-		if (this.user == null) {
-			final User entity = new User();
-			this.user = this.userService.create(entity);
-		}
+
+		loadUser();
+		buildInputFields();
+		this.saveButton.getStyleClass().add("saveButton");
+		this.userContent.getChildren().add(this.saveButton);
+		this.saveButton.setOnAction(this::save);
+	}
+
+	private void buildInputFields() {
 		final Field[] declaredFields = this.user.getClass().getDeclaredFields();
-		for (int i = 0; i < declaredFields.length; i++) {
-			final Field field = declaredFields[i];
+		for (final Field declaredField : declaredFields) {
+			final Field field = declaredField;
 			if (!Modifier.isStatic(field.getModifiers())) {
 				final String fieldName = field.getName();
 				final TextField textfield = new TextField();
+				textfield.setPromptText(field.getAnnotation(Label.class).value());
 				textfield.setId(fieldName);
 
 				try {
@@ -65,13 +66,18 @@ public class UserOverviewController implements Initializable {
 					log.error("Can't create input field for " + fieldName);
 				}
 
-				this.userContent.add(new Label(field.getName()), 0, i);
-				this.userContent.add(textfield, 1, i);
+				this.userContent.getChildren().add(textfield);
 				this.inputFields.add(textfield);
 			}
 		}
-		this.userContent.add(this.saveButton, 0, this.userContent.getChildren().size() / 2 + 1);
-		this.saveButton.setOnAction(this::save);
+	}
+
+	private void loadUser() {
+		this.user = this.userService.findUser();
+		if (this.user == null) {
+			final User entity = new User();
+			this.user = this.userService.create(entity);
+		}
 	}
 
 	public void save(final ActionEvent event) {
