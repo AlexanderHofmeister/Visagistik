@@ -187,6 +187,33 @@
 						</Label>
 					</children>
 				</HBox>
+						<HBox alignment="CENTER_LEFT" onMouseClicked="#switchToLogPane" prefHeight="50.0" prefWidth="325.0" styleClass="buttons">
+					<children>
+						<FontAwesomeIcon fill="#7c8184" iconName="USER" HBox.hgrow="ALWAYS">
+							<HBox.margin>
+								<Insets left="10.0" top="10.0" />
+							</HBox.margin>
+						</FontAwesomeIcon>
+						<Label alignment="TOP_LEFT" text="Protokoll" HBox.hgrow="ALWAYS">
+							<padding>
+								<Insets left="10.0" />
+							</padding>
+							<styleClass>
+								<String fx:value="label" />
+								<String fx:value="sidebar" />
+							</styleClass>
+							<font>
+								<Font size="17.0" />
+							</font>
+							<opaqueInsets>
+								<Insets />
+							</opaqueInsets>
+							<HBox.margin>
+								<Insets left="10.0" top="10.0" />
+							</HBox.margin>
+						</Label>
+					</children>
+				</HBox>
 				<HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="260.0" onMouseClicked="#exitApplication" prefHeight="50.0" prefWidth="325.0" styleClass="buttons">
 					<children>
 						<FontAwesomeIcon fill="#7c8184" iconName="SIGN_OUT" HBox.hgrow="ALWAYS">
@@ -214,6 +241,7 @@
 						</Label>
 					</children>
 				</HBox>
+				
 			</children>
 		</VBox>
    </left>

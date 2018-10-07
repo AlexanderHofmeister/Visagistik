@@ -24,6 +24,10 @@ public class MainController {
 		loadEntityOverview("customerOverview");
 	}
 
+	public void switchToLogPane() throws IOException {
+		loadEntityOverview("logOverview");
+	}
+
 	public void switchToStart() throws IOException {
 		loadEntityOverview("start" + "");
 	}
