@@ -33,6 +33,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -75,6 +77,18 @@ public class OrderOverviewController implements Initializable {
 
 		this.entityPane.getChildren().clear();
 		this.entityPane.getChildren().add(pane);
+
+		final TableView<Order> orderTable = controller.getOrderTable();
+
+		orderTable.setRowFactory(tv -> {
+			final TableRow<Order> row = new TableRow<>();
+			row.setOnMouseClicked(event -> {
+				if (event.getClickCount() == 2 && !row.isEmpty()) {
+					buildOrderEdit(row.getItem());
+				}
+			});
+			return row;
+		});
 
 		final TableColumn<Order, Order> actionColumn = controller.getAction();
 

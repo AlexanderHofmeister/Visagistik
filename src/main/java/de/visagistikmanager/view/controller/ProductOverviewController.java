@@ -17,6 +17,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -32,7 +34,7 @@ public class ProductOverviewController implements Initializable {
 	private final ProductService productService = new ProductService();
 
 	public void createProduct() throws IOException {
-		buildCustomerEdit(new Product());
+		buildProductEdit(new Product());
 	}
 
 	@Override
@@ -55,6 +57,18 @@ public class ProductOverviewController implements Initializable {
 		this.entityPane.getChildren().clear();
 		this.entityPane.getChildren().add(pane);
 
+		final TableView<Product> productTable = controller.getProductTable();
+
+		productTable.setRowFactory(tv -> {
+			final TableRow<Product> row = new TableRow<>();
+			row.setOnMouseClicked(event -> {
+				if (event.getClickCount() == 2 && !row.isEmpty()) {
+					buildProductEdit(row.getItem());
+				}
+			});
+			return row;
+		});
+
 		final TableColumn<Product, Product> actionColumn = controller.getAction();
 		actionColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 
@@ -75,7 +89,7 @@ public class ProductOverviewController implements Initializable {
 					editButton.setGraphic(editIcon);
 					editButton.getStyleClass().add("button");
 					editButton.setOnAction(event -> {
-						buildCustomerEdit(entity);
+						buildProductEdit(entity);
 					});
 
 					final Button deleteButton = new Button();
@@ -95,7 +109,7 @@ public class ProductOverviewController implements Initializable {
 		});
 	}
 
-	private void buildCustomerEdit(final Product product) {
+	private void buildProductEdit(final Product product) {
 		final FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getClassLoader().getResource("fxml/productEdit.fxml"));
 		Pane editPane = null;
