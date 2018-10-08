@@ -18,7 +18,7 @@
 			<children>
 				<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1350.0" styleClass="subheading">
 					<children>
-						<Label layoutX="15.0" layoutY="24.0" prefHeight="43.0" prefWidth="468.0" text="Bestellungen" textFill="#7c8184">
+						<Label layoutX="15.0" layoutY="24.0" prefHeight="43.0" prefWidth="468.0" text="Startseite" textFill="#7c8184">
 							<font>
 								<Font size="36.0" />
 							</font>
