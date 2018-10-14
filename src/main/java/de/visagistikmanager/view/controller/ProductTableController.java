@@ -28,10 +28,6 @@ public class ProductTableController implements Initializable {
 	private TableView<Product> productTable;
 
 	@FXML
-	@Setter
-	private Pane customerTablePane;
-
-	@FXML
 	private TableColumn<Product, Integer> number;
 
 	@FXML

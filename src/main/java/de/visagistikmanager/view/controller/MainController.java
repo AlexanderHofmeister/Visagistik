@@ -48,6 +48,10 @@ public class MainController {
 		loadEntityOverview("userOverview");
 	}
 
+	public void switchToLogbookPane() throws IOException {
+		loadEntityOverview("logbookOverview");
+	}
+
 	public void exitApplication() {
 		Platform.exit();
 	}
